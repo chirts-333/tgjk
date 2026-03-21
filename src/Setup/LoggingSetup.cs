@@ -2,6 +2,7 @@
 
 public static class LoggingSetup
 {
+    // 注册日志、数据库、Telegram 相关基础服务。
     public static void AddLoggingSetup(this IServiceCollection services)
     {
         services.AddMonitorLogging(options =>
@@ -23,6 +24,7 @@ public static class LoggingSetup
 
     private static void ConfigureFileLogging(IServiceCollection services)
     {
+        // 按级别拆分日志文件，便于排障时快速定位。
         LogLevel[] logLevels = { LogLevel.Information, LogLevel.Warning, LogLevel.Error };
 
         foreach (var logLevel in logLevels)
@@ -33,7 +35,7 @@ public static class LoggingSetup
                 options.WithStackFrame = true;
                 options.FileNameRule = _ =>
                 {
-                    string logsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+                    string logsDir = AppRuntimePaths.LogsDirectory;
                     Directory.CreateDirectory(logsDir);
                     string fileName = $"{DateTime.Now:yyyy-MM-dd}_{logLevel}.log";
                     return Path.Combine(logsDir, fileName);

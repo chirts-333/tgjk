@@ -9,10 +9,25 @@
 </head>
 
 <body class="p-4 md:p-6 bg-base-200 min-h-screen">
+    <!-- 全局提示容器：所有操作结果在这里弹出。 -->
     <div id="toast" class="toast toast-top toast-center"></div>
 
     <h1 class="text-2xl font-bold mb-4">关键词管理</h1>
 
+    <div class="card bg-base-100 shadow-xl mb-4">
+        <div class="card-body">
+            <h2 class="card-title">分类转发设置</h2>
+            <div class="flex flex-wrap gap-2 items-center">
+                <button class="btn btn-sm btn-primary" onclick="loadForwardDialogs()">加载可转发群组</button>
+                <span id="forwardDialogStatus" class="text-sm opacity-70">未加载群组列表时，目标群将显示为默认目标或群组ID。</span>
+            </div>
+            <div class="text-sm opacity-70">
+                不设置目标群时，沿用 Telegram 控制台里配置的默认目标群。转发方式可选“原格式转发”或“纯消息内容”。
+            </div>
+        </div>
+    </div>
+
+    <!-- 顶部标签页：切换不同的关键词管理模式。 -->
     <div role="tablist" class="tabs tabs-boxed mb-4">
         <a role="tab" class="tab tab-active" id="tab-list">列表</a>
         <a role="tab" class="tab" id="tab-single">单个添加</a>
@@ -20,6 +35,7 @@
         <a role="tab" class="tab" id="tab-text">文本批量</a>
     </div>
 
+    <!-- 列表页：支持刷新、批量勾选、编辑、删除。 -->
     <section id="panel-list">
         <div class="mb-4 flex justify-between items-center">
             <button class="btn btn-error" onclick="deleteSelected()">删除选中</button>
@@ -35,6 +51,7 @@
                         <th>内容</th>
                         <th>类型</th>
                         <th>动作</th>
+                        <th>目标群</th>
                         <th>样式</th>
                         <th>操作</th>
                     </tr>
@@ -44,6 +61,7 @@
         </div>
     </section>
 
+    <!-- 单条新增页：填写一条规则并立即提交。 -->
     <section id="panel-single" class="hidden">
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
@@ -73,6 +91,17 @@
                     </div>
                 </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                </div>
+
+                <div class="form-control mb-4">
+                    <label class="label"><span class="label-text">转发目标群列表</span></label>
+                    <div id="sTargetRoutes" class="space-y-2"></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-sm btn-outline" onclick="addTargetRouteRow('sTargetRoutes')">添加目标群</button>
+                    </div>
+                </div>
+
                 <div class="divider">样式设置</div>
                 <div class="flex flex-wrap gap-2 mb-4">
                     <label class="label gap-1"><span>大小写</span><input id="sCase" type="checkbox" class="checkbox"></label>
@@ -92,6 +121,7 @@
         </div>
     </section>
 
+    <!-- 动态行批量页：通过多行表单快速录入多条规则。 -->
     <section id="panel-batch" class="hidden">
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
@@ -105,6 +135,7 @@
         </div>
     </section>
 
+    <!-- 文本批量页：每行一个关键词，统一配置类型/动作/样式。 -->
     <section id="panel-text" class="hidden">
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
@@ -134,6 +165,17 @@
                     </div>
                 </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                </div>
+
+                <div class="form-control mb-4">
+                    <label class="label"><span class="label-text">转发目标群列表</span></label>
+                    <div id="tTargetRoutes" class="space-y-2"></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-sm btn-outline" onclick="addTargetRouteRow('tTargetRoutes')">添加目标群</button>
+                    </div>
+                </div>
+
                 <div class="divider">样式设置</div>
                 <div class="flex flex-wrap gap-4 mb-4">
                     <label class="label gap-2"><span>大小写</span><input id="tCase" type="checkbox" class="checkbox"></label>
@@ -153,6 +195,7 @@
         </div>
     </section>
 
+    <!-- 编辑弹窗：修改已有规则。 -->
     <dialog id="editModal" class="modal">
         <div class="modal-box">
             <h3 class="font-bold text-lg mb-4">编辑关键词</h3>
@@ -178,6 +221,14 @@
                         <option value="1">监控</option>
                         <option value="0">排除</option>
                     </select>
+                </div>
+
+                <div class="form-control">
+                    <label class="label"><span class="label-text">转发目标群列表</span></label>
+                    <div id="eTargetRoutes" class="space-y-2"></div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-sm btn-outline" onclick="addTargetRouteRow('eTargetRoutes')">添加目标群</button>
+                    </div>
                 </div>
                 
                 <div class="divider">样式设置</div>

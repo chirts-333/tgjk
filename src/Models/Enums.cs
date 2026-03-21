@@ -2,6 +2,7 @@
 
 public enum LoginState
 {
+    // 登录流程状态机。
     [Description("未登录")]
     NotLoggedIn = 0,
 
@@ -23,6 +24,7 @@ public enum LoginState
 
 public enum ProxyType
 {
+    // 代理模式配置。
     [Description("跟随系统代理")]
     None = 0,
 
@@ -35,6 +37,7 @@ public enum ProxyType
 
 public enum MonitorStartResult
 {
+    // 监控启动结果。
     [Description("启动成功")]
     Started = 0,
 
@@ -49,4 +52,28 @@ public enum MonitorStartResult
 
     [Description("未登录")]
     Error = 4
+}
+
+public enum GroupMessageTaskStartResult
+{
+    [Description("启动成功")]
+    Started = 0,
+
+    [Description("已在运行")]
+    AlreadyRunning = 1,
+
+    [Description("未登录")]
+    NotLoggedIn = 2,
+
+    [Description("未配置目标群组")]
+    MissingTargets = 3,
+
+    [Description("未配置发送模板")]
+    MissingTemplates = 4,
+
+    [Description("配置无效")]
+    InvalidConfig = 5,
+
+    [Description("启动失败")]
+    Error = 6
 }

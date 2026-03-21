@@ -6,6 +6,7 @@ namespace TelegramMonitor;
 [PeriodSeconds(60, TriggerId = "telegram-trigger", Description = "每分钟检查一下账号活跃度", RunOnStart = false)]
 public class TelegramJob : IJob
 {
+    // 保活任务：定期检查登录状态，必要时自动重连。
     private readonly ILogger<TelegramJob> _logger;
     private readonly TelegramClientManager _clientManager;
 
@@ -23,6 +24,7 @@ public class TelegramJob : IJob
         {
             if (!_clientManager.IsLoggedIn)
             {
+                // 断线后尝试使用已保存手机号自动恢复会话。
                 _logger.LogWarning("Telegram账号未登录或已断开连接，尝试重新连接");
 
                 var phone = _clientManager.GetPhone;
@@ -43,6 +45,12 @@ public class TelegramJob : IJob
                     {
                         await _clientManager.StartTaskAsync();
                         _logger.LogInformation("已重新启动监控任务");
+                    }
+
+                    if (_clientManager.IsGroupMessageTaskRunning)
+                    {
+                        await _clientManager.StartGroupMessageTaskAsync();
+                        _logger.LogInformation("已重新启动群发任务");
                     }
                 }
                 else

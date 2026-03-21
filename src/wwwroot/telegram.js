@@ -1,1 +1,560 @@
-; ' ';const \u0041\u0050\u0049='\x2F\x61\x70\x69\x2F\x74\x65\x6C\x65\x67\x72\x61\x6D';const \u0074\u006f\u0061\u0073\u0074\u0042\u006f\u0078=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x74\x6F\x61\x73\x74');\u0074\u006f\u0061\u0073\u0074\u0042\u006f\u0078.\u0073\u0074\u0079\u006c\u0065.\u007a\u0049\u006e\u0064\u0065\u0078='\x39\x39\x39\x39';function \u0074\u006f\u0061\u0073\u0074(Z,M=true){const rJ=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074('\x64\x69\x76');rJ.\u0072\u006f\u006c\u0065='\x61\x6C\x65\x72\x74';rJ.\u0063\u006c\u0061\u0073\u0073\u004e\u0061\u006d\u0065=`\x61\x6C\x65\x72\x74\x20\x61\x6C\x65\x72\x74\x2D${M?'\x73\x75\x63\x63\x65\x73\x73':'\x65\x72\x72\x6F\x72'}\x20\x61\x6C\x65\x72\x74\x2D\x68\x6F\x72\x69\x7A\x6F\x6E\x74\x61\x6C\x20\x73\x68\x61\x64\x6F\x77\x2D\x6C\x67`;rJ.\u0069\u006e\u006e\u0065\u0072\u0048\u0054\u004d\u004c=`\x3C\x73\x70\x61\x6E\x3E${Z}\x3C\x2F\x73\x70\x61\x6E\x3E`;\u0074\u006f\u0061\u0073\u0074\u0042\u006f\u0078.\u0061\u0070\u0070\u0065\u006e\u0064\u0043\u0068\u0069\u006c\u0064(rJ);\u0073\u0065\u0074\u0054\u0069\u006d\u0065\u006f\u0075\u0074(()=>rJ.\u0072\u0065\u006d\u006f\u0076\u0065(),4000);}async function \u0061\u0070\u0069(CA,hJ){const Xe=await \u0066\u0065\u0074\u0063\u0068(CA,{\u0068\u0065\u0061\u0064\u0065\u0072\u0073:{'\x43\x6F\x6E\x74\x65\x6E\x74\x2D\x54\x79\x70\x65':'\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x2F\x6A\x73\x6F\x6E'},...hJ});const rX=await Xe.\u0074\u0065\u0078\u0074();let bj={};try{bj=rX?\u004a\u0053\u004f\u004e.\u0070\u0061\u0072\u0073\u0065(rX):{};}catch{}if(!Xe.\u006f\u006b||bj.\u0073\u0075\u0063\u0063\u0065\u0065\u0064\u0065\u0064===false){const hZ=bj.\u0065\u0072\u0072\u006f\u0072\u0073&&(typeof bj.\u0065\u0072\u0072\u006f\u0072\u0073==='\x73\x74\x72\x69\x6E\x67'?bj.\u0065\u0072\u0072\u006f\u0072\u0073:\u004f\u0062\u006a\u0065\u0063\u0074.\u0076\u0061\u006c\u0075\u0065\u0073(bj.\u0065\u0072\u0072\u006f\u0072\u0073)[0][0])||bj.\u006d\u0065\u0073\u0073\u0061\u0067\u0065||rX||'\u5931\u8d25';\u0074\u006f\u0061\u0073\u0074(hZ,false);throw new \u0045\u0072\u0072\u006f\u0072(hZ);}return bj;}const \u006f\u0075\u0074=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x6F\x75\x74');const \u006c\u006f\u0067=Me=>{\u0063\u006f\u006e\u0073\u006f\u006c\u0065.\u006c\u006f\u0067(typeof Me==='\x73\x74\x72\x69\x6E\x67'?Me:\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079(Me,null,2));};const \u0070\u0072\u006f\u0078\u0079\u0054\u0079\u0070\u0065=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x70\x72\x6F\x78\x79\x54\x79\x70\x65');const \u0070\u0072\u006f\u0078\u0079\u0055\u0072\u006c=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x70\x72\x6F\x78\x79\x55\x72\x6C');const \u0064\u0069\u0061\u006c\u006f\u0067\u004c\u0069\u0073\u0074=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x64\x69\x61\x6C\x6F\x67\x4C\x69\x73\x74');const \u0062\u0074\u006e\u0073={\u006c\u006f\u0061\u0064:\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x62\x74\x6E\x4C\x6F\x61\x64\x44\x69\x61\x6C\x6F\x67\x73'),\u0074\u0061\u0072\u0067\u0065\u0074:\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x62\x74\x6E\x53\x65\x74\x54\x61\x72\x67\x65\x74'),\u0073\u0074\u0061\u0072\u0074:\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x62\x74\x6E\x53\x74\x61\x72\x74'),\u0073\u0074\u006f\u0070:\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x62\x74\x6E\x53\x74\x6F\x70')};let \u0073\u0074\u0061\u0074\u0065={\u006c\u006f\u0067\u0067\u0065\u0064:false,\u006d\u006f\u006e:false};function \u0061\u0070\u0070\u006c\u0079\u0053\u0074\u0061\u0074\u0065(){\u0062\u0074\u006e\u0073.\u006c\u006f\u0061\u0064.\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064=!\u0073\u0074\u0061\u0074\u0065.\u006c\u006f\u0067\u0067\u0065\u0064;\u0064\u0069\u0061\u006c\u006f\u0067\u004c\u0069\u0073\u0074.\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064=!\u0073\u0074\u0061\u0074\u0065.\u006c\u006f\u0067\u0067\u0065\u0064;\u0062\u0074\u006e\u0073.\u0074\u0061\u0072\u0067\u0065\u0074.\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064=!\u0073\u0074\u0061\u0074\u0065.\u006c\u006f\u0067\u0067\u0065\u0064;\u0062\u0074\u006e\u0073.\u0073\u0074\u0061\u0072\u0074.\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064=!\u0073\u0074\u0061\u0074\u0065.\u006c\u006f\u0067\u0067\u0065\u0064||\u0073\u0074\u0061\u0074\u0065.\u006d\u006f\u006e;\u0062\u0074\u006e\u0073.\u0073\u0074\u006f\u0070.\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064=!\u0073\u0074\u0061\u0074\u0065.\u006c\u006f\u0067\u0067\u0065\u0064||!\u0073\u0074\u0061\u0074\u0065.\u006d\u006f\u006e;}async function \u0066\u0065\u0074\u0063\u0068\u0053\u0074\u0061\u0074\u0065(){const{\u0064\u0061\u0074\u0061:jt}=await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x73\x74\x61\x74\x75\x73`);\u0073\u0074\u0061\u0074\u0065={\u006c\u006f\u0067\u0067\u0065\u0064:jt.\u006c\u006f\u0067\u0067\u0065\u0064\u0049\u006e,\u006d\u006f\u006e:jt.\u006d\u006f\u006e\u0069\u0074\u006f\u0072\u0069\u006e\u0067};\u0061\u0070\u0070\u006c\u0079\u0053\u0074\u0061\u0074\u0065();if(\u0073\u0074\u0061\u0074\u0065.\u006c\u006f\u0067\u0067\u0065\u0064)\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x62\x74\x6E\x4C\x6F\x67\x69\x6E').\u0069\u006e\u006e\u0065\u0072\u0054\u0065\u0078\u0074='\u5df2\u767b\u5f55\x20\x28\u70b9\u51fb\u91cd\u65b0\u767b\u5f55\x29';else \u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x62\x74\x6E\x4C\x6F\x67\x69\x6E').\u0069\u006e\u006e\u0065\u0072\u0054\u0065\u0078\u0074='\u767b\u5f55';}function \u0070\u0072\u006f\u0078\u0079\u0054\u0079\u0070\u0065\u0043\u0068\u0061\u006e\u0067\u0065\u0064(){\u0070\u0072\u006f\u0078\u0079\u0055\u0072\u006c.\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064=\u0070\u0072\u006f\u0078\u0079\u0054\u0079\u0070\u0065.\u0076\u0061\u006c\u0075\u0065==='\x30';}async function \u0073\u0065\u0074\u0050\u0072\u006f\u0078\u0079(){const CA=\u0070\u0072\u006f\u0078\u0079\u0054\u0079\u0070\u0065.\u0076\u0061\u006c\u0075\u0065==='\x30'?'':\u0070\u0072\u006f\u0078\u0079\u0055\u0072\u006c.\u0076\u0061\u006c\u0075\u0065.\u0074\u0072\u0069\u006d();const AC=\u0073\u0074\u0061\u0074\u0065.\u006d\u006f\u006e;try{if(AC){\u0074\u006f\u0061\u0073\u0074('\u6b63\u5728\u505c\u6b62\u76d1\u63a7\u4ee5\u5e94\u7528\u65b0\u4ee3\u7406\x2E\x2E\x2E');}const ZJ=await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x70\x72\x6F\x78\x79`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x4F\x53\x54',\u0062\u006f\u0064\u0079:\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079({\u0074\u0079\u0070\u0065:+\u0070\u0072\u006f\u0078\u0079\u0054\u0079\u0070\u0065.\u0076\u0061\u006c\u0075\u0065,\u0075\u0072\u006c:CA})});const hX=ZJ.\u0064\u0061\u0074\u0061;\u006c\u006f\u0067('\u4ee3\u7406\u8bbe\u7f6e\u54cd\u5e94\x3A',hX);switch(hX){case'\x4C\x6F\x67\x67\x65\x64\x49\x6E':\u0074\u006f\u0061\u0073\u0074('\u4ee3\u7406\u5df2\u8bbe\u7f6e\uff0c\u767b\u5f55\u72b6\u6001\u5df2\u4fdd\u6301');if(AC){\u0074\u006f\u0061\u0073\u0074('\u76d1\u63a7\u5df2\u6062\u590d');}break;case'\x4E\x6F\x74\x4C\x6F\x67\x67\x65\x64\x49\x6E':\u0074\u006f\u0061\u0073\u0074('\u4ee3\u7406\u5df2\u8bbe\u7f6e\uff0c\u4f46\u9700\u8981\u91cd\u65b0\u767b\u5f55',false);\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x62\x74\x6E\x4C\x6F\x67\x69\x6E').\u0069\u006e\u006e\u0065\u0072\u0054\u0065\u0078\u0074='\u767b\u5f55';break;case'\x57\x61\x69\x74\x69\x6E\x67\x46\x6F\x72\x56\x65\x72\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x43\x6F\x64\x65':case'\x57\x61\x69\x74\x69\x6E\x67\x46\x6F\x72\x50\x61\x73\x73\x77\x6F\x72\x64':\u0074\u006f\u0061\u0073\u0074('\u4ee3\u7406\u5df2\u8bbe\u7f6e\uff0c\u9700\u8981\u989d\u5916\u9a8c\u8bc1',false);\u006f\u0070\u0065\u006e\u004c\u006f\u0067\u0069\u006e\u0057\u0069\u0074\u0068\u0053\u0074\u0061\u0074\u0065(hX);break;default:\u0074\u006f\u0061\u0073\u0074('\u4ee3\u7406\u5df2\u8bbe\u7f6e');break;}await \u0066\u0065\u0074\u0063\u0068\u0053\u0074\u0061\u0074\u0065();}catch(rM){\u0074\u006f\u0061\u0073\u0074(`\u8bbe\u7f6e\u4ee3\u7406\u5931\u8d25\x3A\x20${rM.\u006d\u0065\u0073\u0073\u0061\u0067\u0065}`,false);}}let \u0073\u0074\u0065\u0070=0,\u0063\u0075\u0072\u0072\u0065\u006e\u0074\u0050\u0068\u006f\u006e\u0065='';const \u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x6C\x6F\x67\x69\x6E\x4D\x6F\x64\x61\x6C');const \u0074\u0069\u0074\u006c\u0065=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x6C\x6F\x67\x69\x6E\x54\x69\x74\x6C\x65');const \u0069\u006e\u0070=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x73\x74\x65\x70\x49\x6E\x70\x75\x74');function \u006f\u0070\u0065\u006e\u004c\u006f\u0067\u0069\u006e\u0057\u0069\u0074\u0068\u0053\u0074\u0061\u0074\u0065(hX){\u0073\u0074\u0065\u0070=hX==='\x57\x61\x69\x74\x69\x6E\x67\x46\x6F\x72\x56\x65\x72\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x43\x6F\x64\x65'?1:2;if(\u0073\u0074\u0065\u0070===1){\u0074\u0069\u0074\u006c\u0065.\u0074\u0065\u0078\u0074\u0043\u006f\u006e\u0074\u0065\u006e\u0074='\u8f93\u5165\u9a8c\u8bc1\u7801';\u0069\u006e\u0070.\u0070\u006c\u0061\u0063\u0065\u0068\u006f\u006c\u0064\u0065\u0072='\u77ed\u4fe1\u9a8c\u8bc1\u7801';}else{\u0074\u0069\u0074\u006c\u0065.\u0074\u0065\u0078\u0074\u0043\u006f\u006e\u0074\u0065\u006e\u0074='\u8f93\u5165\x20\x32\x46\x41\x20\u5bc6\u7801';\u0069\u006e\u0070.\u0070\u006c\u0061\u0063\u0065\u0068\u006f\u006c\u0064\u0065\u0072='\u8d26\u6237\u5bc6\u7801';}\u0069\u006e\u0070.\u0076\u0061\u006c\u0075\u0065='';\u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c.\u0073\u0068\u006f\u0077\u004d\u006f\u0064\u0061\u006c();}function \u006f\u0070\u0065\u006e\u004c\u006f\u0067\u0069\u006e(){\u0073\u0074\u0065\u0070=0;\u0074\u0069\u0074\u006c\u0065.\u0074\u0065\u0078\u0074\u0043\u006f\u006e\u0074\u0065\u006e\u0074='\u624b\u673a\u53f7\u767b\u5f55';\u0069\u006e\u0070.\u0070\u006c\u0061\u0063\u0065\u0068\u006f\u006c\u0064\u0065\u0072='\x2B\x38\x36\x31\x33\x38\x31\x32\x33\x34\x35\x36\x37\x38';\u0069\u006e\u0070.\u0076\u0061\u006c\u0075\u0065='';\u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c.\u0073\u0068\u006f\u0077\u004d\u006f\u0064\u0061\u006c();}async function \u006c\u006f\u0067\u0069\u006e\u0053\u0074\u0065\u0070(){const re=\u0069\u006e\u0070.\u0076\u0061\u006c\u0075\u0065.\u0074\u0072\u0069\u006d();if(!re){\u0074\u006f\u0061\u0073\u0074('\u8f93\u5165\u4e0d\u80fd\u4e3a\u7a7a',false);return;}try{if(\u0073\u0074\u0065\u0070===0){\u0063\u0075\u0072\u0072\u0065\u006e\u0074\u0050\u0068\u006f\u006e\u0065=re;}const MS=\u0073\u0074\u0065\u0070===0?{\u0070\u0068\u006f\u006e\u0065\u004e\u0075\u006d\u0062\u0065\u0072:re,\u006c\u006f\u0067\u0069\u006e\u0049\u006e\u0066\u006f:''}:{\u0070\u0068\u006f\u006e\u0065\u004e\u0075\u006d\u0062\u0065\u0072:\u0063\u0075\u0072\u0072\u0065\u006e\u0074\u0050\u0068\u006f\u006e\u0065,\u006c\u006f\u0067\u0069\u006e\u0049\u006e\u0066\u006f:re};const ZJ=await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x6C\x6F\x67\x69\x6E`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x4F\x53\x54',\u0062\u006f\u0064\u0079:\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079(MS)});\u006c\u006f\u0067(ZJ);if(ZJ&&typeof ZJ==='\x6F\x62\x6A\x65\x63\x74'){if(ZJ.\u0064\u0061\u0074\u0061!==\u0075\u006e\u0064\u0065\u0066\u0069\u006e\u0065\u0064){\u0068\u0061\u006e\u0064\u006c\u0065\u004c\u006f\u0067\u0069\u006e\u0052\u0065\u0073\u0070\u006f\u006e\u0073\u0065(ZJ.\u0064\u0061\u0074\u0061);}else{\u0068\u0061\u006e\u0064\u006c\u0065\u004c\u006f\u0067\u0069\u006e\u0052\u0065\u0073\u0070\u006f\u006e\u0073\u0065(ZJ);}}else{\u0074\u006f\u0061\u0073\u0074('\u767b\u5f55\u54cd\u5e94\u683c\u5f0f\u9519\u8bef',false);\u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c.\u0063\u006c\u006f\u0073\u0065();}}catch(rM){\u0074\u006f\u0061\u0073\u0074(`\u767b\u5f55\u65f6\u51fa\u9519\x3A\x20${rM.\u006d\u0065\u0073\u0073\u0061\u0067\u0065}`,false);\u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c.\u0063\u006c\u006f\u0073\u0065();}}function \u0068\u0061\u006e\u0064\u006c\u0065\u004c\u006f\u0067\u0069\u006e\u0052\u0065\u0073\u0070\u006f\u006e\u0073\u0065(jt){if(typeof jt!=='\x73\x74\x72\x69\x6E\x67'){\u0074\u006f\u0061\u0073\u0074('\u767b\u5f55\u54cd\u5e94\u683c\u5f0f\u9519\u8bef',false);\u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c.\u0063\u006c\u006f\u0073\u0065();return;}switch(jt){case'\x57\x61\x69\x74\x69\x6E\x67\x46\x6F\x72\x56\x65\x72\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x43\x6F\x64\x65':\u0073\u0074\u0065\u0070=1;\u0074\u0069\u0074\u006c\u0065.\u0074\u0065\u0078\u0074\u0043\u006f\u006e\u0074\u0065\u006e\u0074='\u8f93\u5165\u9a8c\u8bc1\u7801';\u0069\u006e\u0070.\u0076\u0061\u006c\u0075\u0065='';\u0069\u006e\u0070.\u0070\u006c\u0061\u0063\u0065\u0068\u006f\u006c\u0064\u0065\u0072='\u77ed\u4fe1\u9a8c\u8bc1\u7801';break;case'\x57\x61\x69\x74\x69\x6E\x67\x46\x6F\x72\x50\x61\x73\x73\x77\x6F\x72\x64':\u0073\u0074\u0065\u0070=2;\u0074\u0069\u0074\u006c\u0065.\u0074\u0065\u0078\u0074\u0043\u006f\u006e\u0074\u0065\u006e\u0074='\u8f93\u5165\x20\x32\x46\x41\x20\u5bc6\u7801';\u0069\u006e\u0070.\u0076\u0061\u006c\u0075\u0065='';\u0069\u006e\u0070.\u0070\u006c\u0061\u0063\u0065\u0068\u006f\u006c\u0064\u0065\u0072='\u8d26\u6237\u5bc6\u7801';break;case'\x4C\x6F\x67\x67\x65\x64\x49\x6E':\u0074\u006f\u0061\u0073\u0074('\u767b\u5f55\u6210\u529f');\u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c.\u0063\u006c\u006f\u0073\u0065();\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x62\x74\x6E\x4C\x6F\x67\x69\x6E').\u0069\u006e\u006e\u0065\u0072\u0054\u0065\u0078\u0074='\u5df2\u767b\u5f55\x20\x28\u70b9\u51fb\u91cd\u65b0\u767b\u5f55\x29';\u0066\u0065\u0074\u0063\u0068\u0053\u0074\u0061\u0074\u0065().\u0063\u0061\u0074\u0063\u0068(AZ=>\u0074\u006f\u0061\u0073\u0074(`\u83b7\u53d6\u72b6\u6001\u5931\u8d25\x3A\x20${AZ.\u006d\u0065\u0073\u0073\u0061\u0067\u0065}`,false));break;case'\x4E\x6F\x74\x4C\x6F\x67\x67\x65\x64\x49\x6E':\u0074\u006f\u0061\u0073\u0074('\u767b\u5f55\u5931\u8d25',false);\u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c.\u0063\u006c\u006f\u0073\u0065();break;default:\u0074\u006f\u0061\u0073\u0074(`\u767b\u5f55\u72b6\u6001\u672a\u77e5\x3A\x20${jt}`,false);\u006c\u006f\u0067\u0069\u006e\u004d\u006f\u0064\u0061\u006c.\u0063\u006c\u006f\u0073\u0065();}}async function \u006c\u006f\u0061\u0064\u0044\u0069\u0061\u006c\u006f\u0067\u0073(){const{\u0064\u0061\u0074\u0061:jt}=await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x64\x69\x61\x6C\x6F\x67\x73`);\u0064\u0069\u0061\u006c\u006f\u0067\u004c\u0069\u0073\u0074.\u0069\u006e\u006e\u0065\u0072\u0048\u0054\u004d\u004c=jt.\u006d\u0061\u0070(rJ=>`\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22${rJ.\u0069\u0064}\x22\x3E${rJ.\u0064\u0069\u0073\u0070\u006c\u0061\u0079\u0054\u0069\u0074\u006c\u0065}\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E`).\u006a\u006f\u0069\u006e('');\u0074\u006f\u0061\u0073\u0074('\u4f1a\u8bdd\u5df2\u52a0\u8f7d');}async function \u0073\u0065\u0074\u0054\u0061\u0072\u0067\u0065\u0074(){if(!\u0064\u0069\u0061\u006c\u006f\u0067\u004c\u0069\u0073\u0074.\u0076\u0061\u006c\u0075\u0065){\u0074\u006f\u0061\u0073\u0074('\u8bf7\u9009\u62e9\u4f1a\u8bdd',false);return;}await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x74\x61\x72\x67\x65\x74`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x4F\x53\x54',\u0062\u006f\u0064\u0079:\u0064\u0069\u0061\u006c\u006f\u0067\u004c\u0069\u0073\u0074.\u0076\u0061\u006c\u0075\u0065});\u0074\u006f\u0061\u0073\u0074('\u5df2\u8bbe\u7f6e\u76ee\u6807');}async function \u0073\u0074\u0061\u0072\u0074\u004d\u006f\u006e\u0069\u0074\u006f\u0072(){const{\u0064\u0061\u0074\u0061:jt}=await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x73\x74\x61\x72\x74`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x4F\x53\x54'});let Sh=false;let XZ='';switch(jt){case'\x53\x74\x61\x72\x74\x65\x64':Sh=true;XZ='\u542f\u52a8\u6210\u529f';break;case'\x4D\x69\x73\x73\x69\x6E\x67\x54\x61\x72\x67\x65\x74':XZ='\u672a\u8bbe\u7f6e\u76ee\u6807\u7fa4';break;case'\x4E\x6F\x55\x73\x65\x72\x49\x6E\x66\x6F':XZ='\u672a\u83b7\u53d6\u5230\u7528\u6237\u4fe1\u606f';break;case'\x41\x6C\x72\x65\x61\x64\x79\x52\x75\x6E\x6E\x69\x6E\x67':Sh=true;XZ='\u5df2\u5728\u8fd0\u884c';break;case'\x45\x72\x72\x6F\x72':XZ='\u672a\u767b\u5f55';break;default:XZ=`\u672a\u77e5\u72b6\u6001\x3A\x20${jt}`;}\u0074\u006f\u0061\u0073\u0074(`${XZ}`,Sh);\u0073\u0074\u0061\u0074\u0065.\u006d\u006f\u006e=Sh;\u0061\u0070\u0070\u006c\u0079\u0053\u0074\u0061\u0074\u0065();}async function \u0073\u0074\u006f\u0070\u004d\u006f\u006e\u0069\u0074\u006f\u0072(){await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x73\x74\x6F\x70`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x4F\x53\x54'});\u0074\u006f\u0061\u0073\u0074('\u5df2\u505c\u6b62');\u0073\u0074\u0061\u0074\u0065.\u006d\u006f\u006e=false;\u0061\u0070\u0070\u006c\u0079\u0053\u0074\u0061\u0074\u0065();}function \u0061\u0064\u0064\u0043\u006f\u0070\u0079\u0072\u0069\u0067\u0068\u0074(){const SC=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074('\x64\x69\x76');SC.\u0073\u0074\u0079\u006c\u0065.\u0063\u0073\u0073\u0054\u0065\u0078\u0074='\x70\x6F\x73\x69\x74\x69\x6F\x6E\x3A\x66\x69\x78\x65\x64\x3B\x74\x6F\x70\x3A\x30\x3B\x6C\x65\x66\x74\x3A\x30\x3B\x77\x69\x64\x74\x68\x3A\x31\x30\x30\x25\x3B\x62\x61\x63\x6B\x67\x72\x6F\x75\x6E\x64\x2D\x63\x6F\x6C\x6F\x72\x3A\x23\x66\x30\x66\x30\x66\x30\x3B\x70\x61\x64\x64\x69\x6E\x67\x3A\x31\x30\x70\x78\x3B\x74\x65\x78\x74\x2D\x61\x6C\x69\x67\x6E\x3A\x63\x65\x6E\x74\x65\x72\x3B\x7A\x2D\x69\x6E\x64\x65\x78\x3A\x31\x30\x30\x30\x3B\x62\x6F\x78\x2D\x73\x68\x61\x64\x6F\x77\x3A\x30\x20\x32\x70\x78\x20\x34\x70\x78\x20\x72\x67\x62\x61\x28\x30\x2C\x30\x2C\x30\x2C\x30\x2E\x31\x29\x3B';SC.\u0069\u006e\u006e\u0065\u0072\u0048\u0054\u004d\u004c=`\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x73\x70\x61\x6E\x20\x73\x74\x79\x6C\x65\x3D\x22\x6D\x61\x72\x67\x69\x6E\x2D\x72\x69\x67\x68\x74\x3A\x31\x35\x70\x78\x3B\x22\x3E\u4f5c\u8005\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x74\x2E\x6D\x65\x2F\x72\x69\x6E\x69\x62\x61\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x64\x65\x63\x6F\x72\x61\x74\x69\x6F\x6E\x3A\x6E\x6F\x6E\x65\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x30\x30\x38\x38\x63\x63\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x62\x6F\x6C\x64\x3B\x22\x3E\x40\x72\x69\x6E\x69\x62\x61\x3C\x2F\x61\x3E\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x73\x70\x61\x6E\x20\x73\x74\x79\x6C\x65\x3D\x22\x6D\x61\x72\x67\x69\x6E\x2D\x72\x69\x67\x68\x74\x3A\x31\x35\x70\x78\x3B\x22\x3E\u5f00\u6e90\u5730\u5740\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x69\x74\x68\x75\x62\x2E\x63\x6F\x6D\x2F\x52\x69\x6E\x69\x62\x61\x2F\x54\x65\x6C\x65\x67\x72\x61\x6D\x4D\x6F\x6E\x69\x74\x6F\x72\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x64\x65\x63\x6F\x72\x61\x74\x69\x6F\x6E\x3A\x6E\x6F\x6E\x65\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x30\x30\x38\x38\x63\x63\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x62\x6F\x6C\x64\x3B\x22\x3E\x47\x69\x74\x48\x75\x62\x3C\x2F\x61\x3E\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x73\x70\x61\x6E\x20\x73\x74\x79\x6C\x65\x3D\x22\x6D\x61\x72\x67\x69\x6E\x2D\x72\x69\x67\x68\x74\x3A\x31\x35\x70\x78\x3B\x22\x3E\u4ea4\u6d41\u7fa4\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x74\x2E\x6D\x65\x2F\x52\x69\x6E\x69\x62\x61\x47\x72\x6F\x75\x70\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x64\x65\x63\x6F\x72\x61\x74\x69\x6F\x6E\x3A\x6E\x6F\x6E\x65\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x30\x30\x38\x38\x63\x63\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x62\x6F\x6C\x64\x3B\x22\x3E\x54\x65\x6C\x65\x67\x72\x61\x6D\x3C\x2F\x61\x3E\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x73\x70\x61\x6E\x3E\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x69\x74\x68\x75\x62\x2E\x63\x6F\x6D\x2F\x52\x69\x6E\x69\x62\x61\x2F\x54\x65\x6C\x65\x67\x72\x61\x6D\x4D\x6F\x6E\x69\x74\x6F\x72\x2F\x77\x69\x6B\x69\x2F\x25\x45\x35\x25\x38\x35\x25\x42\x33\x25\x45\x39\x25\x39\x34\x25\x41\x45\x25\x45\x38\x25\x41\x46\x25\x38\x44\x25\x45\x34\x25\x42\x44\x25\x42\x46\x25\x45\x37\x25\x39\x34\x25\x41\x38\x25\x45\x36\x25\x39\x35\x25\x39\x39\x25\x45\x37\x25\x41\x38\x25\x38\x42\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x64\x65\x63\x6F\x72\x61\x74\x69\x6F\x6E\x3A\x6E\x6F\x6E\x65\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x30\x30\x38\x38\x63\x63\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x62\x6F\x6C\x64\x3B\x22\x3E\u5173\u952e\u8bcd\u914d\u7f6e\u8bf4\u660e\x3C\x2F\x61\x3E\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20`;\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0062\u006f\u0064\u0079.\u0069\u006e\u0073\u0065\u0072\u0074\u0042\u0065\u0066\u006f\u0072\u0065(SC,\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0062\u006f\u0064\u0079.\u0066\u0069\u0072\u0073\u0074\u0043\u0068\u0069\u006c\u0064);\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0062\u006f\u0064\u0079.\u0073\u0074\u0079\u006c\u0065.\u0070\u0061\u0064\u0064\u0069\u006e\u0067\u0054\u006f\u0070=SC.\u006f\u0066\u0066\u0073\u0065\u0074\u0048\u0065\u0069\u0067\u0068\u0074+10+'\x70\x78';}\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0061\u0064\u0064\u0045\u0076\u0065\u006e\u0074\u004c\u0069\u0073\u0074\u0065\u006e\u0065\u0072('\x44\x4F\x4D\x43\x6F\x6E\x74\x65\x6E\x74\x4C\x6F\x61\x64\x65\x64',\u0061\u0064\u0064\u0043\u006f\u0070\u0079\u0072\u0069\u0067\u0068\u0074);\u0070\u0072\u006f\u0078\u0079\u0054\u0079\u0070\u0065\u0043\u0068\u0061\u006e\u0067\u0065\u0064();\u0066\u0065\u0074\u0063\u0068\u0053\u0074\u0061\u0074\u0065();' ';
+const API = '/api/telegram';
+
+const toastBox = document.getElementById('toast');
+const dialogList = document.getElementById('dialogList');
+
+const btns = {
+  load: document.getElementById('btnLoadDialogs'),
+  loadGroupTaskDialogs: document.getElementById('btnLoadGroupTaskDialogs'),
+  target: document.getElementById('btnSetTarget'),
+  start: document.getElementById('btnStart'),
+  stop: document.getElementById('btnStop'),
+  startGroupTask: document.getElementById('btnStartGroupTask'),
+  stopGroupTask: document.getElementById('btnStopGroupTask'),
+  login: document.getElementById('btnLogin')
+};
+
+const proxyTypeEl = document.getElementById('proxyType');
+const proxyUrlEl = document.getElementById('proxyUrl');
+
+const replyEls = {
+  enable: document.getElementById('enableInChatReply'),
+  random: document.getElementById('useRandomReplyTemplate'),
+  defaultTemplate: document.getElementById('defaultReplyTemplate'),
+  newTemplate: document.getElementById('newReplyTemplate'),
+  list: document.getElementById('replyTemplateList')
+};
+
+const groupTaskEls = {
+  list: document.getElementById('groupTaskDialogList'),
+  perGroupInterval: document.getElementById('groupTaskPerGroupInterval'),
+  minInterval: document.getElementById('groupTaskMinInterval'),
+  maxInterval: document.getElementById('groupTaskMaxInterval'),
+  newTemplate: document.getElementById('newGroupTaskTemplate'),
+  templateList: document.getElementById('groupTaskTemplateList')
+};
+
+let state = { logged: false, mon: false, groupTaskRunning: false };
+let loginStepState = 0;
+let currentPhone = '';
+let replyTemplates = [];
+let allDialogs = [];
+let groupTaskTemplates = [];
+let selectedGroupTaskChatIds = [];
+let loginSubmitting = false;
+
+function toast(message, ok = true) {
+  const node = document.createElement('div');
+  node.setAttribute('role', 'alert');
+  node.className = `alert ${ok ? 'alert-success' : 'alert-error'} alert-horizontal shadow-lg`;
+  node.innerHTML = `<span>${message}</span>`;
+  toastBox.appendChild(node);
+  setTimeout(() => node.remove(), 4000);
+}
+
+async function api(path, init = {}) {
+  const headers = Object.assign({ 'Content-Type': 'application/json' }, init.headers || {});
+  const payload = Object.assign({}, init, { headers });
+
+  if (payload.body !== undefined && typeof payload.body !== 'string') {
+    payload.body = JSON.stringify(payload.body);
+  }
+
+  const res = await fetch(path, payload);
+  const text = await res.text();
+
+  let data;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = text;
+  }
+
+  const logicalFail = data && typeof data === 'object' && data.succeeded === false;
+  if (!res.ok || logicalFail) {
+    const msg = (data && data.errors && (typeof data.errors === 'string'
+      ? data.errors
+      : Object.values(data.errors)[0]?.[0])) || data.message || text || 'Request failed';
+    throw new Error(msg);
+  }
+
+  if (data && typeof data === 'object' && Object.prototype.hasOwnProperty.call(data, 'data')) {
+    return data.data;
+  }
+
+  return data;
+}
+
+function normalizeTemplates(list) {
+  const map = new Map();
+  (list || []).forEach(item => {
+    const text = (item || '').trim();
+    if (!text) return;
+    map.set(text.toLowerCase(), text);
+  });
+  return Array.from(map.values());
+}
+
+function normalizeIds(list) {
+  return Array.from(new Set((list || []).map(Number).filter(Boolean)));
+}
+
+function applyState() {
+  btns.load.disabled = !state.logged;
+  btns.loadGroupTaskDialogs.disabled = !state.logged;
+  dialogList.disabled = !state.logged;
+  btns.target.disabled = !state.logged;
+  btns.start.disabled = !state.logged || state.mon;
+  btns.stop.disabled = !state.logged || !state.mon;
+  btns.startGroupTask.disabled = !state.logged || state.groupTaskRunning;
+  btns.stopGroupTask.disabled = !state.logged || !state.groupTaskRunning;
+  btns.login.innerText = state.logged ? '已登录（点击重新登录）' : '登录 / 重新登录';
+}
+
+async function fetchState() {
+  const status = await api(`${API}/status`);
+  state = {
+    logged: !!status.loggedIn,
+    mon: !!status.monitoring,
+    groupTaskRunning: !!status.groupMessageTaskRunning
+  };
+  applyState();
+}
+
+function proxyTypeChanged() {
+  const proxyType = proxyTypeEl.value;
+
+  if (proxyType === '0') {
+    proxyUrlEl.disabled = true;
+    proxyUrlEl.placeholder = '无需代理时保持为空';
+  } else if (proxyType === '1') {
+    proxyUrlEl.disabled = false;
+    proxyUrlEl.placeholder = 'host:port 或 host:port:username:password';
+  } else {
+    proxyUrlEl.disabled = false;
+    proxyUrlEl.placeholder = '请输入 MTProxy 链接';
+  }
+}
+
+async function setProxy() {
+  const type = Number(proxyTypeEl.value);
+  const url = type === 0 ? '' : proxyUrlEl.value.trim();
+
+  try {
+    const result = await api(`${API}/proxy`, {
+      method: 'POST',
+      body: { type, url }
+    });
+
+    if (result === 'LoggedIn') {
+      toast('代理已保存，当前登录状态保持不变');
+    } else if (result === 'NotLoggedIn') {
+      toast('代理已保存，但需要重新登录', false);
+    } else {
+      toast(`代理设置结果：${result}`);
+    }
+
+    await fetchState();
+  } catch (err) {
+    toast(`设置代理失败：${err.message}`, false);
+  }
+}
+
+const loginModal = document.getElementById('loginModal');
+const loginTitle = document.getElementById('loginTitle');
+const loginInput = document.getElementById('stepInput');
+
+function openLogin() {
+  loginStepState = 0;
+  loginTitle.innerText = '手机号登录';
+  loginInput.placeholder = '+8613812345678';
+  loginInput.value = '';
+  loginModal.showModal();
+}
+
+function handleLoginResponse(result) {
+  switch (result) {
+    case 'WaitingForVerificationCode':
+      loginStepState = 1;
+      loginTitle.innerText = '输入验证码';
+      loginInput.placeholder = '请输入验证码';
+      loginInput.value = '';
+      break;
+    case 'WaitingForPassword':
+      loginStepState = 2;
+      loginTitle.innerText = '输入二步验证密码';
+      loginInput.placeholder = '请输入二步验证密码';
+      loginInput.value = '';
+      break;
+    case 'LoggedIn':
+      toast('登录成功');
+      loginModal.close();
+      fetchState().catch(err => toast(`刷新状态失败：${err.message}`, false));
+      break;
+    case 'NotLoggedIn':
+      toast('登录失败', false);
+      break;
+    default:
+      toast(`未知登录状态：${result}`, false);
+      break;
+  }
+}
+
+async function loginStep() {
+  if (loginSubmitting) return;
+
+  const rawValue = loginInput.value;
+  const value = loginStepState === 2 ? rawValue : rawValue.trim();
+  if (!value || !value.trim()) {
+    toast('输入内容不能为空', false);
+    return;
+  }
+
+  try {
+    loginSubmitting = true;
+    if (loginStepState === 0) currentPhone = value;
+
+    const payload = loginStepState === 0
+      ? { phoneNumber: value, loginInfo: '' }
+      : { phoneNumber: currentPhone, loginInfo: value };
+
+    const result = await api(`${API}/login`, {
+      method: 'POST',
+      body: payload
+    });
+
+    handleLoginResponse(result);
+  } catch (err) {
+    toast(`登录失败：${err.message}`, false);
+    if (loginStepState !== 2) {
+      loginInput.value = '';
+    }
+  } finally {
+    loginSubmitting = false;
+  }
+}
+
+function renderGroupTaskDialogList() {
+  if (!allDialogs.length) {
+    groupTaskEls.list.innerHTML = '<div class="text-sm opacity-60">请先加载群组列表。</div>';
+    return;
+  }
+
+  const selected = new Set(selectedGroupTaskChatIds);
+  groupTaskEls.list.innerHTML = allDialogs.map(dialog => `
+    <label class="label cursor-pointer justify-start gap-3 rounded-lg bg-base-100 px-3 py-2">
+      <input type="checkbox" class="checkbox group-task-chat" value="${dialog.id}" ${selected.has(dialog.id) ? 'checked' : ''}>
+      <span class="label-text break-all">${dialog.displayTitle}</span>
+    </label>
+  `).join('');
+
+  document.querySelectorAll('.group-task-chat').forEach(el => {
+    el.addEventListener('change', () => {
+      selectedGroupTaskChatIds = normalizeIds(
+        [...document.querySelectorAll('.group-task-chat')]
+          .filter(item => item.checked)
+          .map(item => Number(item.value))
+      );
+    });
+  });
+}
+
+async function loadDialogs() {
+  try {
+    const dialogs = await api(`${API}/dialogs`);
+    allDialogs = dialogs || [];
+    dialogList.innerHTML = allDialogs
+      .map(d => `<option value="${d.id}">${d.displayTitle}</option>`)
+      .join('');
+    renderGroupTaskDialogList();
+    toast('会话加载成功');
+  } catch (err) {
+    toast(`加载会话失败：${err.message}`, false);
+  }
+}
+
+async function loadGroupTaskDialogs() {
+  await loadDialogs();
+}
+
+async function setTarget() {
+  if (!dialogList.value) {
+    toast('请先选择一个目标会话', false);
+    return;
+  }
+
+  try {
+    await api(`${API}/target`, {
+      method: 'POST',
+      body: Number(dialogList.value)
+    });
+    toast('目标群保存成功');
+  } catch (err) {
+    toast(`保存目标群失败：${err.message}`, false);
+  }
+}
+
+async function startMonitor() {
+  try {
+    const result = await api(`${API}/start`, { method: 'POST' });
+
+    if (result === 'Started') {
+      state.mon = true;
+      toast('监控已启动');
+    } else if (result === 'AlreadyRunning') {
+      state.mon = true;
+      toast('监控已经在运行');
+    } else if (result === 'MissingTarget') {
+      toast('请先设置监控目标群', false);
+    } else if (result === 'NoUserInfo') {
+      toast('用户信息尚未加载完成', false);
+    } else {
+      toast(`启动监控失败：${result}`, false);
+    }
+
+    applyState();
+  } catch (err) {
+    toast(`启动监控失败：${err.message}`, false);
+  }
+}
+
+async function stopMonitor() {
+  try {
+    await api(`${API}/stop`, { method: 'POST' });
+    state.mon = false;
+    applyState();
+    toast('监控已停止');
+  } catch (err) {
+    toast(`停止监控失败：${err.message}`, false);
+  }
+}
+
+function renderReplyTemplateList() {
+  if (!replyTemplates.length) {
+    replyEls.list.innerHTML = '<div class="text-sm opacity-60">暂时没有随机回复模板，将使用默认回复模板。</div>';
+    return;
+  }
+
+  replyEls.list.innerHTML = replyTemplates.map((tpl, idx) => `
+    <div class="flex items-start gap-2 rounded-lg border p-2 bg-base-200">
+      <div class="flex-1 break-all">${tpl}</div>
+      <button class="btn btn-xs btn-error" onclick="removeReplyTemplate(${idx})">删除</button>
+    </div>
+  `).join('');
+}
+
+function addReplyTemplate() {
+  const text = replyEls.newTemplate.value.trim();
+  if (!text) {
+    toast('回复模板不能为空', false);
+    return;
+  }
+
+  replyTemplates.push(text);
+  replyTemplates = normalizeTemplates(replyTemplates);
+  replyEls.newTemplate.value = '';
+  renderReplyTemplateList();
+}
+
+function removeReplyTemplate(index) {
+  replyTemplates.splice(index, 1);
+  renderReplyTemplateList();
+}
+
+async function loadReplyConfig() {
+  try {
+    const cfg = await api(`${API}/reply-config`);
+    replyEls.enable.checked = !!cfg.enableInChatReply;
+    replyEls.random.checked = !!cfg.useRandomReplyTemplate;
+    replyEls.defaultTemplate.value = cfg.defaultReplyTemplate || '收到，{sender}，你的消息命中了关键词：{keywords}';
+    replyTemplates = normalizeTemplates(cfg.templates || []);
+    renderReplyTemplateList();
+  } catch (err) {
+    toast(`加载自动回复配置失败：${err.message}`, false);
+  }
+}
+
+async function saveReplyConfig() {
+  const payload = {
+    enableInChatReply: replyEls.enable.checked,
+    useRandomReplyTemplate: replyEls.random.checked,
+    defaultReplyTemplate: replyEls.defaultTemplate.value.trim(),
+    templates: normalizeTemplates(replyTemplates)
+  };
+
+  if (!payload.defaultReplyTemplate) {
+    toast('默认回复模板不能为空', false);
+    return;
+  }
+
+  try {
+    await api(`${API}/reply-config`, {
+      method: 'POST',
+      body: payload
+    });
+    toast('自动回复配置已保存');
+    await loadReplyConfig();
+  } catch (err) {
+    toast(`保存自动回复配置失败：${err.message}`, false);
+  }
+}
+
+function renderGroupTaskTemplateList() {
+  if (!groupTaskTemplates.length) {
+    groupTaskEls.templateList.innerHTML = '<div class="text-sm opacity-60">暂时没有群发模板，启动前至少添加一条。</div>';
+    return;
+  }
+
+  groupTaskEls.templateList.innerHTML = groupTaskTemplates.map((tpl, idx) => `
+    <div class="flex items-start gap-2 rounded-lg border p-2 bg-base-200">
+      <div class="flex-1 break-all">${tpl}</div>
+      <button class="btn btn-xs btn-error" onclick="removeGroupTaskTemplate(${idx})">删除</button>
+    </div>
+  `).join('');
+}
+
+function addGroupTaskTemplate() {
+  const text = groupTaskEls.newTemplate.value.trim();
+  if (!text) {
+    toast('群发模板不能为空', false);
+    return;
+  }
+
+  groupTaskTemplates.push(text);
+  groupTaskTemplates = normalizeTemplates(groupTaskTemplates);
+  groupTaskEls.newTemplate.value = '';
+  renderGroupTaskTemplateList();
+}
+
+function removeGroupTaskTemplate(index) {
+  groupTaskTemplates.splice(index, 1);
+  renderGroupTaskTemplateList();
+}
+
+async function loadGroupTaskConfig() {
+  try {
+    const cfg = await api(`${API}/group-task-config`);
+    groupTaskEls.perGroupInterval.value = cfg.perGroupIntervalSeconds || 30;
+    groupTaskEls.minInterval.value = cfg.minIntervalSeconds || 300;
+    groupTaskEls.maxInterval.value = cfg.maxIntervalSeconds || 600;
+    groupTaskTemplates = normalizeTemplates(cfg.templates || []);
+    selectedGroupTaskChatIds = normalizeIds(cfg.targetChatIds || []);
+    state.groupTaskRunning = !!cfg.running;
+    renderGroupTaskTemplateList();
+    renderGroupTaskDialogList();
+    applyState();
+  } catch (err) {
+    toast(`加载群发任务配置失败：${err.message}`, false);
+  }
+}
+
+async function saveGroupTaskConfig() {
+  const payload = {
+    perGroupIntervalSeconds: Number(groupTaskEls.perGroupInterval.value),
+    minIntervalSeconds: Number(groupTaskEls.minInterval.value),
+    maxIntervalSeconds: Number(groupTaskEls.maxInterval.value),
+    templates: normalizeTemplates(groupTaskTemplates),
+    targetChatIds: normalizeIds(selectedGroupTaskChatIds)
+  };
+
+  if (!payload.templates.length) {
+    toast('请至少添加一条群发模板', false);
+    return false;
+  }
+
+  if (!payload.targetChatIds.length) {
+    toast('请至少选择一个群组', false);
+    return false;
+  }
+
+  if (!payload.perGroupIntervalSeconds || payload.perGroupIntervalSeconds < 1) {
+    toast('群与群之间等待时间无效', false);
+    return false;
+  }
+
+  if (!payload.minIntervalSeconds || !payload.maxIntervalSeconds || payload.minIntervalSeconds < 5 || payload.maxIntervalSeconds < payload.minIntervalSeconds) {
+    toast('整轮等待时间区间无效', false);
+    return false;
+  }
+
+  try {
+    await api(`${API}/group-task-config`, {
+      method: 'POST',
+      body: payload
+    });
+    toast('群发任务配置已保存');
+    await loadGroupTaskConfig();
+    return true;
+  } catch (err) {
+    toast(`保存群发任务配置失败：${err.message}`, false);
+    return false;
+  }
+}
+
+async function startGroupTask() {
+  try {
+    const saved = await saveGroupTaskConfig();
+    if (!saved) return;
+
+    const result = await api(`${API}/group-task-start`, { method: 'POST' });
+
+    if (result === 'Started') {
+      state.groupTaskRunning = true;
+      toast('群发任务已启动');
+    } else if (result === 'AlreadyRunning') {
+      state.groupTaskRunning = true;
+      toast('群发任务已经在运行');
+    } else if (result === 'MissingTargets') {
+      toast('请先选择目标群组', false);
+    } else if (result === 'MissingTemplates') {
+      toast('请先添加群发模板', false);
+    } else if (result === 'NotLoggedIn') {
+      toast('当前账号未登录', false);
+    } else {
+      toast(`启动群发任务失败：${result}`, false);
+    }
+
+    applyState();
+  } catch (err) {
+    toast(`启动群发任务失败：${err.message}`, false);
+  }
+}
+
+async function stopGroupTask() {
+  try {
+    await api(`${API}/group-task-stop`, { method: 'POST' });
+    state.groupTaskRunning = false;
+    applyState();
+    toast('群发任务已停止');
+  } catch (err) {
+    toast(`停止群发任务失败：${err.message}`, false);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  proxyTypeChanged();
+  renderReplyTemplateList();
+  renderGroupTaskTemplateList();
+  renderGroupTaskDialogList();
+  await fetchState().catch(err => toast(`加载状态失败：${err.message}`, false));
+  await loadReplyConfig();
+  await loadGroupTaskConfig();
+});
+
+window.proxyTypeChanged = proxyTypeChanged;
+window.setProxy = setProxy;
+window.openLogin = openLogin;
+window.loginStep = loginStep;
+window.loadDialogs = loadDialogs;
+window.loadGroupTaskDialogs = loadGroupTaskDialogs;
+window.setTarget = setTarget;
+window.startMonitor = startMonitor;
+window.stopMonitor = stopMonitor;
+window.addReplyTemplate = addReplyTemplate;
+window.removeReplyTemplate = removeReplyTemplate;
+window.saveReplyConfig = saveReplyConfig;
+window.addGroupTaskTemplate = addGroupTaskTemplate;
+window.removeGroupTaskTemplate = removeGroupTaskTemplate;
+window.saveGroupTaskConfig = saveGroupTaskConfig;
+window.startGroupTask = startGroupTask;
+window.stopGroupTask = stopGroupTask;

@@ -1,1 +1,550 @@
-; ' ';const \u0041\u0050\u0049='\x2F\x61\x70\x69\x2F\x6B\x65\x79\x77\x6F\x72\x64';const \u0074\u0079\u0070\u0065\u004d\u0061\u0070={\u0046\u0075\u006c\u006c\u0057\u006f\u0072\u0064:'\u5168\u5b57',\u0043\u006f\u006e\u0074\u0061\u0069\u006e\u0073:'\u5305\u542b',\u0052\u0065\u0067\u0065\u0078:'\u6b63\u5219',\u0046\u0075\u007a\u007a\u0079:'\u6a21\u7cca',\u0055\u0073\u0065\u0072:'\u7528\u6237'};const \u0061\u0063\u0074\u0069\u006f\u006e\u004d\u0061\u0070={\u0045\u0078\u0063\u006c\u0075\u0064\u0065:'\u6392\u9664',\u004d\u006f\u006e\u0069\u0074\u006f\u0072:'\u76d1\u63a7'};const \u0073\u0074\u0079\u006c\u0065\u004d\u0061\u0070={\u0069\u0073\u0043\u0061\u0073\u0065\u0053\u0065\u006e\u0073\u0069\u0074\u0069\u0076\u0065:'\u5927\u5c0f\u5199',\u0069\u0073\u0042\u006f\u006c\u0064:'\u7c97\u4f53',\u0069\u0073\u0049\u0074\u0061\u006c\u0069\u0063:'\u659c\u4f53',\u0069\u0073\u0055\u006e\u0064\u0065\u0072\u006c\u0069\u006e\u0065:'\u4e0b\u5212\u7ebf',\u0069\u0073\u0053\u0074\u0072\u0069\u006b\u0065\u0054\u0068\u0072\u006f\u0075\u0067\u0068:'\u5220\u9664\u7ebf',\u0069\u0073\u0051\u0075\u006f\u0074\u0065:'\u5f15\u7528',\u0069\u0073\u004d\u006f\u006e\u006f\u0073\u0070\u0061\u0063\u0065:'\u7b49\u5bbd',\u0069\u0073\u0053\u0070\u006f\u0069\u006c\u0065\u0072:'\u5267\u900f'};const \u0074\u006f\u0061\u0073\u0074\u0042\u006f\u0078=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x74\x6F\x61\x73\x74');\u0074\u006f\u0061\u0073\u0074\u0042\u006f\u0078.\u0073\u0074\u0079\u006c\u0065.\u007a\u0049\u006e\u0064\u0065\u0078='\x39\x39\x39\x39';function \u0074\u006f\u0061\u0073\u0074(GI,DV=true){const o=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074('\x64\x69\x76');o.\u0073\u0065\u0074\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065('\x72\x6F\x6C\x65','\x61\x6C\x65\x72\x74');o.\u0063\u006c\u0061\u0073\u0073\u004e\u0061\u006d\u0065=`\x61\x6C\x65\x72\x74\x20\x61\x6C\x65\x72\x74\x2D${DV?'\x73\x75\x63\x63\x65\x73\x73':'\x65\x72\x72\x6F\x72'}\x20\x61\x6C\x65\x72\x74\x2D\x68\x6F\x72\x69\x7A\x6F\x6E\x74\x61\x6C\x20\x73\x68\x61\x64\x6F\x77\x2D\x6C\x67`;o.\u0069\u006e\u006e\u0065\u0072\u0048\u0054\u004d\u004c=`\x3C\x73\x70\x61\x6E\x3E${GI}\x3C\x2F\x73\x70\x61\x6E\x3E`;\u0074\u006f\u0061\u0073\u0074\u0042\u006f\u0078.\u0061\u0070\u0070\u0065\u006e\u0064\u0043\u0068\u0069\u006c\u0064(o);\u0073\u0065\u0074\u0054\u0069\u006d\u0065\u006f\u0075\u0074(()=>o.\u0072\u0065\u006d\u006f\u0076\u0065(),4000);}async function \u0061\u0070\u0069(DE,IG){const M=await \u0066\u0065\u0074\u0063\u0068(DE,\u004f\u0062\u006a\u0065\u0063\u0074.\u0061\u0073\u0073\u0069\u0067\u006e({\u0068\u0065\u0061\u0064\u0065\u0072\u0073:{'\x43\x6F\x6E\x74\x65\x6E\x74\x2D\x54\x79\x70\x65':'\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x2F\x6A\x73\x6F\x6E'}},IG));const Dm=await M.\u0074\u0065\u0078\u0074();let IV={};try{IV=Dm?\u004a\u0053\u004f\u004e.\u0070\u0061\u0072\u0073\u0065(Dm):{};}catch{}if(!M.\u006f\u006b||IV.\u0073\u0075\u0063\u0063\u0065\u0065\u0064\u0065\u0064===false){const I=IV.\u0065\u0072\u0072\u006f\u0072\u0073&&(typeof IV.\u0065\u0072\u0072\u006f\u0072\u0073==='\x73\x74\x72\x69\x6E\x67'?IV.\u0065\u0072\u0072\u006f\u0072\u0073:\u004f\u0062\u006a\u0065\u0063\u0074.\u0076\u0061\u006c\u0075\u0065\u0073(IV.\u0065\u0072\u0072\u006f\u0072\u0073)[0][0])||IV.\u006d\u0065\u0073\u0073\u0061\u0067\u0065||Dm||'\u64cd\u4f5c\u5931\u8d25';\u0074\u006f\u0061\u0073\u0074(I,false);throw new \u0045\u0072\u0072\u006f\u0072(I);}return IV;}const \u0074\u0062\u006f\u0064\u0079=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x6B\x77\x42\x6F\x64\x79');function \u0073\u0074\u0079\u006c\u0065\u0053\u0074\u0072\u0069\u006e\u0067(IM){return \u004f\u0062\u006a\u0065\u0063\u0074.\u0065\u006e\u0074\u0072\u0069\u0065\u0073(\u0073\u0074\u0079\u006c\u0065\u004d\u0061\u0070).\u0066\u0069\u006c\u0074\u0065\u0072(([m])=>IM[m]).\u006d\u0061\u0070(([,t])=>t).\u006a\u006f\u0069\u006e('\x20');}function \u0072\u0065\u006e\u0064\u0065\u0072\u0052\u006f\u0077(IM){const Dn=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074('\x74\x72');Dn.\u0069\u006e\u006e\u0065\u0072\u0048\u0054\u004d\u004c=`\x0A\x20\x20\x20\x20\x3C\x74\x64\x3E\x3C\x69\x6E\x70\x75\x74\x20\x74\x79\x70\x65\x3D\x22\x63\x68\x65\x63\x6B\x62\x6F\x78\x22\x20\x63\x6C\x61\x73\x73\x3D\x22\x72\x6F\x77\x2D\x63\x68\x65\x63\x6B\x22\x20\x76\x61\x6C\x75\x65\x3D\x22${IM.\u0069\u0064}\x22\x3E\x3C\x2F\x74\x64\x3E\x0A\x20\x20\x20\x20\x3C\x74\x64\x3E${IM.\u0069\u0064}\x3C\x2F\x74\x64\x3E\x0A\x20\x20\x20\x20\x3C\x74\x64\x3E${IM.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0043\u006f\u006e\u0074\u0065\u006e\u0074}\x3C\x2F\x74\x64\x3E\x0A\x20\x20\x20\x20\x3C\x74\x64\x3E${\u0074\u0079\u0070\u0065\u004d\u0061\u0070[IM.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0054\u0079\u0070\u0065]??IM.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0054\u0079\u0070\u0065}\x3C\x2F\x74\x64\x3E\x0A\x20\x20\x20\x20\x3C\x74\x64\x3E${\u0061\u0063\u0074\u0069\u006f\u006e\u004d\u0061\u0070[IM.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0041\u0063\u0074\u0069\u006f\u006e]??IM.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0041\u0063\u0074\u0069\u006f\u006e}\x3C\x2F\x74\x64\x3E\x0A\x20\x20\x20\x20\x3C\x74\x64\x3E${\u0073\u0074\u0079\u006c\u0065\u0053\u0074\u0072\u0069\u006e\u0067(IM)}\x3C\x2F\x74\x64\x3E\x0A\x20\x20\x20\x20\x3C\x74\x64\x3E\x0A\x20\x20\x20\x20\x20\x20\x3C\x62\x75\x74\x74\x6F\x6E\x20\x63\x6C\x61\x73\x73\x3D\x22\x62\x74\x6E\x22\x20\x6F\x6E\x63\x6C\x69\x63\x6B\x3D\x27\x6F\x70\x65\x6E\x45\x64\x69\x74\x28${\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079(IM)}\x29\x27\x3E\u7f16\u8f91\x3C\x2F\x62\x75\x74\x74\x6F\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x3C\x62\x75\x74\x74\x6F\x6E\x20\x63\x6C\x61\x73\x73\x3D\x22\x62\x74\x6E\x20\x62\x74\x6E\x2D\x65\x72\x72\x6F\x72\x20\x6D\x6C\x2D\x31\x22\x20\x6F\x6E\x63\x6C\x69\x63\x6B\x3D\x22\x64\x65\x6C\x28${IM.\u0069\u0064}\x29\x22\x3E\u5220\x3C\x2F\x62\x75\x74\x74\x6F\x6E\x3E\x0A\x20\x20\x20\x20\x3C\x2F\x74\x64\x3E`;return Dn;}async function \u0072\u0065\u0066\u0072\u0065\u0073\u0068(){const{\u0064\u0061\u0074\u0061:IU}=await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x6C\x69\x73\x74`);\u0074\u0062\u006f\u0064\u0079.\u0069\u006e\u006e\u0065\u0072\u0048\u0054\u004d\u004c='';IU.\u0066\u006f\u0072\u0045\u0061\u0063\u0068(en=>\u0074\u0062\u006f\u0064\u0079.\u0061\u0070\u0070\u0065\u006e\u0064\u0043\u0068\u0069\u006c\u0064(\u0072\u0065\u006e\u0064\u0065\u0072\u0052\u006f\u0077(en)));}async function \u0064\u0065\u006c(DI){await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x64\x65\x6C\x65\x74\x65\x2F${DI}`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x44\x45\x4C\x45\x54\x45'});\u0074\u006f\u0061\u0073\u0074('\u5220\u9664\u6210\u529f');\u0072\u0065\u0066\u0072\u0065\u0073\u0068();}function \u0074\u006f\u0067\u0067\u006c\u0065\u0041\u006c\u006c(eT){\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006c\u0065\u0063\u0074\u006f\u0072\u0041\u006c\u006c('\x2E\x72\x6F\x77\x2D\x63\x68\x65\x63\x6B').\u0066\u006f\u0072\u0045\u0061\u0063\u0068(e=>e.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=eT.\u0063\u0068\u0065\u0063\u006b\u0065\u0064);}async function \u0064\u0065\u006c\u0065\u0074\u0065\u0053\u0065\u006c\u0065\u0063\u0074\u0065\u0064(){const ii=[...\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006c\u0065\u0063\u0074\u006f\u0072\u0041\u006c\u006c('\x2E\x72\x6F\x77\x2D\x63\x68\x65\x63\x6B')].\u0066\u0069\u006c\u0074\u0065\u0072(e=>e.\u0063\u0068\u0065\u0063\u006b\u0065\u0064).\u006d\u0061\u0070(e=>+e.\u0076\u0061\u006c\u0075\u0065);if(!ii.\u006c\u0065\u006e\u0067\u0074\u0068){\u0074\u006f\u0061\u0073\u0074('\u672a\u9009\u4e2d',false);return;}await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x62\x61\x74\x63\x68\x64\x65\x6C\x65\x74\x65`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x44\x45\x4C\x45\x54\x45',\u0062\u006f\u0064\u0079:\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079(ii)});\u0074\u006f\u0061\u0073\u0074('\u6279\u91cf\u5220\u9664\u6210\u529f');\u0072\u0065\u0066\u0072\u0065\u0073\u0068();}async function \u0061\u0064\u0064\u0053\u0069\u006e\u0067\u006c\u0065(){const ol={\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0043\u006f\u006e\u0074\u0065\u006e\u0074:\u0073\u0043\u006f\u006e\u0074\u0065\u006e\u0074.\u0076\u0061\u006c\u0075\u0065.\u0074\u0072\u0069\u006d(),\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0054\u0079\u0070\u0065:+\u0073\u0054\u0079\u0070\u0065.\u0076\u0061\u006c\u0075\u0065,\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0041\u0063\u0074\u0069\u006f\u006e:+\u0073\u0041\u0063\u0074\u0069\u006f\u006e.\u0076\u0061\u006c\u0075\u0065,\u0069\u0073\u0043\u0061\u0073\u0065\u0053\u0065\u006e\u0073\u0069\u0074\u0069\u0076\u0065:\u0073\u0043\u0061\u0073\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0042\u006f\u006c\u0064:\u0073\u0042\u006f\u006c\u0064.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0049\u0074\u0061\u006c\u0069\u0063:\u0073\u0049\u0074\u0061\u006c\u0069\u0063.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0055\u006e\u0064\u0065\u0072\u006c\u0069\u006e\u0065:\u0073\u0055\u006e\u0064\u0065\u0072.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0053\u0074\u0072\u0069\u006b\u0065\u0054\u0068\u0072\u006f\u0075\u0067\u0068:\u0073\u0053\u0074\u0072\u0069\u006b\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0051\u0075\u006f\u0074\u0065:\u0073\u0051\u0075\u006f\u0074\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u004d\u006f\u006e\u006f\u0073\u0070\u0061\u0063\u0065:\u0073\u004d\u006f\u006e\u006f.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0053\u0070\u006f\u0069\u006c\u0065\u0072:\u0073\u0053\u0070\u006f\u0069\u006c.\u0063\u0068\u0065\u0063\u006b\u0065\u0064};if(!ol.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0043\u006f\u006e\u0074\u0065\u006e\u0074){\u0074\u006f\u0061\u0073\u0074('\u5185\u5bb9\u4e0d\u80fd\u4e3a\u7a7a',false);return;}await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x61\x64\x64`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x4F\x53\x54',\u0062\u006f\u0064\u0079:\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079(ol)});\u0074\u006f\u0061\u0073\u0074('\u6dfb\u52a0\u6210\u529f');\u0072\u0065\u0066\u0072\u0065\u0073\u0068();}const \u0064\u0079\u006e\u0061\u006d\u0069\u0063\u0052\u006f\u0077\u0073=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x64\x79\x6E\x61\x6D\x69\x63\x52\x6F\x77\x73');function \u0072\u006f\u0077\u0054\u0070\u006c(DI){return`\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x66\x6C\x65\x78\x20\x66\x6C\x65\x78\x2D\x77\x72\x61\x70\x20\x67\x61\x70\x2D\x32\x20\x69\x74\x65\x6D\x73\x2D\x63\x65\x6E\x74\x65\x72\x20\x62\x6F\x72\x64\x65\x72\x20\x70\x2D\x32\x20\x72\x6F\x75\x6E\x64\x65\x64\x22\x20\x69\x64\x3D\x22\x72\x6F\x77\x2D${DI}\x22\x3E\x0A\x20\x20\x20\x20\x3C\x69\x6E\x70\x75\x74\x20\x63\x6C\x61\x73\x73\x3D\x22\x69\x6E\x70\x75\x74\x20\x69\x6E\x70\x75\x74\x2D\x62\x6F\x72\x64\x65\x72\x65\x64\x20\x77\x2D\x34\x30\x22\x20\x70\x6C\x61\x63\x65\x68\x6F\x6C\x64\x65\x72\x3D\x22\u5173\u952e\u8bcd\x22\x3E\x0A\x20\x20\x20\x20\x3C\x73\x65\x6C\x65\x63\x74\x20\x63\x6C\x61\x73\x73\x3D\x22\x73\x65\x6C\x65\x63\x74\x20\x73\x65\x6C\x65\x63\x74\x2D\x62\x6F\x72\x64\x65\x72\x65\x64\x22\x3E\x0A\x20\x20\x20\x20\x20\x20\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x30\x22\x3E\u5168\u5b57\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x31\x22\x3E\u5305\u542b\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x32\x22\x3E\u6b63\u5219\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x33\x22\x3E\u6a21\u7cca\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x34\x22\x3E\u7528\u6237\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E\x0A\x20\x20\x20\x20\x3C\x2F\x73\x65\x6C\x65\x63\x74\x3E\x0A\x20\x20\x20\x20\x3C\x73\x65\x6C\x65\x63\x74\x20\x63\x6C\x61\x73\x73\x3D\x22\x73\x65\x6C\x65\x63\x74\x20\x73\x65\x6C\x65\x63\x74\x2D\x62\x6F\x72\x64\x65\x72\x65\x64\x22\x3E\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x31\x22\x3E\u76d1\u63a7\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x30\x22\x3E\u6392\u9664\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E\x3C\x2F\x73\x65\x6C\x65\x63\x74\x3E\x0A\x20\x20\x20\x20${\u004f\u0062\u006a\u0065\u0063\u0074.\u0065\u006e\u0074\u0072\u0069\u0065\u0073(\u0073\u0074\u0079\u006c\u0065\u004d\u0061\u0070).\u006d\u0061\u0070(([m,tn])=>`\x0A\x20\x20\x20\x20\x20\x20\x3C\x6C\x61\x62\x65\x6C\x20\x63\x6C\x61\x73\x73\x3D\x22\x6C\x61\x62\x65\x6C\x20\x67\x61\x70\x2D\x31\x20\x74\x65\x78\x74\x2D\x78\x73\x22\x3E\x3C\x73\x70\x61\x6E\x3E${tn}\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x69\x6E\x70\x75\x74\x20\x74\x79\x70\x65\x3D\x22\x63\x68\x65\x63\x6B\x62\x6F\x78\x22\x20\x64\x61\x74\x61\x2D\x66\x6C\x61\x67\x3D\x22${m}\x22\x20\x63\x6C\x61\x73\x73\x3D\x22\x63\x68\x65\x63\x6B\x62\x6F\x78\x22\x3E\x0A\x20\x20\x20\x20\x20\x20\x3C\x2F\x6C\x61\x62\x65\x6C\x3E`).\u006a\u006f\u0069\u006e('')}\x0A\x20\x20\x20\x20\x3C\x62\x75\x74\x74\x6F\x6E\x20\x63\x6C\x61\x73\x73\x3D\x22\x62\x74\x6E\x20\x62\x74\x6E\x2D\x65\x72\x72\x6F\x72\x22\x20\x6F\x6E\x63\x6C\x69\x63\x6B\x3D\x22\x74\x68\x69\x73\x2E\x70\x61\x72\x65\x6E\x74\x4E\x6F\x64\x65\x2E\x72\x65\x6D\x6F\x76\x65\x28\x29\x22\x3E\x78\x3C\x2F\x62\x75\x74\x74\x6F\x6E\x3E\x0A\x20\x20\x3C\x2F\x64\x69\x76\x3E`;}function \u0061\u0064\u0064\u0052\u006f\u0077(){\u0064\u0079\u006e\u0061\u006d\u0069\u0063\u0052\u006f\u0077\u0073.\u0069\u006e\u0073\u0065\u0072\u0074\u0041\u0064\u006a\u0061\u0063\u0065\u006e\u0074\u0048\u0054\u004d\u004c('\x62\x65\x66\x6F\x72\x65\x65\x6E\x64',\u0072\u006f\u0077\u0054\u0070\u006c(\u0044\u0061\u0074\u0065.\u006e\u006f\u0077()));}async function \u0075\u0070\u006c\u006f\u0061\u0064\u0052\u006f\u0077\u0073(){const i=[...\u0064\u0079\u006e\u0061\u006d\u0069\u0063\u0052\u006f\u0077\u0073.\u0063\u0068\u0069\u006c\u0064\u0072\u0065\u006e].\u006d\u0061\u0070(en=>{const In=en.\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006c\u0065\u0063\u0074\u006f\u0072('\x69\x6E\x70\x75\x74\x2E\x69\x6E\x70\x75\x74');if(!In||!In.\u0076\u0061\u006c\u0075\u0065.\u0074\u0072\u0069\u006d())return null;const[oU,tG]=en.\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006c\u0065\u0063\u0074\u006f\u0072\u0041\u006c\u006c('\x73\x65\x6C\x65\x63\x74');const eV={\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0043\u006f\u006e\u0074\u0065\u006e\u0074:In.\u0076\u0061\u006c\u0075\u0065.\u0074\u0072\u0069\u006d(),\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0054\u0079\u0070\u0065:+oU.\u0076\u0061\u006c\u0075\u0065,\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0041\u0063\u0074\u0069\u006f\u006e:+tG.\u0076\u0061\u006c\u0075\u0065};en.\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006c\u0065\u0063\u0074\u006f\u0072\u0041\u006c\u006c('\x69\x6E\x70\x75\x74\x5B\x64\x61\x74\x61\x2D\x66\x6C\x61\x67\x5D').\u0066\u006f\u0072\u0045\u0061\u0063\u0068(e=>eV[e.\u0064\u0061\u0074\u0061\u0073\u0065\u0074.\u0066\u006c\u0061\u0067]=e.\u0063\u0068\u0065\u0063\u006b\u0065\u0064);return eV;}).\u0066\u0069\u006c\u0074\u0065\u0072(\u0042\u006f\u006f\u006c\u0065\u0061\u006e);if(!i.\u006c\u0065\u006e\u0067\u0074\u0068){\u0074\u006f\u0061\u0073\u0074('\u65e0\u6709\u6548\u884c',false);return;}await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x62\x61\x74\x63\x68\x61\x64\x64`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x4F\x53\x54',\u0062\u006f\u0064\u0079:\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079(i)});\u0074\u006f\u0061\u0073\u0074('\u6279\u91cf\u6dfb\u52a0\u6210\u529f');\u0072\u0065\u0066\u0072\u0065\u0073\u0068();}async function \u0075\u0070\u006c\u006f\u0061\u0064\u0054\u0065\u0078\u0074(){const G=\u0074\u0078\u0074\u004b\u0065\u0079\u0077\u006f\u0072\u0064\u0073.\u0076\u0061\u006c\u0075\u0065.\u0073\u0070\u006c\u0069\u0074('\x0A').\u006d\u0061\u0070(II=>II.\u0074\u0072\u0069\u006d()).\u0066\u0069\u006c\u0074\u0065\u0072(\u0042\u006f\u006f\u006c\u0065\u0061\u006e);if(!G.\u006c\u0065\u006e\u0067\u0074\u0068){\u0074\u006f\u0061\u0073\u0074('\u6587\u672c\u4e3a\u7a7a',false);return;}const oi={\u0069\u0073\u0043\u0061\u0073\u0065\u0053\u0065\u006e\u0073\u0069\u0074\u0069\u0076\u0065:\u0074\u0043\u0061\u0073\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0042\u006f\u006c\u0064:\u0074\u0042\u006f\u006c\u0064.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0049\u0074\u0061\u006c\u0069\u0063:\u0074\u0049\u0074\u0061\u006c\u0069\u0063.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0055\u006e\u0064\u0065\u0072\u006c\u0069\u006e\u0065:\u0074\u0055\u006e\u0064\u0065\u0072.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0053\u0074\u0072\u0069\u006b\u0065\u0054\u0068\u0072\u006f\u0075\u0067\u0068:\u0074\u0053\u0074\u0072\u0069\u006b\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0051\u0075\u006f\u0074\u0065:\u0074\u0051\u0075\u006f\u0074\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u004d\u006f\u006e\u006f\u0073\u0070\u0061\u0063\u0065:\u0074\u004d\u006f\u006e\u006f.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0053\u0070\u006f\u0069\u006c\u0065\u0072:\u0074\u0053\u0070\u006f\u0069\u006c.\u0063\u0068\u0065\u0063\u006b\u0065\u0064};const i=G.\u006d\u0061\u0070(e=>({\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0043\u006f\u006e\u0074\u0065\u006e\u0074:e,\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0054\u0079\u0070\u0065:+\u0074\u0054\u0079\u0070\u0065.\u0076\u0061\u006c\u0075\u0065,\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0041\u0063\u0074\u0069\u006f\u006e:+\u0074\u0041\u0063\u0074\u0069\u006f\u006e.\u0076\u0061\u006c\u0075\u0065,...oi}));await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x62\x61\x74\x63\x68\x61\x64\x64`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x4F\x53\x54',\u0062\u006f\u0064\u0079:\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079(i)});\u0074\u006f\u0061\u0073\u0074('\u6279\u91cf\u6dfb\u52a0\u6210\u529f');\u0072\u0065\u0066\u0072\u0065\u0073\u0068();}function \u0066\u0069\u006c\u006c\u0045\u0064\u0069\u0074(IM){\u0065\u0049\u0064.\u0076\u0061\u006c\u0075\u0065=IM.\u0069\u0064;\u0065\u0043\u006f\u006e\u0074\u0065\u006e\u0074.\u0076\u0061\u006c\u0075\u0065=IM.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0043\u006f\u006e\u0074\u0065\u006e\u0074;const E=\u004f\u0062\u006a\u0065\u0063\u0074.\u006b\u0065\u0079\u0073(\u0074\u0079\u0070\u0065\u004d\u0061\u0070);const n=\u004f\u0062\u006a\u0065\u0063\u0074.\u006b\u0065\u0079\u0073(\u0061\u0063\u0074\u0069\u006f\u006e\u004d\u0061\u0070);\u0065\u0054\u0079\u0070\u0065.\u0076\u0061\u006c\u0075\u0065=E.\u0069\u006e\u0064\u0065\u0078\u004f\u0066(IM.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0054\u0079\u0070\u0065);\u0065\u0041\u0063\u0074\u0069\u006f\u006e.\u0076\u0061\u006c\u0075\u0065=n.\u0069\u006e\u0064\u0065\u0078\u004f\u0066(IM.\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0041\u0063\u0074\u0069\u006f\u006e);\u0065\u0043\u0061\u0073\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=IM.\u0069\u0073\u0043\u0061\u0073\u0065\u0053\u0065\u006e\u0073\u0069\u0074\u0069\u0076\u0065;\u0065\u0042\u006f\u006c\u0064.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=IM.\u0069\u0073\u0042\u006f\u006c\u0064;\u0065\u0049\u0074\u0061\u006c\u0069\u0063.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=IM.\u0069\u0073\u0049\u0074\u0061\u006c\u0069\u0063;\u0065\u0055\u006e\u0064\u0065\u0072.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=IM.\u0069\u0073\u0055\u006e\u0064\u0065\u0072\u006c\u0069\u006e\u0065;\u0065\u0053\u0074\u0072\u0069\u006b\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=IM.\u0069\u0073\u0053\u0074\u0072\u0069\u006b\u0065\u0054\u0068\u0072\u006f\u0075\u0067\u0068;\u0065\u0051\u0075\u006f\u0074\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=IM.\u0069\u0073\u0051\u0075\u006f\u0074\u0065;\u0065\u004d\u006f\u006e\u006f.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=IM.\u0069\u0073\u004d\u006f\u006e\u006f\u0073\u0070\u0061\u0063\u0065;\u0065\u0053\u0070\u006f\u0069\u006c.\u0063\u0068\u0065\u0063\u006b\u0065\u0064=IM.\u0069\u0073\u0053\u0070\u006f\u0069\u006c\u0065\u0072;}function \u006f\u0070\u0065\u006e\u0045\u0064\u0069\u0074(IM){\u0066\u0069\u006c\u006c\u0045\u0064\u0069\u0074(IM);\u0065\u0064\u0069\u0074\u004d\u006f\u0064\u0061\u006c.\u0073\u0068\u006f\u0077\u004d\u006f\u0064\u0061\u006c();}async function \u0073\u0061\u0076\u0065\u0045\u0064\u0069\u0074(){const ol={\u0069\u0064:+\u0065\u0049\u0064.\u0076\u0061\u006c\u0075\u0065,\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0043\u006f\u006e\u0074\u0065\u006e\u0074:\u0065\u0043\u006f\u006e\u0074\u0065\u006e\u0074.\u0076\u0061\u006c\u0075\u0065.\u0074\u0072\u0069\u006d(),\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0054\u0079\u0070\u0065:+\u0065\u0054\u0079\u0070\u0065.\u0076\u0061\u006c\u0075\u0065,\u006b\u0065\u0079\u0077\u006f\u0072\u0064\u0041\u0063\u0074\u0069\u006f\u006e:+\u0065\u0041\u0063\u0074\u0069\u006f\u006e.\u0076\u0061\u006c\u0075\u0065,\u0069\u0073\u0043\u0061\u0073\u0065\u0053\u0065\u006e\u0073\u0069\u0074\u0069\u0076\u0065:\u0065\u0043\u0061\u0073\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0042\u006f\u006c\u0064:\u0065\u0042\u006f\u006c\u0064.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0049\u0074\u0061\u006c\u0069\u0063:\u0065\u0049\u0074\u0061\u006c\u0069\u0063.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0055\u006e\u0064\u0065\u0072\u006c\u0069\u006e\u0065:\u0065\u0055\u006e\u0064\u0065\u0072.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0053\u0074\u0072\u0069\u006b\u0065\u0054\u0068\u0072\u006f\u0075\u0067\u0068:\u0065\u0053\u0074\u0072\u0069\u006b\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0051\u0075\u006f\u0074\u0065:\u0065\u0051\u0075\u006f\u0074\u0065.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u004d\u006f\u006e\u006f\u0073\u0070\u0061\u0063\u0065:\u0065\u004d\u006f\u006e\u006f.\u0063\u0068\u0065\u0063\u006b\u0065\u0064,\u0069\u0073\u0053\u0070\u006f\u0069\u006c\u0065\u0072:\u0065\u0053\u0070\u006f\u0069\u006c.\u0063\u0068\u0065\u0063\u006b\u0065\u0064};await \u0061\u0070\u0069(`${\u0041\u0050\u0049}\x2F\x75\x70\x64\x61\x74\x65`,{\u006d\u0065\u0074\u0068\u006f\u0064:'\x50\x55\x54',\u0062\u006f\u0064\u0079:\u004a\u0053\u004f\u004e.\u0073\u0074\u0072\u0069\u006e\u0067\u0069\u0066\u0079(ol)});\u0074\u006f\u0061\u0073\u0074('\u4fee\u6539\u6210\u529f');\u0072\u0065\u0066\u0072\u0065\u0073\u0068();}\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006c\u0065\u0063\u0074\u006f\u0072\u0041\u006c\u006c('\x5B\x72\x6F\x6C\x65\x3D\x74\x61\x62\x5D').\u0066\u006f\u0072\u0045\u0061\u0063\u0068(Di=>{Di.\u006f\u006e\u0063\u006c\u0069\u0063\u006b=()=>{\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006c\u0065\u0063\u0074\u006f\u0072\u0041\u006c\u006c('\x5B\x72\x6F\x6C\x65\x3D\x74\x61\x62\x5D').\u0066\u006f\u0072\u0045\u0061\u0063\u0068(tU=>tU.\u0063\u006c\u0061\u0073\u0073\u004c\u0069\u0073\u0074.\u0072\u0065\u006d\u006f\u0076\u0065('\x74\x61\x62\x2D\x61\x63\x74\x69\x76\x65'));Di.\u0063\u006c\u0061\u0073\u0073\u004c\u0069\u0073\u0074.\u0061\u0064\u0064('\x74\x61\x62\x2D\x61\x63\x74\x69\x76\x65');['\x6C\x69\x73\x74','\x73\x69\x6E\x67\x6C\x65','\x62\x61\x74\x63\x68','\x74\x65\x78\x74'].\u0066\u006f\u0072\u0045\u0061\u0063\u0068(oT=>{\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0067\u0065\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074\u0042\u0079\u0049\u0064('\x70\x61\x6E\x65\x6C\x2D'+oT).\u0063\u006c\u0061\u0073\u0073\u004c\u0069\u0073\u0074.\u0074\u006f\u0067\u0067\u006c\u0065('\x68\x69\x64\x64\x65\x6E',!Di.\u0069\u0064.\u0065\u006e\u0064\u0073\u0057\u0069\u0074\u0068(oT));});};});function \u0061\u0064\u0064\u0043\u006f\u0070\u0079\u0072\u0069\u0067\u0068\u0074(){const il=\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074('\x64\x69\x76');il.\u0073\u0074\u0079\u006c\u0065.\u0063\u0073\u0073\u0054\u0065\u0078\u0074='\x70\x6F\x73\x69\x74\x69\x6F\x6E\x3A\x66\x69\x78\x65\x64\x3B\x74\x6F\x70\x3A\x30\x3B\x6C\x65\x66\x74\x3A\x30\x3B\x77\x69\x64\x74\x68\x3A\x31\x30\x30\x25\x3B\x62\x61\x63\x6B\x67\x72\x6F\x75\x6E\x64\x2D\x63\x6F\x6C\x6F\x72\x3A\x23\x66\x30\x66\x30\x66\x30\x3B\x70\x61\x64\x64\x69\x6E\x67\x3A\x31\x30\x70\x78\x3B\x74\x65\x78\x74\x2D\x61\x6C\x69\x67\x6E\x3A\x63\x65\x6E\x74\x65\x72\x3B\x7A\x2D\x69\x6E\x64\x65\x78\x3A\x31\x30\x30\x30\x3B\x62\x6F\x78\x2D\x73\x68\x61\x64\x6F\x77\x3A\x30\x20\x32\x70\x78\x20\x34\x70\x78\x20\x72\x67\x62\x61\x28\x30\x2C\x30\x2C\x30\x2C\x30\x2E\x31\x29\x3B';il.\u0069\u006e\u006e\u0065\u0072\u0048\u0054\u004d\u004c=`\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x73\x70\x61\x6E\x20\x73\x74\x79\x6C\x65\x3D\x22\x6D\x61\x72\x67\x69\x6E\x2D\x72\x69\x67\x68\x74\x3A\x31\x35\x70\x78\x3B\x22\x3E\u4f5c\u8005\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x74\x2E\x6D\x65\x2F\x72\x69\x6E\x69\x62\x61\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x64\x65\x63\x6F\x72\x61\x74\x69\x6F\x6E\x3A\x6E\x6F\x6E\x65\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x30\x30\x38\x38\x63\x63\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x62\x6F\x6C\x64\x3B\x22\x3E\x40\x72\x69\x6E\x69\x62\x61\x3C\x2F\x61\x3E\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x73\x70\x61\x6E\x20\x73\x74\x79\x6C\x65\x3D\x22\x6D\x61\x72\x67\x69\x6E\x2D\x72\x69\x67\x68\x74\x3A\x31\x35\x70\x78\x3B\x22\x3E\u5f00\u6e90\u5730\u5740\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x69\x74\x68\x75\x62\x2E\x63\x6F\x6D\x2F\x52\x69\x6E\x69\x62\x61\x2F\x54\x65\x6C\x65\x67\x72\x61\x6D\x4D\x6F\x6E\x69\x74\x6F\x72\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x64\x65\x63\x6F\x72\x61\x74\x69\x6F\x6E\x3A\x6E\x6F\x6E\x65\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x30\x30\x38\x38\x63\x63\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x62\x6F\x6C\x64\x3B\x22\x3E\x47\x69\x74\x48\x75\x62\x3C\x2F\x61\x3E\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x73\x70\x61\x6E\x20\x73\x74\x79\x6C\x65\x3D\x22\x6D\x61\x72\x67\x69\x6E\x2D\x72\x69\x67\x68\x74\x3A\x31\x35\x70\x78\x3B\x22\x3E\u4ea4\u6d41\u7fa4\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x74\x2E\x6D\x65\x2F\x52\x69\x6E\x69\x62\x61\x47\x72\x6F\x75\x70\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x64\x65\x63\x6F\x72\x61\x74\x69\x6F\x6E\x3A\x6E\x6F\x6E\x65\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x30\x30\x38\x38\x63\x63\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x62\x6F\x6C\x64\x3B\x22\x3E\x54\x65\x6C\x65\x67\x72\x61\x6D\x3C\x2F\x61\x3E\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x73\x70\x61\x6E\x3E\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x69\x74\x68\x75\x62\x2E\x63\x6F\x6D\x2F\x52\x69\x6E\x69\x62\x61\x2F\x54\x65\x6C\x65\x67\x72\x61\x6D\x4D\x6F\x6E\x69\x74\x6F\x72\x2F\x77\x69\x6B\x69\x2F\x25\x45\x35\x25\x38\x35\x25\x42\x33\x25\x45\x39\x25\x39\x34\x25\x41\x45\x25\x45\x38\x25\x41\x46\x25\x38\x44\x25\x45\x34\x25\x42\x44\x25\x42\x46\x25\x45\x37\x25\x39\x34\x25\x41\x38\x25\x45\x36\x25\x39\x35\x25\x39\x39\x25\x45\x37\x25\x41\x38\x25\x38\x42\x22\x20\x74\x61\x72\x67\x65\x74\x3D\x22\x5F\x62\x6C\x61\x6E\x6B\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x74\x65\x78\x74\x2D\x64\x65\x63\x6F\x72\x61\x74\x69\x6F\x6E\x3A\x6E\x6F\x6E\x65\x3B\x63\x6F\x6C\x6F\x72\x3A\x23\x30\x30\x38\x38\x63\x63\x3B\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x62\x6F\x6C\x64\x3B\x22\x3E\u5173\u952e\u8bcd\u914d\u7f6e\u8bf4\u660e\x3C\x2F\x61\x3E\x3C\x2F\x73\x70\x61\x6E\x3E\x0A\x20\x20\x20\x20`;\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0062\u006f\u0064\u0079.\u0069\u006e\u0073\u0065\u0072\u0074\u0042\u0065\u0066\u006f\u0072\u0065(il,\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0062\u006f\u0064\u0079.\u0066\u0069\u0072\u0073\u0074\u0043\u0068\u0069\u006c\u0064);\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0062\u006f\u0064\u0079.\u0073\u0074\u0079\u006c\u0065.\u0070\u0061\u0064\u0064\u0069\u006e\u0067\u0054\u006f\u0070=il.\u006f\u0066\u0066\u0073\u0065\u0074\u0048\u0065\u0069\u0067\u0068\u0074+10+'\x70\x78';}\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074.\u0061\u0064\u0064\u0045\u0076\u0065\u006e\u0074\u004c\u0069\u0073\u0074\u0065\u006e\u0065\u0072('\x44\x4F\x4D\x43\x6F\x6E\x74\x65\x6E\x74\x4C\x6F\x61\x64\x65\x64',\u0061\u0064\u0064\u0043\u006f\u0070\u0079\u0072\u0069\u0067\u0068\u0074);\u0072\u0065\u0066\u0072\u0065\u0073\u0068();' ';
+﻿const API = '/api/keyword';
+
+const typeMap = {
+  FullWord: '全字',
+  Contains: '包含',
+  Regex: '正则',
+  Fuzzy: '模糊',
+  User: '用户'
+};
+
+const actionMap = {
+  Exclude: '排除',
+  Monitor: '监控'
+};
+
+const forwardModeMap = {
+  Formatted: '原格式转发',
+  PlainText: '纯消息内容'
+};
+
+const styleMap = {
+  isCaseSensitive: '大小写',
+  isBold: '粗体',
+  isItalic: '斜体',
+  isUnderline: '下划线',
+  isStrikeThrough: '删除线',
+  isQuote: '引用',
+  isMonospace: '等宽',
+  isSpoiler: '剧透'
+};
+
+const toastBox = document.getElementById('toast');
+const tbody = document.getElementById('kwBody');
+const editModal = document.getElementById('editModal');
+const dynamicRows = document.getElementById('dynamicRows');
+
+let currentRowsSeed = 0;
+let forwardDialogs = [];
+
+const defaultTargetOption = '<option value="0">沿用默认目标群</option>';
+
+function toast(message, ok = true) {
+  const node = document.createElement('div');
+  node.setAttribute('role', 'alert');
+  node.className = `alert ${ok ? 'alert-success' : 'alert-error'} alert-horizontal shadow-lg`;
+  node.innerHTML = `<span>${message}</span>`;
+  toastBox.appendChild(node);
+  setTimeout(() => node.remove(), 3500);
+}
+
+async function api(path, init = {}) {
+  const headers = Object.assign({ 'Content-Type': 'application/json' }, init.headers || {});
+  const payload = Object.assign({}, init, { headers });
+
+  if (payload.body !== undefined && typeof payload.body !== 'string') {
+    payload.body = JSON.stringify(payload.body);
+  }
+
+  const res = await fetch(path, payload);
+  const text = await res.text();
+
+  let raw;
+  try {
+    raw = text ? JSON.parse(text) : {};
+  } catch {
+    raw = text;
+  }
+
+  const fail = raw && typeof raw === 'object' && raw.succeeded === false;
+  if (!res.ok || fail) {
+    const msg = (raw && raw.errors && (typeof raw.errors === 'string'
+      ? raw.errors
+      : Object.values(raw.errors)[0]?.[0])) || raw.message || text || '操作失败';
+    throw new Error(msg);
+  }
+
+  if (raw && typeof raw === 'object' && Object.prototype.hasOwnProperty.call(raw, 'data')) {
+    return raw.data;
+  }
+
+  return raw;
+}
+
+function styleString(item) {
+  return Object.entries(styleMap)
+    .filter(([k]) => !!item[k])
+    .map(([, name]) => name)
+    .join(' ');
+}
+
+function normalizeKeywordType(value) {
+  if (typeof value === 'number') return value;
+  const keys = ['FullWord', 'Contains', 'Regex', 'Fuzzy', 'User'];
+  return Math.max(keys.indexOf(value), 0);
+}
+
+function normalizeKeywordAction(value) {
+  if (typeof value === 'number') return value;
+  const keys = ['Exclude', 'Monitor'];
+  return Math.max(keys.indexOf(value), 0);
+}
+
+function normalizeForwardMode(value) {
+  if (typeof value === 'number') return value;
+  const keys = ['Formatted', 'PlainText'];
+  return Math.max(keys.indexOf(value), 0);
+}
+
+function normalizeTargetRoutes(routes, fallbackTargetChatId = 0) {
+  const source = Array.isArray(routes) && routes.length
+    ? routes
+    : (fallbackTargetChatId ? [{ targetChatId: fallbackTargetChatId, includeSource: true, forwardMode: 0 }] : []);
+
+  const dedup = new Map();
+  source.forEach(route => {
+    const targetChatId = Number(route?.targetChatId || 0);
+    if (!targetChatId) return;
+    dedup.set(targetChatId, {
+      targetChatId,
+      includeSource: route?.includeSource !== false,
+      forwardMode: normalizeForwardMode(route?.forwardMode)
+    });
+  });
+  return Array.from(dedup.values());
+}
+
+function forwardOptionsHtml(selected = 0) {
+  return [
+    defaultTargetOption,
+    ...forwardDialogs.map(dialog => `<option value="${dialog.id}" ${Number(selected) === Number(dialog.id) ? 'selected' : ''}>${dialog.displayTitle}</option>`)
+  ].join('');
+}
+
+function applyForwardDialogOptions() {
+  document.querySelectorAll('select[data-role="forward-target"]').forEach(el => {
+    const currentValue = Number(el.value || el.dataset.selected || 0);
+    el.innerHTML = forwardOptionsHtml(currentValue);
+    el.value = String(currentValue);
+  });
+}
+
+function getForwardTargetText(targetChatId) {
+  const numericId = Number(targetChatId || 0);
+  if (!numericId) return '默认目标群';
+
+  const dialog = forwardDialogs.find(item => Number(item.id) === numericId);
+  return dialog ? dialog.displayTitle : `ID:${numericId}`;
+}
+
+function formatTargetRoutes(item) {
+  const routes = normalizeTargetRoutes(item.targetRoutes, item.targetChatId);
+  if (!routes.length) return '默认目标群';
+
+  return routes.map(route => {
+    const title = getForwardTargetText(route.targetChatId);
+    const modeText = forwardModeMap[route.forwardMode] ?? '原格式转发';
+    return `${title}${route.includeSource ? '（显示来源）' : '（隐藏来源）'} ${modeText}`;
+  }).join(' / ');
+}
+
+function targetRouteRowHtml(route = {}) {
+  const selected = Number(route.targetChatId || 0);
+  const includeSource = route.includeSource !== false;
+  const forwardMode = normalizeForwardMode(route.forwardMode);
+  return `
+    <div class="flex flex-wrap gap-2 items-center target-route-row">
+      <select class="select select-bordered flex-1 min-w-64" data-role="forward-target" data-selected="${selected}">
+        ${forwardOptionsHtml(selected)}
+      </select>
+      <select class="select select-bordered" data-role="forward-mode">
+        <option value="0" ${forwardMode === 0 ? 'selected' : ''}>原格式转发</option>
+        <option value="1" ${forwardMode === 1 ? 'selected' : ''}>纯消息内容</option>
+      </select>
+      <label class="label gap-2 cursor-pointer">
+        <span>显示来源</span>
+        <input type="checkbox" class="checkbox" data-role="include-source" ${includeSource ? 'checked' : ''}>
+      </label>
+      <button type="button" class="btn btn-sm btn-error" onclick="removeTargetRouteRow(this)">删除</button>
+    </div>
+  `;
+}
+
+function setTargetRouteRows(containerId, routes = []) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const normalizedRoutes = normalizeTargetRoutes(routes);
+  container.innerHTML = normalizedRoutes.length
+    ? normalizedRoutes.map(route => targetRouteRowHtml(route)).join('')
+    : targetRouteRowHtml();
+}
+
+function addTargetRouteRow(containerId, route = null) {
+  const container = typeof containerId === 'string'
+    ? document.getElementById(containerId)
+    : containerId;
+  if (!container) return;
+
+  container.insertAdjacentHTML('beforeend', targetRouteRowHtml(route || {}));
+  applyForwardDialogOptions();
+}
+
+function removeTargetRouteRow(button) {
+  const row = button.closest('.target-route-row');
+  const container = row?.parentElement;
+  row?.remove();
+
+  if (container && !container.querySelector('.target-route-row')) {
+    addTargetRouteRow(container);
+  }
+}
+
+function collectTargetRoutes(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return [];
+
+  const routes = [...container.querySelectorAll('.target-route-row')].map(row => ({
+    targetChatId: Number(row.querySelector('select[data-role="forward-target"]')?.value || 0),
+    includeSource: !!row.querySelector('input[data-role="include-source"]')?.checked,
+    forwardMode: Number(row.querySelector('select[data-role="forward-mode"]')?.value || 0)
+  }));
+
+  return normalizeTargetRoutes(routes);
+}
+
+function renderRow(item) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="checkbox" class="row-check" value="${item.id}"></td>
+    <td>${item.id}</td>
+    <td>${item.keywordContent ?? ''}</td>
+    <td>${typeMap[item.keywordType] ?? item.keywordType}</td>
+    <td>${actionMap[item.keywordAction] ?? item.keywordAction}</td>
+    <td>${formatTargetRoutes(item)}</td>
+    <td>${styleString(item)}</td>
+    <td>
+      <button class="btn btn-xs" onclick='openEdit(${JSON.stringify(item).replace(/'/g, '&#39;')})'>编辑</button>
+      <button class="btn btn-xs btn-error ml-1" onclick="del(${item.id})">删</button>
+    </td>
+  `;
+  return tr;
+}
+
+async function refresh() {
+  try {
+    const list = await api(`${API}/list`);
+    tbody.innerHTML = '';
+    (list || []).forEach(item => tbody.appendChild(renderRow(item)));
+  } catch (err) {
+    toast(`加载关键词失败：${err.message}`, false);
+  }
+}
+
+async function del(id) {
+  try {
+    await api(`${API}/delete/${id}`, { method: 'DELETE' });
+    toast('删除成功');
+    refresh();
+  } catch (err) {
+    toast(`删除失败：${err.message}`, false);
+  }
+}
+
+async function loadForwardDialogs() {
+  const statusEl = document.getElementById('forwardDialogStatus');
+  try {
+    const dialogs = await api('/api/telegram/dialogs');
+    forwardDialogs = dialogs || [];
+    applyForwardDialogOptions();
+    if (statusEl) {
+      statusEl.textContent = `已加载 ${forwardDialogs.length} 个可转发群组。`;
+    }
+    toast('群组列表加载成功');
+    refresh();
+  } catch (err) {
+    if (statusEl) {
+      statusEl.textContent = '加载群组失败，请先在 Telegram 控制台完成登录。';
+    }
+    toast(`加载群组失败：${err.message}`, false);
+  }
+}
+
+function toggleAll(source) {
+  document.querySelectorAll('.row-check').forEach(el => {
+    el.checked = source.checked;
+  });
+}
+
+async function deleteSelected() {
+  const ids = [...document.querySelectorAll('.row-check')]
+    .filter(el => el.checked)
+    .map(el => Number(el.value));
+
+  if (!ids.length) {
+    toast('请先勾选要删除的项', false);
+    return;
+  }
+
+  try {
+    await api(`${API}/batchdelete`, { method: 'DELETE', body: ids });
+    toast('批量删除成功');
+    refresh();
+  } catch (err) {
+    toast(`批量删除失败：${err.message}`, false);
+  }
+}
+
+function buildPayload(prefix) {
+  const content = document.getElementById(`${prefix}Content`)?.value?.trim() ?? '';
+
+  return {
+    keywordContent: content,
+    keywordType: Number(document.getElementById(`${prefix}Type`).value),
+    keywordAction: Number(document.getElementById(`${prefix}Action`).value),
+    targetRoutes: collectTargetRoutes(`${prefix}TargetRoutes`),
+    isCaseSensitive: document.getElementById(`${prefix}Case`).checked,
+    isBold: document.getElementById(`${prefix}Bold`).checked,
+    isItalic: document.getElementById(`${prefix}Italic`).checked,
+    isUnderline: document.getElementById(`${prefix}Under`).checked,
+    isStrikeThrough: document.getElementById(`${prefix}Strike`).checked,
+    isQuote: document.getElementById(`${prefix}Quote`).checked,
+    isMonospace: document.getElementById(`${prefix}Mono`).checked,
+    isSpoiler: document.getElementById(`${prefix}Spoil`).checked
+  };
+}
+
+async function addSingle() {
+  const payload = buildPayload('s');
+  if (!payload.keywordContent) {
+    toast('关键词内容不能为空', false);
+    return;
+  }
+
+  try {
+    await api(`${API}/add`, { method: 'POST', body: payload });
+    toast('添加成功');
+    refresh();
+  } catch (err) {
+    toast(`添加失败：${err.message}`, false);
+  }
+}
+
+function rowTpl(id) {
+  return `
+  <div class="flex flex-wrap gap-2 items-center border p-2 rounded" id="row-${id}">
+    <input class="input input-bordered w-40" placeholder="关键词">
+    <select class="select select-bordered">
+      <option value="0">全字</option>
+      <option value="1">包含</option>
+      <option value="2">正则</option>
+      <option value="3">模糊</option>
+      <option value="4">用户</option>
+    </select>
+    <select class="select select-bordered">
+      <option value="1">监控</option>
+      <option value="0">排除</option>
+    </select>
+    <div class="w-full space-y-2">
+      <div class="text-sm opacity-70">目标群列表</div>
+      <div data-role="target-routes"></div>
+      <button type="button" class="btn btn-sm btn-outline" onclick="addTargetRouteRow(this.previousElementSibling)">添加目标群</button>
+    </div>
+    ${Object.entries(styleMap).map(([k, name]) => `
+      <label class="label gap-1 text-xs">
+        <span>${name}</span>
+        <input type="checkbox" data-flag="${k}" class="checkbox">
+      </label>`).join('')}
+    <button class="btn btn-error" onclick="this.parentNode.remove()">x</button>
+  </div>`;
+}
+
+function addRow() {
+  currentRowsSeed += 1;
+  dynamicRows.insertAdjacentHTML('beforeend', rowTpl(Date.now() + currentRowsSeed));
+  const row = dynamicRows.lastElementChild;
+  const routesContainer = row?.querySelector('[data-role="target-routes"]');
+  if (routesContainer) {
+    addTargetRouteRow(routesContainer);
+  }
+}
+
+async function uploadRows() {
+  const rows = [...dynamicRows.children]
+    .map(row => {
+      const input = row.querySelector('input.input');
+      if (!input || !input.value.trim()) return null;
+
+      const typeSel = row.querySelectorAll('select')[0];
+      const actionSel = row.querySelectorAll('select')[1];
+      const targetRoutes = [...row.querySelectorAll('[data-role="target-routes"] .target-route-row')].map(routeRow => ({
+        targetChatId: Number(routeRow.querySelector('select[data-role="forward-target"]')?.value || 0),
+        includeSource: !!routeRow.querySelector('input[data-role="include-source"]')?.checked,
+        forwardMode: Number(routeRow.querySelector('select[data-role="forward-mode"]')?.value || 0)
+      }));
+      const payload = {
+        keywordContent: input.value.trim(),
+        keywordType: Number(typeSel.value),
+        keywordAction: Number(actionSel.value),
+        targetRoutes: normalizeTargetRoutes(targetRoutes)
+      };
+
+      row.querySelectorAll('input[data-flag]').forEach(c => {
+        payload[c.dataset.flag] = c.checked;
+      });
+
+      return payload;
+    })
+    .filter(Boolean);
+
+  if (!rows.length) {
+    toast('没有可上传的数据行', false);
+    return;
+  }
+
+  try {
+    await api(`${API}/batchadd`, { method: 'POST', body: rows });
+    toast('批量添加成功');
+    refresh();
+  } catch (err) {
+    toast(`批量添加失败：${err.message}`, false);
+  }
+}
+
+async function uploadText() {
+  const lines = (document.getElementById('txtKeywords').value || '')
+    .split('\n')
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  if (!lines.length) {
+    toast('文本为空', false);
+    return;
+  }
+
+  const style = {
+    isCaseSensitive: document.getElementById('tCase').checked,
+    isBold: document.getElementById('tBold').checked,
+    isItalic: document.getElementById('tItalic').checked,
+    isUnderline: document.getElementById('tUnder').checked,
+    isStrikeThrough: document.getElementById('tStrike').checked,
+    isQuote: document.getElementById('tQuote').checked,
+    isMonospace: document.getElementById('tMono').checked,
+    isSpoiler: document.getElementById('tSpoil').checked
+  };
+
+  const list = lines.map(line => ({
+    keywordContent: line,
+    keywordType: Number(document.getElementById('tType').value),
+    keywordAction: Number(document.getElementById('tAction').value),
+    targetRoutes: collectTargetRoutes('tTargetRoutes'),
+    ...style
+  }));
+
+  try {
+    await api(`${API}/batchadd`, { method: 'POST', body: list });
+    toast('文本批量添加成功');
+    refresh();
+  } catch (err) {
+    toast(`文本批量添加失败：${err.message}`, false);
+  }
+}
+
+function fillEdit(item) {
+  document.getElementById('eId').value = item.id;
+  document.getElementById('eContent').value = item.keywordContent ?? '';
+  document.getElementById('eType').value = String(normalizeKeywordType(item.keywordType));
+  document.getElementById('eAction').value = String(normalizeKeywordAction(item.keywordAction));
+  setTargetRouteRows('eTargetRoutes', normalizeTargetRoutes(item.targetRoutes, item.targetChatId));
+
+  document.getElementById('eCase').checked = !!item.isCaseSensitive;
+  document.getElementById('eBold').checked = !!item.isBold;
+  document.getElementById('eItalic').checked = !!item.isItalic;
+  document.getElementById('eUnder').checked = !!item.isUnderline;
+  document.getElementById('eStrike').checked = !!item.isStrikeThrough;
+  document.getElementById('eQuote').checked = !!item.isQuote;
+  document.getElementById('eMono').checked = !!item.isMonospace;
+  document.getElementById('eSpoil').checked = !!item.isSpoiler;
+}
+
+function openEdit(item) {
+  fillEdit(item);
+  editModal.showModal();
+}
+
+async function saveEdit() {
+  const payload = {
+    id: Number(document.getElementById('eId').value),
+    keywordContent: document.getElementById('eContent').value.trim(),
+    keywordType: Number(document.getElementById('eType').value),
+    keywordAction: Number(document.getElementById('eAction').value),
+    targetRoutes: collectTargetRoutes('eTargetRoutes'),
+    isCaseSensitive: document.getElementById('eCase').checked,
+    isBold: document.getElementById('eBold').checked,
+    isItalic: document.getElementById('eItalic').checked,
+    isUnderline: document.getElementById('eUnder').checked,
+    isStrikeThrough: document.getElementById('eStrike').checked,
+    isQuote: document.getElementById('eQuote').checked,
+    isMonospace: document.getElementById('eMono').checked,
+    isSpoiler: document.getElementById('eSpoil').checked
+  };
+
+  if (!payload.keywordContent) {
+    toast('关键词内容不能为空', false);
+    return;
+  }
+
+  try {
+    await api(`${API}/update`, { method: 'PUT', body: payload });
+    toast('修改成功');
+    refresh();
+  } catch (err) {
+    toast(`修改失败：${err.message}`, false);
+  }
+}
+
+function initTabs() {
+  document.querySelectorAll('[role=tab]').forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll('[role=tab]').forEach(t => t.classList.remove('tab-active'));
+      tab.classList.add('tab-active');
+
+      ['list', 'single', 'batch', 'text'].forEach(name => {
+        const panel = document.getElementById(`panel-${name}`);
+        panel.classList.toggle('hidden', !tab.id.endsWith(name));
+      });
+    };
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTargetRouteRows('sTargetRoutes');
+  setTargetRouteRows('tTargetRoutes');
+  setTargetRouteRows('eTargetRoutes');
+  initTabs();
+  refresh();
+});
+
+window.refresh = refresh;
+window.del = del;
+window.toggleAll = toggleAll;
+window.deleteSelected = deleteSelected;
+window.addSingle = addSingle;
+window.addRow = addRow;
+window.uploadRows = uploadRows;
+window.uploadText = uploadText;
+window.loadForwardDialogs = loadForwardDialogs;
+window.addTargetRouteRow = addTargetRouteRow;
+window.removeTargetRouteRow = removeTargetRouteRow;
+window.openEdit = openEdit;
+window.saveEdit = saveEdit;

@@ -1,4 +1,5 @@
-锘縫ublic class MyCollector : IPeerCollector
+// 自定义 Peer 收集器：合并用户/会话缓存，优先保留完整信息。
+public class MyCollector : IPeerCollector
 {
     private readonly IDictionary<long, User> _users;
     private readonly Services.CollectorPeer _inner;
@@ -15,6 +16,7 @@
 
     public void Collect(IEnumerable<TL.User> users)
     {
+        // 合并用户对象：避免 min 对象覆盖已知完整字段。
         lock (_users)
             foreach (var user in users)
                 if (user != null)

@@ -2,9 +2,10 @@
 
 public static class TelegramSetup
 {
+    // 初始化 Telegram 日志与客户端管理服务。
     public static IServiceCollection AddTelegram(this IServiceCollection services)
     {
-        var logDirectory = Path.Combine(AppContext.BaseDirectory, "logs");
+        var logDirectory = AppRuntimePaths.LogsDirectory;
         Directory.CreateDirectory(logDirectory);
 
         if (!Directory.Exists(TelegramMonitorConstants.SessionPath))
@@ -16,6 +17,7 @@ public static class TelegramSetup
 
         WTelegram.Helpers.Log = (lvl, str) =>
         {
+            // 日志按天滚动写入，避免单文件过大。
             var now = DateTime.Now;
             lock (logLock)
             {
@@ -36,7 +38,7 @@ public static class TelegramSetup
 
         static StreamWriter CreateWriterForDate(DateTime date)
         {
-            string logPath = Path.Combine(AppContext.BaseDirectory, "logs", $"{date:yyyy-MM-dd}_Telegram.log");
+            string logPath = Path.Combine(AppRuntimePaths.LogsDirectory, $"{date:yyyy-MM-dd}_Telegram.log");
             return new StreamWriter(logPath, true, Encoding.UTF8) { AutoFlush = true };
         }
     }

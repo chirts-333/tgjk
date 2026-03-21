@@ -1,4 +1,5 @@
-锘縢lobal using Furion;
+// 项目全局 using，避免每个文件重复声明命名空间。
+global using Furion;
 global using Furion.DependencyInjection;
 global using Furion.DynamicApiController;
 global using Furion.FriendlyException;

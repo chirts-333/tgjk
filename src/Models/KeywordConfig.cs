@@ -1,6 +1,7 @@
 ﻿namespace TelegramMonitor
 {
     [SugarTable("KeywordConfig")]
+    // 关键词规则实体：包含匹配方式、动作与展示样式。
     public class KeywordConfig
     {
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
@@ -18,6 +19,18 @@
         [SugarColumn(ColumnName = "KeywordAction")]
         [Description("关键词执行动作")]
         public KeywordAction KeywordAction { get; set; } = KeywordAction.Monitor;
+
+        [SugarColumn(ColumnName = "TargetChatId")]
+        [Description("命中后转发目标群组ID，0表示沿用默认目标")]
+        public long TargetChatId { get; set; } = 0;
+
+        [SugarColumn(ColumnName = "TargetRoutesJson")]
+        [Description("命中后转发目标群组配置JSON")]
+        public string TargetRoutesJson { get; set; } = "[]";
+
+        [SugarColumn(IsIgnore = true)]
+        [Description("命中后转发目标群组配置")]
+        public List<KeywordTargetRoute> TargetRoutes { get; set; } = new();
 
         [SugarColumn(ColumnName = "IsCaseSensitive")]
         [Description("是否区分大小写")]
@@ -54,6 +67,7 @@
 
     public enum KeywordType
     {
+        // 匹配类型决定关键词如何命中消息内容/用户。
         [Description("全字匹配")]
         FullWord = 0,
 
@@ -72,10 +86,29 @@
 
     public enum KeywordAction
     {
+        // 命中后动作：排除或监控。
         [Description("排除")]
         Exclude = 0,
 
         [Description("监控")]
         Monitor = 1
+    }
+
+    public enum KeywordForwardMode
+    {
+        [Description("原格式转发")]
+        Formatted = 0,
+
+        [Description("纯消息内容")]
+        PlainText = 1
+    }
+
+    public class KeywordTargetRoute
+    {
+        public long TargetChatId { get; set; }
+
+        public bool IncludeSource { get; set; } = true;
+
+        public KeywordForwardMode ForwardMode { get; set; } = KeywordForwardMode.Formatted;
     }
 }

@@ -1,0 +1,333 @@
+TGJK 使用说明与部署文档
+=================================
+
+一、项目说明
+---------------------------------
+程序名称：tgjk
+默认监听端口：5005
+后台页面：
+1. Telegram 控制台：http://127.0.0.1:5005/telegram.html
+2. 关键词管理：http://127.0.0.1:5005/keywords.html
+
+程序启动后，如果运行目录中没有 appsettings.json，会自动生成默认配置文件。
+
+
+二、后台页面使用教程
+---------------------------------
+1. 打开 Telegram 控制台
+   在浏览器访问：
+   http://127.0.0.1:5005/telegram.html
+
+2. 登录 Telegram 账号
+   1) 点击“登录 / 重新登录”
+   2) 输入手机号
+   3) 如果提示验证码，就输入验证码
+   4) 如果开启了二步验证，就输入 2FA 密码
+
+3. 设置代理
+   1) 如果不需要代理，保持“跟随系统”即可
+   2) 如果需要 Socks5 或 MTProxy，在代理设置中选择类型并填写地址
+   3) 点击“设置代理”
+
+4. 设置监控目标群
+   1) 点击“加载会话”
+   2) 从下拉框中选择目标群或频道
+   3) 点击“设为目标”
+
+5. 设置关键词
+   打开：
+   http://127.0.0.1:5005/keywords.html
+
+   在这里可以：
+   1) 添加关键词
+   2) 批量导入关键词
+   3) 修改关键词
+   4) 删除关键词
+
+6. 启动关键词监控
+   回到 Telegram 控制台页面，点击“启动监控”
+
+7. 设置关键词命中自动回复
+   在 Telegram 控制台页面的“关键词命中自动回复”区域中：
+   1) 开启“命中后在原会话自动回复”
+   2) 可以填写默认回复模板
+   3) 可以添加多条随机回复模板
+   4) 点击“保存自动回复设置”
+
+   支持占位符：
+   {sender}   发送者名称
+   {keywords} 命中的关键词
+   {chat}     当前群组名称
+
+8. 设置定时群发任务
+   在 Telegram 控制台页面的“定时群发任务”区域中：
+   1) 点击“加载群组列表”
+   2) 勾选多个目标群组
+   3) 设置“群与群之间等待（秒）”
+   4) 设置“整轮发送后最小等待（秒）”
+   5) 设置“整轮发送后最大等待（秒）”
+   6) 添加多条群发模板
+   7) 点击“保存群发任务配置”
+   8) 点击“启动群发任务”
+
+   当前群发逻辑说明：
+   1) 按你勾选的群组顺序逐个发送
+   2) 每发完一个群，等待一次“群与群之间等待”
+   3) 全部群发完后，再在“整轮发送后最小/最大等待”之间随机等待一次
+   4) 然后开始下一轮
+
+
+三、Windows 本地运行方法
+---------------------------------
+方法一：直接运行源码
+
+1. 打开 PowerShell
+2. 进入项目目录：
+   cd "C:\Users\sava\Documents\New project\TelegramMonitor"
+
+3. 运行项目：
+   $env:DOTNET_CLI_HOME="$PWD\.dotnet-cli-home"
+   $env:NUGET_USER_HOME="$PWD\.nuget\user-home"
+   $env:APPDATA="$PWD\.nuget\appdata"
+   $env:NUGET_PACKAGES="$PWD\.nuget\packages"
+   $env:NUGET_HTTP_CACHE_PATH="$PWD\.nuget\http-cache"
+   $env:NUGET_PLUGINS_CACHE_PATH="$PWD\.nuget\plugins-cache"
+   & "$env:USERPROFILE\dotnet\dotnet.exe" run --project .\src\TelegramMonitor.csproj
+
+4. 打开后台：
+   http://127.0.0.1:5005/telegram.html
+   http://127.0.0.1:5005/keywords.html
+
+
+四、Windows 打包方法
+---------------------------------
+1. 进入项目目录：
+   cd "C:\Users\sava\Documents\New project\TelegramMonitor"
+
+2. 发布 Windows x64 单文件版本：
+   & "$env:USERPROFILE\dotnet\dotnet.exe" publish .\src\TelegramMonitor.csproj `
+     -c Release `
+     -r win-x64 `
+     --self-contained true `
+     /p:PublishSingleFile=true `
+     -o .\out\win-x64
+
+3. 发布完成后，可执行文件位置：
+   C:\Users\sava\Documents\New project\TelegramMonitor\out\win-x64\tgjk.exe
+
+4. 运行方式：
+   直接双击 tgjk.exe
+   或在 PowerShell 中运行：
+   .\out\win-x64\tgjk.exe
+
+注意：
+1. 如果你要分发给别人，建议把整个 out\win-x64 文件夹一起打包
+2. 程序首次运行会自动生成 appsettings.json
+3. 如果你以后把前端静态文件做成完全内嵌，可以再进一步只发 exe
+
+
+五、Linux 本地运行方法
+---------------------------------
+前提：服务器或机器中已经安装 .NET 9 SDK 或已使用自包含发布版本
+
+如果是源码运行：
+1. 进入项目目录
+2. 执行：
+   dotnet run --project ./src/TelegramMonitor.csproj
+
+然后访问：
+http://服务器IP:5005/telegram.html
+http://服务器IP:5005/keywords.html
+
+
+六、Linux 打包方法
+---------------------------------
+在 Windows 本地交叉发布 Linux 版本：
+
+1. 进入项目目录：
+   cd "C:\Users\sava\Documents\New project\TelegramMonitor"
+
+2. 发布 Linux x64 自包含单文件版本：
+   & "$env:USERPROFILE\dotnet\dotnet.exe" publish .\src\TelegramMonitor.csproj `
+     -c Release `
+     -r linux-x64 `
+     --self-contained true `
+     /p:PublishSingleFile=true `
+     -o .\out\linux-amd64
+
+3. 发布完成后输出目录：
+   C:\Users\sava\Documents\New project\TelegramMonitor\out\linux-amd64
+
+4. 如果直接上传到 Linux 服务器运行：
+   chmod +x ./tgjk
+   ./tgjk
+
+然后访问：
+http://服务器IP:5005/telegram.html
+http://服务器IP:5005/keywords.html
+
+
+七、Docker 安装文档
+---------------------------------
+1. Ubuntu / Debian 安装 Docker
+   apt update
+   apt install -y docker.io
+   systemctl enable docker
+   systemctl start docker
+
+2. CentOS / Rocky / AlmaLinux 安装 Docker
+   yum install -y docker
+   systemctl enable docker
+   systemctl start docker
+
+3. 验证 Docker 是否安装成功
+   docker --version
+   docker info
+
+
+八、Docker 打包与发布方法
+---------------------------------
+1. 本地进入项目目录：
+   cd "C:\Users\sava\Documents\New project\TelegramMonitor"
+
+2. 先发布 Linux 运行文件：
+   & "$env:USERPROFILE\dotnet\dotnet.exe" publish .\src\TelegramMonitor.csproj `
+     -c Release `
+     -r linux-x64 `
+     --self-contained true `
+     /p:PublishSingleFile=true `
+     -o .\out\linux-amd64
+
+3. 构建 Docker 镜像：
+   docker build -t g3770/tgjk:latest --build-arg TARGETARCH=amd64 .
+
+4. 登录 Docker Hub：
+   docker login
+
+5. 推送镜像：
+   docker push g3770/tgjk:latest
+
+
+九、新环境部署 Docker 的全部命令
+---------------------------------
+以下命令适用于一台全新的 Linux 服务器。
+
+1. 安装 Docker
+   Ubuntu / Debian:
+   apt update
+   apt install -y docker.io
+   systemctl enable docker
+   systemctl start docker
+
+   CentOS / Rocky / AlmaLinux:
+   yum install -y docker
+   systemctl enable docker
+   systemctl start docker
+
+2. 拉取镜像
+   docker pull g3770/tgjk:latest
+
+3. 删除旧容器（如果之前有）
+   docker rm -f tgjk
+
+4. 启动容器
+   docker run -d --name tgjk --restart unless-stopped -p 5055:5005 g3770/tgjk:latest
+
+5. 查看状态
+   docker ps
+   docker logs -f tgjk
+
+6. 浏览器访问后台
+   http://服务器IP:5055/telegram.html
+   http://服务器IP:5055/keywords.html
+
+
+十、常用 Docker 命令
+---------------------------------
+1. 查看容器列表
+   docker ps
+
+2. 查看全部容器
+   docker ps -a
+
+3. 查看日志
+   docker logs -f tgjk
+
+4. 停止容器
+   docker stop tgjk
+
+5. 启动容器
+   docker start tgjk
+
+6. 重启容器
+   docker restart tgjk
+
+7. 删除容器
+   docker rm -f tgjk
+
+8. 查看本地镜像
+   docker images
+
+9. 删除镜像
+   docker rmi g3770/tgjk:latest
+
+
+十一、开放端口说明
+---------------------------------
+程序容器内端口：5005
+服务器映射端口：5055
+
+如果服务器开了防火墙，需要放行 5055 端口。
+
+Ubuntu:
+ufw allow 5055/tcp
+
+CentOS / Rocky / AlmaLinux:
+firewall-cmd --permanent --add-port=5055/tcp
+firewall-cmd --reload
+
+
+十二、常见问题
+---------------------------------
+1. 浏览器打不开后台页面
+   先检查：
+   1) 程序是否已启动
+   2) docker ps 是否看到容器运行中
+   3) docker logs -f tgjk 是否报错
+   4) 防火墙是否放行 5055
+
+2. Docker 启动报找不到 /app/tgjk
+   原因通常是把宿主机目录错误挂载到了 /app，覆盖了镜像内程序文件。
+   正确做法是先不要挂载 /app。
+
+3. 关键词页面或控制台页面空白
+   先强制刷新浏览器缓存：
+   Ctrl + F5
+
+4. 第一次运行缺少配置文件
+   当前版本会自动生成默认 appsettings.json。
+
+5. 登录时报错
+   建议先检查：
+   1) 手机号格式是否正确
+   2) 是否重复点击登录按钮
+   3) 代理是否可用
+   4) 当前网络是否能访问 Telegram
+
+
+十三、推荐发布文件
+---------------------------------
+你后续建议保留三种发布方式：
+
+1. Windows 可执行版
+   目录：out\win-x64
+   用途：给 Windows 用户直接运行
+
+2. Linux 可执行版
+   目录：out\linux-amd64
+   用途：直接上传 Linux 服务器运行
+
+3. Docker 镜像版
+   镜像：g3770/tgjk:latest
+   用途：最适合云服务器和长期稳定部署
+

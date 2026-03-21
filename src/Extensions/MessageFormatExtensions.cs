@@ -2,6 +2,7 @@
 
 public static class MessageFormatExtensions
 {
+    // Telegram MarkdownV2 保留字符集合，发送前需要转义。
     private static readonly char[] MdV2Reserved = new[] {
     '_','*','[',']','(',')','~','`','>','#','+','-','=','|','{','}','.','!'};
 
@@ -17,37 +18,40 @@ public static class MessageFormatExtensions
         return sb.ToString();
     }
 
+    // 把命中消息格式化为可直接转发的监控文本。
     public static string FormatForMonitor(this Message message,
         SendMessageEntity sendMessageEntity,
         IReadOnlyList<KeywordConfig> hitKeywords,
-        string ad = null)
+        bool includeSource = true)
     {
+        // 样式来自命中关键词的合并结果（粗体、斜体、剧透等）。
         var mergedStyle = MergeKeywordStyles(hitKeywords);
         var styledText = ApplyStylesToText(message.message, mergedStyle);
-
-        var adSection = !string.IsNullOrWhiteSpace(ad)
-               ? $"*{ad}*"
-               : string.Empty;
 
         var keywordList = string.Join(", ",
             hitKeywords.Select(k => $"\\#{EscapeMdV2(k.KeywordContent)}"));
 
         var sb = new StringBuilder()
         .AppendLine($"内容：{styledText}")
-        .AppendLine($"发送ID：`{sendMessageEntity.SendId}`")
-        .AppendLine($"发送方：[{sendMessageEntity.SendTitle}](tg://user?id={sendMessageEntity.SendId})   {sendMessageEntity.SendUserNames.JoinUsernames()}")
-        .AppendLine($"来源：`{sendMessageEntity.FromTitle}`    {sendMessageEntity.FromUserNames.JoinUsernames()}")
-        .AppendLine($"时间：`{message.Date.AddHours(8):yyyy-MM-dd HH:mm:ss}`")
-        .AppendLine($"链接：[【直达】](https://t.me/{sendMessageEntity.FromMainUserName ?? $"c/{sendMessageEntity.FromId}"}/{message.id})")
-        .AppendLine($"*命中关键词：* {keywordList}")
-        .AppendLine("`--------------------------------`")
-        .Append(adSection);
+        .AppendLine($"时间：`{message.Date.AddHours(8):yyyy-MM-dd HH:mm:ss}`");
+
+        if (includeSource)
+        {
+            sb.AppendLine($"发送ID：`{sendMessageEntity.SendId}`")
+              .AppendLine($"发送方：[{sendMessageEntity.SendTitle}](tg://user?id={sendMessageEntity.SendId})   {sendMessageEntity.SendUserNames.JoinUsernames()}")
+              .AppendLine($"来源：`{sendMessageEntity.FromTitle}`    {sendMessageEntity.FromUserNames.JoinUsernames()}")
+              .AppendLine($"链接：[【直达】](https://t.me/{sendMessageEntity.FromMainUserName ?? $"c/{sendMessageEntity.FromId}"}/{message.id})");
+        }
+
+        sb.AppendLine($"*命中关键词：* {keywordList}")
+          .AppendLine("`--------------------------------`");
         return sb.ToString();
     }
 
     private static KeywordConfig MergeKeywordStyles(IEnumerable<KeywordConfig> list)
     {
         var merged = new KeywordConfig();
+        // 只要任意规则开启该样式，则最终样式开启。
         foreach (var k in list)
         {
             merged.IsBold |= k.IsBold;
@@ -72,6 +76,7 @@ public static class MessageFormatExtensions
         {
             if (cfg.IsBold) result = $"*{result}*";
 
+            // Telegram 特例：斜体+下划线需按指定顺序拼接。
             if (cfg.IsItalic && cfg.IsUnderline)
             {
                 result = $"___{result}_**__";
@@ -93,6 +98,7 @@ public static class MessageFormatExtensions
 
     private static readonly Regex _phoneRegex = new(@"^\+\d{6,15}$", RegexOptions.Compiled);
 
+    // 手机号校验为 E.164 形式（+国家码+号码）。
     public static bool IsE164Phone(this string? phone)
         => !string.IsNullOrWhiteSpace(phone) && _phoneRegex.IsMatch(phone);
 }

@@ -2,9 +2,13 @@
 
 public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 {
+    // 统一日志入口，便于追踪登录、拉取消息、发送失败等关键路径。
     private readonly ILogger<TelegramClientManager> _logger;
+    // WTelegram 客户端，负责实际与 Telegram 服务器通信。
     private Client _client;
+    // 更新流管理器，用于持续接收 Update（新消息、编辑、状态变化等）。
     private UpdateManager _manager;
+    // 关键词配置服务（数据库读写）。
     private readonly SystemCacheServices _systemCacheServices;
 
     private string _phone;
@@ -13,10 +17,16 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
     private Client.TcpFactory _directTcp;
     private long _sendChatId;
     private volatile bool _running;
+    private readonly SemaphoreSlim _loginSemaphore = new(1, 1);
+    private CancellationTokenSource _groupMessageTaskCts;
+    private Task _groupMessageTask;
+    private volatile bool _groupMessageTaskRunning;
 
     public readonly Dictionary<long, User> _users = new Dictionary<long, User>();
     public readonly Dictionary<long, ChatBase> _chats = new Dictionary<long, ChatBase>();
+    // 只有“正在运行 + 已登录”才视为监控中。
     public bool IsMonitoring => _running && IsLoggedIn;
+    public bool IsGroupMessageTaskRunning => _groupMessageTaskRunning;
     public bool IsLoggedIn => _client is { Disconnected: false } && _client.User != null;
     public string GetPhone => _phone ?? string.Empty;
 
@@ -36,11 +46,16 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 
     public async Task<LoginState> LoginAsync(string phoneNumber, string loginInfo)
     {
-        phoneNumber = (phoneNumber ?? string.Empty).Replace(" ", "").Trim();
-        loginInfo = (loginInfo ?? string.Empty).Replace(" ", "").Trim();
+        await _loginSemaphore.WaitAsync();
+        try
+        {
+        // 手机号允许去掉空格，但验证码/2FA 密码必须原样保留，避免破坏真实输入。
+        phoneNumber = NormalizePhoneNumber(phoneNumber);
+        loginInfo = loginInfo ?? string.Empty;
         if (!phoneNumber.IsE164Phone())
             throw new ArgumentException("手机号码格式不正确", nameof(phoneNumber));
 
+        // 切换账号时，销毁旧客户端与旧 UpdateManager，避免会话混用。
         if (phoneNumber != _phone && _client != null)
         {
             await _client.DisposeAsync();
@@ -52,9 +67,12 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 
         EnsureClientCreated();
         ApplyProxy();
-        var firstArg = string.IsNullOrWhiteSpace(loginInfo) ? phoneNumber : loginInfo;
+        // 首次登录传手机号，后续步骤传验证码/2FA 密码。
+        var firstArg = string.IsNullOrEmpty(loginInfo) ? phoneNumber : loginInfo;
         var result = await _client.Login(firstArg);
+        _logger.LogInformation("登录流程返回状态: {LoginResult}", result ?? "<logged-in>");
 
+        // Telegram 可能要求补充 name，这里自动填固定值继续流程。
         while (result is "name")
             result = await _client.Login("by riniba");
 
@@ -65,23 +83,66 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
             null => IsLoggedIn ? LoginState.LoggedIn : LoginState.NotLoggedIn,
             _ => LoginState.NotLoggedIn
         };
+        }
+        finally
+        {
+            _loginSemaphore.Release();
+        }
     }
 
     public async Task<LoginState> ConnectAsync(string phoneNumber)
     {
-        await _client.LoginUserIfNeeded();
-        if (IsLoggedIn)
+        await _loginSemaphore.WaitAsync();
+        try
         {
-            return LoginState.LoggedIn;
+            phoneNumber = NormalizePhoneNumber(phoneNumber);
+            if (!phoneNumber.IsE164Phone())
+                throw new ArgumentException("手机号码格式不正确", nameof(phoneNumber));
+
+            if (phoneNumber != _phone && _client != null)
+            {
+                await _client.DisposeAsync();
+                _client = null;
+                _manager = null;
+            }
+
+            _phone = phoneNumber;
+
+            EnsureClientCreated();
+            ApplyProxy();
+
+            await _client.LoginUserIfNeeded();
+            if (IsLoggedIn)
+            {
+                return LoginState.LoggedIn;
+            }
+            else
+            {
+                var result = await _client.Login(phoneNumber);
+                while (result is "name")
+                    result = await _client.Login("by riniba");
+
+                return result switch
+                {
+                    "verification_code" => LoginState.WaitingForVerificationCode,
+                    "password" => LoginState.WaitingForPassword,
+                    null => IsLoggedIn ? LoginState.LoggedIn : LoginState.NotLoggedIn,
+                    _ => LoginState.NotLoggedIn
+                };
+            }
         }
-        else
+        finally
         {
-            return await LoginAsync(phoneNumber, string.Empty);
+            _loginSemaphore.Release();
         }
     }
 
     public async Task<LoginState> SetProxyAsync(ProxyType type, string url)
     {
+        await _loginSemaphore.WaitAsync();
+        try
+        {
+        // 先保存配置，再按当前连接状态决定是否立即重建连接。
         _proxyType = type;
         _proxyUrl = url;
 
@@ -95,6 +156,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 
         string phone = _phone;
 
+        // 已登录时切换代理：重建客户端，确保底层连接参数生效。
         await _client.DisposeAsync();
         _client = null;
         _manager = null;
@@ -113,10 +175,18 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
             null => IsLoggedIn ? LoginState.LoggedIn : LoginState.NotLoggedIn,
             _ => LoginState.NotLoggedIn
         };
+        }
+        finally
+        {
+            _loginSemaphore.Release();
+        }
     }
 
     public async Task<Client> GetClientAsync()
     {
+        if (_client == null)
+            throw new InvalidOperationException("未登录");
+
         if (_client.Disconnected) await _client.Login(_phone);
         if (!IsLoggedIn) throw new InvalidOperationException("未登录");
 
@@ -128,6 +198,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
         if (_client == null)
             throw new InvalidOperationException("未登录");
 
+        // 拉全量会话并筛选“活跃且具备发言权限”的目标。
         var dialogs = await _client.Messages_GetAllDialogs();
 
         var availableChats = dialogs.chats.Values
@@ -143,6 +214,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 
     public async Task<MonitorStartResult> StartTaskAsync()
     {
+        // 未设置转发目标群时，禁止启动监控。
         if (_sendChatId == 0) return MonitorStartResult.MissingTarget;
         if (!IsLoggedIn) return MonitorStartResult.Error;
         if (IsMonitoring) return MonitorStartResult.AlreadyRunning;
@@ -168,6 +240,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 
     public async Task StopTaskAsync()
     {
+        // 停止后重建登录态，避免 UpdateManager 仍持有旧状态。
         _running = false;
         if (_manager != null)
         {
@@ -179,8 +252,78 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
         _logger.LogError("主动停止监控");
     }
 
+    public async Task<GroupMessageTaskStartResult> StartGroupMessageTaskAsync()
+    {
+        if (!IsLoggedIn) return GroupMessageTaskStartResult.NotLoggedIn;
+        if (_groupMessageTaskRunning) return GroupMessageTaskStartResult.AlreadyRunning;
+
+        var cfg = await _systemCacheServices.GetGroupMessageTaskConfigAsync();
+        var targetChatIds = _systemCacheServices.GetGroupMessageTargetChatIds(cfg);
+        var templates = _systemCacheServices.GetGroupMessageTemplates(cfg);
+
+        if (targetChatIds.Count == 0) return GroupMessageTaskStartResult.MissingTargets;
+        if (templates.Count == 0) return GroupMessageTaskStartResult.MissingTemplates;
+        if (cfg.PerGroupIntervalSeconds <= 0 ||
+            cfg.MinIntervalSeconds <= 0 ||
+            cfg.MaxIntervalSeconds < cfg.MinIntervalSeconds)
+            return GroupMessageTaskStartResult.InvalidConfig;
+
+        try
+        {
+            await EnsureDialogsCacheLoadedAsync();
+
+            _groupMessageTaskCts?.Cancel();
+            _groupMessageTaskCts?.Dispose();
+            _groupMessageTaskCts = new CancellationTokenSource();
+            _groupMessageTaskRunning = true;
+
+            _groupMessageTask = RunGroupMessageTaskLoopAsync(_groupMessageTaskCts.Token);
+            _logger.LogInformation("群发任务启动成功");
+            return GroupMessageTaskStartResult.Started;
+        }
+        catch (Exception ex)
+        {
+            _groupMessageTaskRunning = false;
+            _logger.LogError(ex, "群发任务启动失败");
+            return GroupMessageTaskStartResult.Error;
+        }
+    }
+
+    public async Task StopGroupMessageTaskAsync()
+    {
+        var cts = _groupMessageTaskCts;
+        _groupMessageTaskRunning = false;
+        _groupMessageTaskCts = null;
+
+        if (cts == null) return;
+
+        try
+        {
+            await cts.CancelAsync();
+        }
+        catch
+        {
+        }
+
+        try
+        {
+            if (_groupMessageTask != null)
+                await _groupMessageTask;
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        finally
+        {
+            cts.Dispose();
+            _groupMessageTask = null;
+            _logger.LogInformation("群发任务已停止");
+        }
+    }
+
     public async ValueTask DisposeAsync()
     {
+        await StopGroupMessageTaskAsync();
         if (_client != null) await _client.DisposeAsync();
         _client = null;
         _manager = null;
@@ -189,18 +332,33 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
     private UpdateManager GetUpdateManagerAsync(Func<Update, Task> onUpdate)
     {
         if (_manager != null) return _manager;
+        // 自定义 collector 负责持续维护 _users/_chats 的最新视图。
         _manager = _client.WithUpdateManager(onUpdate, collector: new MyCollector(_users, _chats));
         return _manager;
+    }
+
+    private async Task EnsureDialogsCacheLoadedAsync()
+    {
+        if (!IsLoggedIn) return;
+
+        var dialogs = await _client.Messages_GetAllDialogs();
+        dialogs.CollectUsersChats(_users, _chats);
     }
 
     private void EnsureClientCreated()
     {
         if (_client != null) return;
+        // session 文件以手机号命名，支持多账号隔离。
         _client = new Client(
             TelegramMonitorConstants.ApiId,
             TelegramMonitorConstants.ApiHash,
             Path.Combine(TelegramMonitorConstants.SessionPath, $"{_phone}.session"));
         _directTcp = _client.TcpHandler;
+    }
+
+    private static string NormalizePhoneNumber(string phoneNumber)
+    {
+        return (phoneNumber ?? string.Empty).Replace(" ", string.Empty).Trim();
     }
 
     private void ApplyProxy()
@@ -210,6 +368,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
         switch (_proxyType)
         {
             case ProxyType.Socks5:
+                // Socks5 通过自定义 TcpHandler 接管底层连接。
                 _client.TcpHandler = (host, port) =>
                 {
                     var p = Socks5ProxyClient.Parse(_proxyUrl);
@@ -219,6 +378,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
                 break;
 
             case ProxyType.MTProxy:
+                // MTProxy 走官方字段，TCP 回退到默认直连处理器。
                 _client.MTProxyUrl = _proxyUrl;
                 _client.TcpHandler = _directTcp;
                 break;
@@ -244,6 +404,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 
     private async Task EnsureUsersAndChatsFromMessageAsync(Message message)
     {
+        // 对“min”对象做补全，避免用户名/标题缺失导致解析失败。
         if (message.From is PeerUser peerUser)
         {
             try
@@ -313,6 +474,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
     {
         try
         {
+            // 按 Update 类型分发，核心只对新消息做业务处理，其它主要记录日志。
             switch (update)
             {
                 case UpdateNewMessage unm:
@@ -406,6 +568,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 
     private static bool CanSendMessagesFast(ChatBase chat)
     {
+        // 仅做快速权限判定，避免把无法发消息的会话放进目标列表。
         switch (chat)
         {
             case Chat small:
@@ -453,11 +616,13 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
 
     private async Task HandleTelegramMessageAsync(TL.Message message)
     {
+        // 空文本（纯媒体等）直接跳过。
         if (string.IsNullOrWhiteSpace(message.message))
         {
             return;
         }
         var keywords = await _systemCacheServices.GetKeywordsAsync() ?? new List<KeywordConfig>();
+        // 先做正文关键词匹配。
         var matchedKeywords = KeywordMatchExtensions.MatchText(message.message, keywords);
 
         if (matchedKeywords.Any(k => k.KeywordAction == KeywordAction.Exclude))
@@ -476,7 +641,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
             return;
         }
 
-    if (message.Peer is null)
+        if (message.Peer is null)
         {
             _logger.LogWarning("消息 {MessageId} 没有 Peer 信息，无法处理", message.ID);
             return;
@@ -501,6 +666,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
             sendEntity.SendUserNames?.ToList() ?? new List<string>(),
             keywords);
 
+        // 用户关键词优先级高于正文关键词：命中用户监控规则则覆盖正文规则。
         if (matchedUserKeywords.Any(k => k.KeywordAction == KeywordAction.Exclude))
         {
             _logger.LogInformation(" (ID:{Uid}) 在排除列表内，跳过", sendEntity.SendId);
@@ -511,17 +677,15 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
             ? (IReadOnlyList<KeywordConfig>)matchedUserKeywords
             : matchedKeywords;
 
-        var msgContent = message.FormatForMonitor(
-            sendEntity,
-            finalKeywords, _systemCacheServices.GetAdvertisement());
-
-        await SendMonitorMessageAsync(message, msgContent);
+        await SendMonitorMessagesAsync(message, sendEntity, finalKeywords);
+        await SendInChatKeywordReplyAsync(message, sendEntity, finalKeywords);
     }
 
     private SendMessageEntity? BuildSendEntity(TL.Message message)
     {
         if (message.Peer is null) return null;
 
+        // 先解析“消息来源会话”（群/频道/私聊对象）。
         if (!TryResolvePeer(message.Peer, out var fromId, out var fromTitle, out var fromMain, out var fromUserNames))
         {
             return null;
@@ -530,6 +694,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
         long sendId; string sendTitle; string sendMain; IEnumerable<string> sendUserNames;
         if (message.From is null)
         {
+            // 某些频道贴文没有 From，按频道自身作为发送者处理。
             var isChannelPostFlag = message.flags.HasFlag(TL.Message.Flags.post);
             var isBroadcastChannel =
                 _chats.TryGetValue(fromId, out var fromChat)
@@ -545,6 +710,7 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
             }
             else if (message.Peer is TL.PeerUser && message.flags.HasFlag(TL.Message.Flags.out_))
             {
+                // 私聊中本机主动发出的消息：发送者应映射为当前登录用户。
                 var me = _client.User;
                 if (me is null) return null;
 
@@ -579,26 +745,61 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
         };
     }
 
-    private async Task SendMonitorMessageAsync(Message originalMessage, string content)
+    private async Task SendMonitorMessagesAsync(
+        Message originalMessage,
+        SendMessageEntity sendEntity,
+        IReadOnlyList<KeywordConfig> finalKeywords)
+    {
+        var routePlans = BuildForwardPlans(finalKeywords);
+        foreach (var plan in routePlans)
+        {
+            await SendMonitorMessageAsync(originalMessage, sendEntity, plan);
+        }
+    }
+
+    private async Task SendMonitorMessageAsync(
+        Message originalMessage,
+        SendMessageEntity sendEntity,
+        MonitorForwardPlan plan)
     {
         try
         {
-            long sendChatId = _sendChatId;
-            if (sendChatId == 0)
+            if (plan.TargetChatId == 0)
             {
-                _logger.LogWarning("未设置发送目标");
+                _logger.LogWarning("监控消息未设置发送目标");
                 return;
             }
 
-            var chat = _chats.GetValueOrDefault(sendChatId);
+            var chat = _chats.GetValueOrDefault(plan.TargetChatId);
             if (chat == null)
             {
-                _logger.LogWarning("无法找到 ID 为 {Id} 的发送目标", sendChatId);
+                _logger.LogWarning("无法找到 ID 为 {Id} 的发送目标", plan.TargetChatId);
                 return;
             }
+
+            if (plan.ForwardMode == KeywordForwardMode.PlainText)
+            {
+                var plainText = originalMessage.message?.Trim();
+                if (string.IsNullOrWhiteSpace(plainText))
+                {
+                    _logger.LogWarning("监控消息原文为空，无法执行纯消息内容转发");
+                    return;
+                }
+
+                await _client.SendMessageAsync(
+                    chat,
+                    plainText,
+                    preview: Client.LinkPreview.Disabled,
+                    media: originalMessage.media?.ToInputMedia());
+                return;
+            }
+
+            var content = originalMessage.FormatForMonitor(sendEntity, plan.Keywords, plan.IncludeSource);
+            // 使用 Markdown 实体，保留关键词样式和消息链接。
             var entities = _client.MarkdownToEntities(ref content, users: _users);
             await _client.SendMessageAsync(
-                chat, content,
+                chat,
+                content,
                 preview: Client.LinkPreview.Disabled,
                 entities: entities,
                 media: originalMessage.media?.ToInputMedia());
@@ -609,11 +810,251 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
         }
     }
 
+    private List<MonitorForwardPlan> BuildForwardPlans(IReadOnlyList<KeywordConfig> finalKeywords)
+    {
+        var routes = finalKeywords
+            .Where(k => k.KeywordAction == KeywordAction.Monitor)
+            .SelectMany(keyword => GetKeywordTargetRoutes(keyword)
+                .Select(route => new
+                {
+                    route.TargetChatId,
+                    route.IncludeSource,
+                    route.ForwardMode,
+                    Keyword = keyword
+                }))
+            .ToList();
+
+        var plans = routes
+            .GroupBy(item => new
+            {
+                item.TargetChatId,
+                item.IncludeSource,
+                item.ForwardMode
+            })
+            .Select(g => new MonitorForwardPlan(
+                g.Key.TargetChatId,
+                g.Key.IncludeSource,
+                g.Key.ForwardMode,
+                g.Select(x => x.Keyword).ToList()))
+            .Where(p => p.TargetChatId != 0)
+            .ToList();
+
+        if (plans.Count == 0 && finalKeywords.Any(k => k.KeywordAction == KeywordAction.Monitor))
+        {
+            _logger.LogWarning("命中监控关键词，但当前没有可用的转发目标");
+        }
+
+        return plans;
+    }
+
+    private IEnumerable<KeywordTargetRoute> GetKeywordTargetRoutes(KeywordConfig keyword)
+    {
+        if (keyword.TargetRoutes?.Count > 0)
+            return keyword.TargetRoutes;
+
+        if (keyword.TargetChatId != 0)
+        {
+            return new[]
+            {
+                new KeywordTargetRoute
+                {
+                    TargetChatId = keyword.TargetChatId,
+                    IncludeSource = true
+                }
+            };
+        }
+
+        if (_sendChatId == 0)
+            return Enumerable.Empty<KeywordTargetRoute>();
+
+        return new[]
+        {
+            new KeywordTargetRoute
+            {
+                TargetChatId = _sendChatId,
+                IncludeSource = true
+            }
+        };
+    }
+
+    private async Task SendInChatKeywordReplyAsync(
+        Message originalMessage,
+        SendMessageEntity sendEntity,
+        IReadOnlyList<KeywordConfig> finalKeywords)
+    {
+        var replyConfig = await _systemCacheServices.GetMonitorReplyConfigAsync();
+        if (!replyConfig.EnableInChatReply) return;
+
+        if (originalMessage.Peer is null)
+        {
+            _logger.LogWarning("原消息无 Peer，无法在原会话回复");
+            return;
+        }
+
+        var currentChat = UserOrChat(originalMessage.Peer);
+        if (currentChat is null)
+        {
+            _logger.LogWarning("无法解析原会话，无法执行自动回复");
+            return;
+        }
+
+        var templates = _systemCacheServices.GetReplyTemplates(replyConfig);
+        var replyText = BuildInChatReplyText(sendEntity, finalKeywords, replyConfig, templates);
+        if (string.IsNullOrWhiteSpace(replyText))
+        {
+            _logger.LogWarning("自动回复内容为空，跳过发送");
+            return;
+        }
+
+        try
+        {
+            await _client.SendMessageAsync(
+                currentChat.ToInputPeer(),
+                replyText,
+                reply_to_msg_id: originalMessage.id);
+            _logger.LogInformation(
+                "已在原会话 {ChatTitle}(ID:{ChatId}) 回复命中消息发送者 {SenderTitle}(ID:{SenderId})",
+                sendEntity.FromTitle, sendEntity.FromId, sendEntity.SendTitle, sendEntity.SendId);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "在原会话自动回复失败");
+        }
+    }
+
+    private string BuildInChatReplyText(
+        SendMessageEntity sendEntity,
+        IReadOnlyList<KeywordConfig> finalKeywords,
+        MonitorReplyConfig replyConfig,
+        IReadOnlyList<string> templates)
+    {
+        string template = replyConfig.DefaultReplyTemplate;
+        if (replyConfig.UseRandomReplyTemplate && templates.Count > 0)
+        {
+            template = templates[Random.Shared.Next(templates.Count)];
+        }
+
+        if (string.IsNullOrWhiteSpace(template))
+        {
+            template = "收到，{sender}，你的消息命中了关键词：{keywords}";
+        }
+
+        var sender = string.IsNullOrWhiteSpace(sendEntity.SendTitle)
+            ? $"ID:{sendEntity.SendId}"
+            : sendEntity.SendTitle;
+
+        var keywords = string.Join(",",
+            finalKeywords
+                .Select(k => k.KeywordContent?.Trim())
+                .Where(k => !string.IsNullOrWhiteSpace(k))
+                .Distinct(StringComparer.OrdinalIgnoreCase));
+
+        return template
+            .Replace("{sender}", sender)
+            .Replace("{keywords}", keywords)
+            .Replace("{chat}", sendEntity.FromTitle ?? string.Empty);
+    }
+
+    private async Task RunGroupMessageTaskLoopAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var cfg = await _systemCacheServices.GetGroupMessageTaskConfigAsync();
+                var targetChatIds = _systemCacheServices.GetGroupMessageTargetChatIds(cfg);
+                var templates = _systemCacheServices.GetGroupMessageTemplates(cfg);
+
+                if (!IsLoggedIn)
+                {
+                    _logger.LogWarning("群发任务检测到当前账号未登录，本轮跳过");
+                }
+                else if (targetChatIds.Count == 0 || templates.Count == 0)
+                {
+                    _logger.LogWarning("群发任务缺少目标群组或模板，本轮跳过");
+                }
+                else
+                {
+                    await EnsureDialogsCacheLoadedAsync();
+                    await SendRandomTemplateToChatsAsync(
+                        targetChatIds,
+                        templates,
+                        cfg.PerGroupIntervalSeconds,
+                        cancellationToken);
+                }
+
+                int delaySeconds = Random.Shared.Next(cfg.MinIntervalSeconds, cfg.MaxIntervalSeconds + 1);
+                _logger.LogInformation("群发任务本轮结束，等待 {DelaySeconds} 秒后开始下一轮", delaySeconds);
+                await Task.Delay(TimeSpan.FromSeconds(delaySeconds), cancellationToken);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "群发任务循环异常退出");
+        }
+        finally
+        {
+            _groupMessageTaskRunning = false;
+        }
+    }
+
+    private async Task SendRandomTemplateToChatsAsync(
+        IReadOnlyCollection<long> targetChatIds,
+        IReadOnlyList<string> templates,
+        int perGroupIntervalSeconds,
+        CancellationToken cancellationToken)
+    {
+        var chatIds = targetChatIds.ToList();
+        for (int index = 0; index < chatIds.Count; index++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var chatId = chatIds[index];
+
+            var chat = _chats.GetValueOrDefault(chatId);
+            if (chat == null)
+            {
+                _logger.LogWarning("群发任务找不到会话 {ChatId}，跳过", chatId);
+            }
+            else if (!CanSendMessages(chat))
+            {
+                _logger.LogWarning("群发任务对会话 {ChatId} 无发送权限，跳过", chatId);
+            }
+            else
+            {
+                var text = templates[Random.Shared.Next(templates.Count)];
+                if (!string.IsNullOrWhiteSpace(text))
+                {
+                    try
+                    {
+                        await _client.SendMessageAsync(chat.ToInputPeer(), text.Trim());
+                        _logger.LogInformation("群发任务已向 {ChatTitle}(ID:{ChatId}) 发送消息", chat.Title, chat.ID);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "群发任务向 {ChatId} 发送消息失败", chatId);
+                    }
+                }
+            }
+
+            if (index < chatIds.Count - 1)
+            {
+                _logger.LogInformation(
+                    "群发任务等待 {DelaySeconds} 秒后发送下一个群组",
+                    perGroupIntervalSeconds);
+                await Task.Delay(TimeSpan.FromSeconds(perGroupIntervalSeconds), cancellationToken);
+            }
+        }
+    }
+
     private bool TryResolvePeer(
         TL.Peer peer,
         out long id, out string title,
         out string mainUserName, out IEnumerable<string> allUserNames)
     {
+        // 把不同 Peer 类型统一解析为“可展示 + 可匹配”的实体信息。
         id = 0; title = null; mainUserName = null; allUserNames = [];
         if (peer is null) return false;
 
@@ -662,4 +1103,10 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
         }
         return false;
     }
+
+    private sealed record MonitorForwardPlan(
+        long TargetChatId,
+        bool IncludeSource,
+        KeywordForwardMode ForwardMode,
+        IReadOnlyList<KeywordConfig> Keywords);
 }

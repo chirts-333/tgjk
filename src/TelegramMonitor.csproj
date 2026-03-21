@@ -2,11 +2,13 @@
 
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
+		<AssemblyName>tgjk</AssemblyName>
 		<Nullable>disable</Nullable>
 		<NoWarn>1701;1702;1591;8632</NoWarn>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>	
 		<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
 		<CopyOutputSymbolsToPublishDirectory>true</CopyOutputSymbolsToPublishDirectory>

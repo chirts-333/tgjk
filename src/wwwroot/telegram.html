@@ -30,8 +30,10 @@
     </style>
 </head>
 <body class="p-6 bg-base-200">
+    <!-- 操作提示区。 -->
     <div id="toast" class="toast toast-top toast-center"></div>
 
+    <!-- 登录流程弹窗（手机号 -> 验证码/2FA）。 -->
     <dialog id="loginModal" class="modal">
         <div class="modal-box space-y-3">
             <h3 id="loginTitle" class="font-bold text-lg">手机号登录</h3>
@@ -46,6 +48,7 @@
         <h1 class="text-2xl font-bold mb-6">Telegram 控制台</h1>
         <button id="btnLogin" class="btn btn-primary mb-4" onclick="openLogin()">登录 / 重新登录</button>
 
+        <!-- 代理设置卡片。 -->
         <div class="card bg-base-100 shadow-xl mb-4">
             <div class="card-body">
                 <h2 class="card-title">代理设置</h2>
@@ -61,6 +64,7 @@
             </div>
         </div>
 
+        <!-- 目标会话设置卡片。 -->
         <div class="card bg-base-100 shadow-xl mb-4">
             <div class="card-body">
                 <h2 class="card-title">目标群设置</h2>
@@ -72,6 +76,7 @@
             </div>
         </div>
 
+        <!-- 监控启停卡片。 -->
         <div class="card bg-base-100 shadow-xl mb-4">
             <div class="card-body">
                 <h2 class="card-title">监控控制</h2>
@@ -81,25 +86,113 @@
                 </div>
             </div>
         </div>
+
+        <div class="card bg-base-100 shadow-xl mb-4">
+            <div class="card-body">
+                <h2 class="card-title">关键词命中自动回复</h2>
+                <div class="grid gap-3">
+                    <label class="label cursor-pointer justify-start gap-3">
+                        <input id="enableInChatReply" type="checkbox" class="toggle toggle-primary">
+                        <span class="label-text">开启命中后在原会话自动回复</span>
+                    </label>
+
+                    <label class="label cursor-pointer justify-start gap-3">
+                        <input id="useRandomReplyTemplate" type="checkbox" class="toggle toggle-secondary">
+                        <span class="label-text">从模板池随机回复</span>
+                    </label>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">默认回复模板</span>
+                        </label>
+                        <textarea id="defaultReplyTemplate" class="textarea textarea-bordered h-24" placeholder="例如：收到，{sender}，你的消息命中了关键词：{keywords}"></textarea>
+                        <label class="label">
+                            <span class="label-text-alt">占位符：{sender}、{keywords}、{chat}</span>
+                        </label>
+                    </div>
+
+                    <div class="divider my-1">随机模板池</div>
+
+                    <div class="flex gap-2">
+                        <input id="newReplyTemplate" class="input input-bordered flex-1" placeholder="输入一条随机回复模板">
+                        <button class="btn btn-outline" onclick="addReplyTemplate()">添加模板</button>
+                    </div>
+
+                    <div id="replyTemplateList" class="space-y-2"></div>
+
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-primary" onclick="saveReplyConfig()">保存自动回复设置</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl mb-4">
+            <div class="card-body">
+                <h2 class="card-title">定时群发任务</h2>
+                <div class="grid gap-4">
+                    <div class="flex flex-wrap gap-2 items-center">
+                        <button id="btnLoadGroupTaskDialogs" class="btn btn-sm" onclick="loadGroupTaskDialogs()" disabled>加载群组列表</button>
+                        <button id="btnStartGroupTask" class="btn btn-success" onclick="startGroupTask()" disabled>启动群发任务</button>
+                        <button id="btnStopGroupTask" class="btn btn-error" onclick="stopGroupTask()" disabled>停止群发任务</button>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">群发目标群组</span>
+                        </label>
+                        <div id="groupTaskDialogList" class="max-h-64 overflow-y-auto rounded-lg border bg-base-200 p-3 space-y-2"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">群与群之间等待（秒）</span>
+                            </label>
+                            <input id="groupTaskPerGroupInterval" type="number" min="1" class="input input-bordered" value="30">
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">整轮发送后最小等待（秒）</span>
+                            </label>
+                            <input id="groupTaskMinInterval" type="number" min="5" class="input input-bordered" value="300">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">整轮发送后最大等待（秒）</span>
+                            </label>
+                            <input id="groupTaskMaxInterval" type="number" min="5" class="input input-bordered" value="600">
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">发送节奏说明</span>
+                            </label>
+                            <div class="rounded-lg border bg-base-200 px-4 py-3 text-sm opacity-80">
+                                每个群按顺序发送。发完一个群后，等待“群与群之间等待”；全部群发完后，再在整轮等待区间内随机等待一次。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider my-1">群发模板库</div>
+
+                    <div class="flex gap-2">
+                        <input id="newGroupTaskTemplate" class="input input-bordered flex-1" placeholder="输入一条群发消息模板">
+                        <button class="btn btn-outline" onclick="addGroupTaskTemplate()">添加模板</button>
+                    </div>
+
+                    <div id="groupTaskTemplateList" class="space-y-2"></div>
+
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-primary" onclick="saveGroupTaskConfig()">保存群发任务配置</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="telegram.js"></script>
-    <script>
-        function proxyTypeChanged() {
-            const proxyType = document.getElementById('proxyType').value;
-            const proxyUrl = document.getElementById('proxyUrl');
-            
-            if (proxyType === '0') {
-                proxyUrl.disabled = true;
-                proxyUrl.placeholder = "选择代理类型后输入...";
-            } else if (proxyType === '1') {
-                proxyUrl.disabled = false;
-                proxyUrl.placeholder = "格式: host:port 或 host:port:username:password";
-            } else if (proxyType === '2') {
-                proxyUrl.disabled = false;
-                proxyUrl.placeholder = "格式: http://t.me/proxy...";
-            }
-        }
-    </script>
 </body>
 </html>

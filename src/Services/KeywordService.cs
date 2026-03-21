@@ -2,6 +2,7 @@ namespace TelegramMonitor;
 
 public class KeywordService : IDynamicApiController, ITransient
 {
+    // 关键词管理 API：提供增删改查和批量操作。
     private readonly SystemCacheServices _cache;
 
     public KeywordService(SystemCacheServices cache) => _cache = cache;
