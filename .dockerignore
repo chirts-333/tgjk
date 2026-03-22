@@ -1,0 +1,15 @@
+.git
+.github
+.vs
+.vscode
+bin
+obj
+.nuget
+.dotnet-cli-home
+src/bin
+src/obj
+src/*.db
+src/*.db-shm
+src/*.db-wal
+src/logs
+src/session

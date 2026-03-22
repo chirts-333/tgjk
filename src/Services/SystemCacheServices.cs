@@ -1,10 +1,9 @@
+using Microsoft.Data.Sqlite;
+
 namespace TelegramMonitor;
 
 public class SystemCacheServices : ISingleton
 {
-    private const int ReplyConfigId = 1;
-    private const int GroupTaskConfigId = 1;
-
     private readonly ISqlSugarClient _db;
 
     public SystemCacheServices(ISqlSugarClient db)
@@ -12,16 +11,30 @@ public class SystemCacheServices : ISingleton
         _db = db;
     }
 
-    public async Task<List<KeywordConfig>> GetKeywordsAsync()
+    public async Task<List<KeywordConfig>> GetKeywordsAsync(int userId)
     {
-        var list = await _db.Queryable<KeywordConfig>().ToListAsync();
+        var list = await _db.Queryable<KeywordConfig>()
+            .Where(x => x.UserId == userId)
+            .ToListAsync();
         return list.Select(NormalizeKeywordConfig).ToList();
     }
 
-    public async Task AddKeywordsAsync(KeywordConfig keyword)
+    public async Task<List<UserAccount>> GetEnabledUsersAsync()
     {
+        var now = DateTime.UtcNow;
+        var users = await _db.Queryable<UserAccount>()
+            .Where(x => x.IsEnabled)
+            .ToListAsync();
+        return users
+            .Where(x => !x.ExpiresAtUtc.HasValue || x.ExpiresAtUtc > now)
+            .ToList();
+    }
+
+    public async Task AddKeywordsAsync(int userId, KeywordConfig keyword)
+    {
+        keyword.UserId = userId;
         NormalizeKeywordConfig(keyword);
-        var list = await GetKeywordsAsync();
+        var list = await GetKeywordsAsync(userId);
         if (list.Any(k => k.KeywordType == keyword.KeywordType &&
                           k.KeywordContent.Equals(keyword.KeywordContent, StringComparison.OrdinalIgnoreCase)))
         {
@@ -31,10 +44,14 @@ public class SystemCacheServices : ISingleton
         keyword.Id = await _db.Insertable(keyword).ExecuteReturnIdentityAsync();
     }
 
-    public async Task BatchAddKeywordsAsync(List<KeywordConfig> keywords)
+    public async Task BatchAddKeywordsAsync(int userId, List<KeywordConfig> keywords)
     {
-        keywords = keywords?.Select(NormalizeKeywordConfig).ToList() ?? new List<KeywordConfig>();
-        var list = await GetKeywordsAsync();
+        keywords = keywords?.Select(keyword =>
+        {
+            keyword.UserId = userId;
+            return NormalizeKeywordConfig(keyword);
+        }).ToList() ?? new List<KeywordConfig>();
+        var list = await GetKeywordsAsync(userId);
 
         var toAdd = keywords
             .Where(k => !list.Any(e => e.KeywordType == k.KeywordType &&
@@ -47,10 +64,11 @@ public class SystemCacheServices : ISingleton
         await _db.Insertable(toAdd).ExecuteCommandAsync();
     }
 
-    public async Task UpdateKeywordsAsync(KeywordConfig keyword)
+    public async Task UpdateKeywordsAsync(int userId, KeywordConfig keyword)
     {
+        keyword.UserId = userId;
         NormalizeKeywordConfig(keyword);
-        var list = await GetKeywordsAsync();
+        var list = await GetKeywordsAsync(userId);
         if (list.Any(k => k.Id != keyword.Id &&
                           k.KeywordType == keyword.KeywordType &&
                           k.KeywordContent.Equals(keyword.KeywordContent, StringComparison.OrdinalIgnoreCase)))
@@ -61,28 +79,33 @@ public class SystemCacheServices : ISingleton
         await _db.Updateable(keyword).ExecuteCommandAsync();
     }
 
-    public async Task DeleteKeywordsAsync(int id)
+    public async Task DeleteKeywordsAsync(int userId, int id)
     {
-        await _db.Deleteable<KeywordConfig>().In(id).ExecuteCommandAsync();
+        await _db.Deleteable<KeywordConfig>()
+            .Where(x => x.UserId == userId && x.Id == id)
+            .ExecuteCommandAsync();
     }
 
-    public async Task BatchDeleteKeywordsAsync(IEnumerable<int> ids)
+    public async Task BatchDeleteKeywordsAsync(int userId, IEnumerable<int> ids)
     {
         var idArr = ids.ToArray();
-        await _db.Deleteable<KeywordConfig>().In(idArr).ExecuteCommandAsync();
+        await _db.Deleteable<KeywordConfig>()
+            .Where(x => x.UserId == userId && idArr.Contains(x.Id))
+            .ExecuteCommandAsync();
     }
 
-    public async Task<MonitorReplyConfig> GetMonitorReplyConfigAsync()
+    public async Task<MonitorReplyConfig> GetMonitorReplyConfigAsync(int userId)
     {
-        var cfg = await _db.Queryable<MonitorReplyConfig>().InSingleAsync(ReplyConfigId);
+        var cfg = await _db.Queryable<MonitorReplyConfig>().InSingleAsync(userId);
         if (cfg != null) return NormalizeReplyConfig(cfg);
 
-        var created = NormalizeReplyConfig(new MonitorReplyConfig { Id = ReplyConfigId });
+        var created = NormalizeReplyConfig(new MonitorReplyConfig { Id = userId });
         await _db.Insertable(created).ExecuteCommandAsync();
         return created;
     }
 
     public async Task SaveMonitorReplyConfigAsync(
+        int userId,
         bool enableInChatReply,
         bool useRandomReplyTemplate,
         string defaultReplyTemplate,
@@ -90,7 +113,7 @@ public class SystemCacheServices : ISingleton
     {
         var entity = new MonitorReplyConfig
         {
-            Id = ReplyConfigId,
+            Id = userId,
             EnableInChatReply = enableInChatReply,
             UseRandomReplyTemplate = useRandomReplyTemplate,
             DefaultReplyTemplate = string.IsNullOrWhiteSpace(defaultReplyTemplate)
@@ -99,7 +122,7 @@ public class SystemCacheServices : ISingleton
             ReplyTemplatesJson = JsonSerializer.Serialize(NormalizeStringList(templates))
         };
 
-        var exists = await _db.Queryable<MonitorReplyConfig>().AnyAsync(x => x.Id == ReplyConfigId);
+        var exists = await _db.Queryable<MonitorReplyConfig>().AnyAsync(x => x.Id == userId);
         if (exists)
             await _db.Updateable(entity).ExecuteCommandAsync();
         else
@@ -111,17 +134,18 @@ public class SystemCacheServices : ISingleton
         return DeserializeStringList(cfg?.ReplyTemplatesJson);
     }
 
-    public async Task<GroupMessageTaskConfig> GetGroupMessageTaskConfigAsync()
+    public async Task<GroupMessageTaskConfig> GetGroupMessageTaskConfigAsync(int userId)
     {
-        var cfg = await _db.Queryable<GroupMessageTaskConfig>().InSingleAsync(GroupTaskConfigId);
+        var cfg = await _db.Queryable<GroupMessageTaskConfig>().InSingleAsync(userId);
         if (cfg != null) return NormalizeGroupTaskConfig(cfg);
 
-        var created = NormalizeGroupTaskConfig(new GroupMessageTaskConfig { Id = GroupTaskConfigId });
+        var created = NormalizeGroupTaskConfig(new GroupMessageTaskConfig { Id = userId });
         await _db.Insertable(created).ExecuteCommandAsync();
         return created;
     }
 
     public async Task SaveGroupMessageTaskConfigAsync(
+        int userId,
         int perGroupIntervalSeconds,
         int minIntervalSeconds,
         int maxIntervalSeconds,
@@ -134,7 +158,7 @@ public class SystemCacheServices : ISingleton
 
         var entity = new GroupMessageTaskConfig
         {
-            Id = GroupTaskConfigId,
+            Id = userId,
             PerGroupIntervalSeconds = perGroupIntervalSeconds,
             MinIntervalSeconds = minIntervalSeconds,
             MaxIntervalSeconds = maxIntervalSeconds,
@@ -142,11 +166,74 @@ public class SystemCacheServices : ISingleton
             TargetChatIdsJson = JsonSerializer.Serialize(NormalizeLongList(targetChatIds))
         };
 
-        var exists = await _db.Queryable<GroupMessageTaskConfig>().AnyAsync(x => x.Id == GroupTaskConfigId);
+        var exists = await _db.Queryable<GroupMessageTaskConfig>().AnyAsync(x => x.Id == userId);
         if (exists)
             await _db.Updateable(entity).ExecuteCommandAsync();
         else
             await _db.Insertable(entity).ExecuteCommandAsync();
+    }
+
+    public async Task<UserTelegramSettings> GetUserTelegramSettingsAsync(int userId)
+    {
+        var settings = await _db.Queryable<UserTelegramSettings>().InSingleAsync(userId);
+        if (settings != null)
+            return NormalizeUserTelegramSettings(settings, userId);
+
+        var created = NormalizeUserTelegramSettings(new UserTelegramSettings { UserId = userId }, userId);
+        try
+        {
+            await _db.Insertable(created).ExecuteCommandAsync();
+            return created;
+        }
+        catch (SqliteException ex) when (ex.SqliteErrorCode == 19)
+        {
+            var existing = await _db.Queryable<UserTelegramSettings>().InSingleAsync(userId);
+            if (existing != null)
+                return NormalizeUserTelegramSettings(existing, userId);
+
+            throw;
+        }
+    }
+
+    public async Task SaveUserTelegramSettingsAsync(int userId, long defaultTargetChatId, IEnumerable<long> monitorChatIds)
+    {
+        var entity = NormalizeUserTelegramSettings(new UserTelegramSettings
+        {
+            UserId = userId,
+            DefaultTargetChatId = defaultTargetChatId,
+            MonitorChatIdsJson = JsonSerializer.Serialize(NormalizeLongList(monitorChatIds))
+        }, userId);
+
+        var exists = await _db.Queryable<UserTelegramSettings>().AnyAsync(x => x.UserId == userId);
+        if (exists)
+            await _db.Updateable(entity).ExecuteCommandAsync();
+        else
+        {
+            try
+            {
+                await _db.Insertable(entity).ExecuteCommandAsync();
+            }
+            catch (SqliteException ex) when (ex.SqliteErrorCode == 19)
+            {
+                await _db.Updateable(entity).ExecuteCommandAsync();
+            }
+        }
+    }
+
+    public List<long> GetMonitorChatIds(UserTelegramSettings settings)
+    {
+        if (settings is null || string.IsNullOrWhiteSpace(settings.MonitorChatIdsJson))
+            return new List<long>();
+
+        try
+        {
+            var list = JsonSerializer.Deserialize<List<long>>(settings.MonitorChatIdsJson);
+            return NormalizeLongList(list);
+        }
+        catch
+        {
+            return new List<long>();
+        }
     }
 
     public List<string> GetGroupMessageTemplates(GroupMessageTaskConfig cfg)
@@ -198,9 +285,19 @@ public class SystemCacheServices : ISingleton
         }
 
         routes ??= new List<KeywordTargetRoute>();
+        if (routes.Count == 0 && cfg.TargetChatId != 0)
+        {
+            routes.Add(new KeywordTargetRoute
+            {
+                TargetChatId = cfg.TargetChatId,
+                IncludeSource = true,
+                ForwardMode = cfg.ForwardMode
+            });
+        }
         cfg.TargetRoutes = routes;
         cfg.TargetRoutesJson = JsonSerializer.Serialize(routes);
         cfg.TargetChatId = routes.FirstOrDefault()?.TargetChatId ?? 0;
+        cfg.ForwardMode = routes.FirstOrDefault()?.ForwardMode ?? cfg.ForwardMode;
         return cfg;
     }
 
@@ -212,6 +309,13 @@ public class SystemCacheServices : ISingleton
         cfg.TemplatesJson = string.IsNullOrWhiteSpace(cfg.TemplatesJson) ? "[]" : cfg.TemplatesJson;
         cfg.TargetChatIdsJson = string.IsNullOrWhiteSpace(cfg.TargetChatIdsJson) ? "[]" : cfg.TargetChatIdsJson;
         return cfg;
+    }
+
+    private static UserTelegramSettings NormalizeUserTelegramSettings(UserTelegramSettings settings, int userId)
+    {
+        settings.UserId = userId;
+        settings.MonitorChatIdsJson = string.IsNullOrWhiteSpace(settings.MonitorChatIdsJson) ? "[]" : settings.MonitorChatIdsJson;
+        return settings;
     }
 
     private static List<string> DeserializeStringList(string json)

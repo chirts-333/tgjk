@@ -8,6 +8,10 @@
         [Description("关键词配置ID")]
         public int Id { get; set; }
 
+        [SugarColumn(ColumnName = "UserId")]
+        [Description("所属用户ID")]
+        public int UserId { get; set; }
+
         [SugarColumn(ColumnName = "KeywordContent")]
         [Description("关键词内容")]
         public string KeywordContent { get; set; } = string.Empty;
@@ -27,6 +31,10 @@
         [SugarColumn(ColumnName = "TargetRoutesJson")]
         [Description("命中后转发目标群组配置JSON")]
         public string TargetRoutesJson { get; set; } = "[]";
+
+        [SugarColumn(ColumnName = "ForwardMode")]
+        [Description("兼容旧版数据库中的转发方式字段")]
+        public KeywordForwardMode ForwardMode { get; set; } = KeywordForwardMode.Formatted;
 
         [SugarColumn(IsIgnore = true)]
         [Description("命中后转发目标群组配置")]

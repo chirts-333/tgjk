@@ -27,6 +27,9 @@ public static class SqlSugarSetup
         services.AddScoped<SqlSugarScope>(s => sqlSugar);
 
         InitializeDatabase(sqlSugar);
+        var authService = new AuthService(sqlSugar);
+        authService.EnsureAdminUserAsync().GetAwaiter().GetResult();
+        services.AddSingleton(authService);
         services.AddSingleton<SystemCacheServices>();
     }
 
@@ -64,10 +67,29 @@ public static class SqlSugarSetup
         InitializeTable<KeywordConfig>(db);
         InitializeTable<MonitorReplyConfig>(db);
         InitializeTable<GroupMessageTaskConfig>(db);
+        InitializeTable<UserAccount>(db);
+        InitializeTable<UserTelegramSettings>(db);
+        EnsureKeywordUserIdColumn(db);
     }
 
     private static void InitializeTable<T>(ISqlSugarClient db) where T : class, new()
     {
         db.CodeFirst.InitTables<T>();
+    }
+
+    private static void EnsureKeywordUserIdColumn(ISqlSugarClient db)
+    {
+        var columns = db.DbMaintenance.GetColumnInfosByTableName("KeywordConfig");
+        if (columns.Any(x => string.Equals(x.DbColumnName, "UserId", StringComparison.OrdinalIgnoreCase)))
+            return;
+
+        db.DbMaintenance.AddColumn("KeywordConfig", new DbColumnInfo
+        {
+            DbColumnName = "UserId",
+            DataType = "int",
+            Length = 11,
+            IsNullable = false,
+            DefaultValue = "1"
+        });
     }
 }

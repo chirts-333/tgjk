@@ -7,9 +7,11 @@ public class Startup : AppStartup
     // 注册依赖、控制器、任务调度、远程 HTTP 客户端等服务。
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddLogging(logging => logging.ClearProviders());
         services.AddLoggingSetup();
 
-        services.AddConsoleFormatter();
+        services.AddHttpContextAccessor();
+        services.AddTransient<AuthMiddleware>();
 
         services.AddCorsAccessor();
 
@@ -34,15 +36,16 @@ public class Startup : AppStartup
         }
 
         app.UseHttpsRedirection();
-        app.UseStaticFiles();
         app.UseDefaultFiles(new DefaultFilesOptions
         {
             DefaultFileNames = new List<string> { "index.html" }
         });
+        app.UseStaticFiles();
 
         app.UseRouting();
 
         app.UseCorsAccessor();
+        app.UseMiddleware<AuthMiddleware>();
 
         app.UseInject("api");
 

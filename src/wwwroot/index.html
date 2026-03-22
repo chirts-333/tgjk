@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGJK 控制台</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body { min-height: 100vh; background: linear-gradient(180deg, #f5f7fb 0%, #e8eef8 100%); }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .toast .alert { animation: fadeInOut 4s ease-in-out forwards; }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6">
+    <div id="toast" class="toast toast-top toast-center z-50"></div>
+
+    <div id="loginView" class="max-w-md mx-auto mt-16">
+        <div class="card bg-base-100 shadow-2xl">
+            <div class="card-body space-y-4">
+                <h1 class="text-3xl font-bold">TGJK 控制台</h1>
+                <label class="form-control">
+                    <span class="label-text mb-2">用户名</span>
+                    <input id="authUserName" class="input input-bordered" placeholder="请输入用户名">
+                </label>
+                <label class="form-control">
+                    <span class="label-text mb-2">密码</span>
+                    <input id="authPassword" type="password" class="input input-bordered" placeholder="请输入密码">
+                </label>
+                <button id="btnAuthLogin" class="btn btn-primary" onclick="loginApp()">登录系统</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="appView" class="hidden">
+        <div class="max-w-7xl mx-auto space-y-4">
+            <div class="navbar bg-base-100 rounded-2xl shadow-lg">
+                <div class="flex-1">
+                    <div>
+                        <div class="text-xl font-bold">TGJK 一体化后台</div>
+                        <div id="userSummary" class="text-sm opacity-70"></div>
+                    </div>
+                </div>
+                <div class="flex-none gap-2">
+                    <button class="btn btn-outline btn-sm" onclick="openPasswordDialog()">修改密码</button>
+                    <button class="btn btn-outline btn-sm" onclick="refreshAll()">刷新全部</button>
+                    <button class="btn btn-error btn-sm" onclick="logoutApp()">退出登录</button>
+                </div>
+            </div>
+
+            <div role="tablist" class="tabs tabs-boxed bg-base-100 rounded-2xl shadow">
+                <a role="tab" class="tab tab-active" data-panel="panel-telegram">Telegram 登录</a>
+                <a role="tab" class="tab" data-panel="panel-monitor">监控设置</a>
+                <a role="tab" class="tab" data-panel="panel-keywords">关键词管理</a>
+                <a role="tab" class="tab" data-panel="panel-reply">自动回复</a>
+                <a role="tab" class="tab" data-panel="panel-group">群发管理</a>
+                <a role="tab" class="tab hidden" id="adminTab" data-panel="panel-admin">用户管理</a>
+            </div>
+
+            <section id="panel-telegram" class="panel active space-y-4">
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">Telegram 登录</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <label class="form-control">
+                                <span class="label-text mb-2">手机号</span>
+                                <input id="telegramPhone" class="input input-bordered" placeholder="+8613812345678">
+                            </label>
+                            <label class="form-control">
+                                <span id="telegramStepLabel" class="label-text mb-2">验证码 / 二步密码</span>
+                                <input id="telegramStepInput" class="input input-bordered" placeholder="首次提交可留空">
+                            </label>
+                            <div class="flex items-end gap-2">
+                                <button id="btnTelegramLogin" class="btn btn-primary w-full" onclick="submitTelegramLogin()">提交登录</button>
+                            </div>
+                        </div>
+                        <div class="mt-3 flex justify-end">
+                            <button class="btn btn-outline btn-sm btn-error" onclick="clearTelegramSession()">清理 Telegram 会话</button>
+                        </div>
+                        <div id="telegramLoginHint" class="text-sm opacity-70">先输入手机号提交，系统会按步骤要求验证码或二步密码。</div>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">代理设置</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <select id="proxyType" class="select select-bordered w-36">
+                                <option value="0">跟随系统</option>
+                                <option value="1">Socks5</option>
+                                <option value="2">MTProxy</option>
+                            </select>
+                            <input id="proxyUrl" class="input input-bordered flex-1" placeholder="代理地址">
+                            <button class="btn" onclick="saveProxy()">保存代理</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="panel-monitor" class="panel space-y-4">
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">监控目标与默认转发</h2>
+                        <div class="flex flex-wrap gap-2 items-center mb-4">
+                            <button class="btn btn-sm" onclick="loadDialogs(true)">加载群组列表</button>
+                            <button class="btn btn-success" onclick="startMonitor()">启动监控</button>
+                            <button class="btn btn-error" onclick="stopMonitor()">停止监控</button>
+                        </div>
+
+                        <label class="form-control mb-4">
+                            <span class="label-text mb-2">默认转发目标群</span>
+                            <select id="defaultTargetChatId" class="select select-bordered"></select>
+                        </label>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">需要监听的群组</span>
+                                <label class="label gap-2 cursor-pointer">
+                                    <span>一键全选</span>
+                                    <input id="monitorSelectAll" type="checkbox" class="checkbox" onchange="toggleMonitorAll(this.checked)">
+                                </label>
+                            </div>
+                            <div class="text-sm opacity-70">只有这里勾选的群组命中关键词后才会执行操作；如果一个群组都不选，则全部跳过。</div>
+                            <div id="monitorDialogList" class="max-h-80 overflow-y-auto rounded-xl border bg-base-200 p-3 space-y-2"></div>
+                        </div>
+
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary" onclick="saveTelegramSettings()">保存监控设置</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="panel-keywords" class="panel space-y-4">
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <div class="flex flex-wrap justify-between items-center gap-2">
+                            <h2 class="card-title">关键词管理</h2>
+                            <div class="flex gap-2">
+                                <button class="btn btn-sm btn-outline" onclick="loadDialogs(true)">刷新群组列表</button>
+                                <button class="btn btn-sm btn-primary" onclick="refreshKeywords()">刷新关键词</button>
+                            </div>
+                        </div>
+
+                        <div class="divider">新增关键词</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <label class="form-control">
+                                <span class="label-text mb-2">关键词内容</span>
+                                <input id="kwContent" class="input input-bordered" placeholder="请输入关键词">
+                            </label>
+                            <label class="form-control">
+                                <span class="label-text mb-2">匹配类型</span>
+                                <select id="kwType" class="select select-bordered">
+                                    <option value="0">全字</option>
+                                    <option value="1" selected>包含</option>
+                                    <option value="2">正则</option>
+                                    <option value="3">模糊</option>
+                                    <option value="4">用户</option>
+                                </select>
+                            </label>
+                            <label class="form-control">
+                                <span class="label-text mb-2">执行动作</span>
+                                <select id="kwAction" class="select select-bordered">
+                                    <option value="1">监控</option>
+                                    <option value="0">排除</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="label"><span class="label-text">转发目标群列表</span></div>
+                            <div id="kwTargetRoutes" class="space-y-2"></div>
+                            <button class="btn btn-sm btn-outline mt-2" onclick="addTargetRouteRow('kwTargetRoutes')">添加目标群</button>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 mt-4">
+                            <label class="label gap-2"><span>大小写</span><input id="kwCase" type="checkbox" class="checkbox"></label>
+                            <label class="label gap-2"><span>粗体</span><input id="kwBold" type="checkbox" class="checkbox"></label>
+                            <label class="label gap-2"><span>斜体</span><input id="kwItalic" type="checkbox" class="checkbox"></label>
+                            <label class="label gap-2"><span>下划线</span><input id="kwUnderline" type="checkbox" class="checkbox"></label>
+                            <label class="label gap-2"><span>删除线</span><input id="kwStrike" type="checkbox" class="checkbox"></label>
+                            <label class="label gap-2"><span>引用</span><input id="kwQuote" type="checkbox" class="checkbox"></label>
+                            <label class="label gap-2"><span>等宽</span><input id="kwMono" type="checkbox" class="checkbox"></label>
+                            <label class="label gap-2"><span>剧透</span><input id="kwSpoiler" type="checkbox" class="checkbox"></label>
+                        </div>
+
+                        <div class="card-actions justify-end mt-4">
+                            <button class="btn btn-primary" onclick="addKeyword()">添加关键词</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">关键词列表</h2>
+                        <div class="overflow-x-auto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>内容</th>
+                                        <th>类型</th>
+                                        <th>动作</th>
+                                        <th>目标群</th>
+                                        <th>样式</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="keywordTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="panel-reply" class="panel space-y-4">
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">关键词命中自动回复</h2>
+                        <label class="label gap-3 justify-start">
+                            <input id="enableInChatReply" type="checkbox" class="toggle toggle-primary">
+                            <span>开启原会话自动回复</span>
+                        </label>
+                        <label class="label gap-3 justify-start">
+                            <input id="useRandomReplyTemplate" type="checkbox" class="toggle toggle-secondary">
+                            <span>随机模板回复</span>
+                        </label>
+                        <label class="form-control">
+                            <span class="label-text mb-2">默认模板</span>
+                            <textarea id="defaultReplyTemplate" class="textarea textarea-bordered h-24"></textarea>
+                        </label>
+                        <div class="flex gap-2 mt-2">
+                            <input id="newReplyTemplate" class="input input-bordered flex-1" placeholder="新增随机回复模板">
+                            <button class="btn btn-outline" onclick="addReplyTemplate()">添加模板</button>
+                        </div>
+                        <div id="replyTemplateList" class="space-y-2 mt-3"></div>
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary" onclick="saveReplyConfig()">保存自动回复设置</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="panel-group" class="panel space-y-4">
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">定时群发管理</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="btn btn-sm" onclick="loadDialogs(true)">加载群组列表</button>
+                            <button class="btn btn-success" onclick="startGroupTask()">启动群发</button>
+                            <button class="btn btn-error" onclick="stopGroupTask()">停止群发</button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <label class="form-control">
+                                <span class="label-text mb-2">群与群间隔（秒）</span>
+                                <input id="groupTaskPerGroupInterval" type="number" min="1" class="input input-bordered">
+                            </label>
+                            <label class="form-control">
+                                <span class="label-text mb-2">整轮最小等待（秒）</span>
+                                <input id="groupTaskMinInterval" type="number" min="5" class="input input-bordered">
+                            </label>
+                            <label class="form-control">
+                                <span class="label-text mb-2">整轮最大等待（秒）</span>
+                                <input id="groupTaskMaxInterval" type="number" min="5" class="input input-bordered">
+                            </label>
+                        </div>
+
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">群发目标群组</span>
+                                <label class="label gap-2 cursor-pointer">
+                                    <span>一键全选</span>
+                                    <input id="groupTaskSelectAll" type="checkbox" class="checkbox" onchange="toggleGroupTaskAll(this.checked)">
+                                </label>
+                            </div>
+                            <div id="groupTaskDialogList" class="max-h-64 overflow-y-auto rounded-xl border bg-base-200 p-3 space-y-2"></div>
+                        </div>
+
+                        <div class="divider">群发模板库</div>
+                        <div class="flex gap-2">
+                            <input id="newGroupTaskTemplate" class="input input-bordered flex-1" placeholder="新增群发模板">
+                            <button class="btn btn-outline" onclick="addGroupTaskTemplate()">添加模板</button>
+                        </div>
+                        <div id="groupTaskTemplateList" class="space-y-2 mt-3"></div>
+
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary" onclick="saveGroupTaskConfig()">保存群发配置</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="panel-admin" class="panel space-y-4">
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">创建用户</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <input id="newUserName" class="input input-bordered" placeholder="用户名">
+                            <input id="newUserPassword" class="input input-bordered" placeholder="密码">
+                            <select id="newUserRole" class="select select-bordered">
+                                <option value="0">普通用户</option>
+                                <option value="1">管理员</option>
+                            </select>
+                            <input id="newUserExpiresAt" type="datetime-local" class="input input-bordered">
+                        </div>
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary" onclick="createUser()">创建用户</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center">
+                            <h2 class="card-title">用户列表</h2>
+                            <button class="btn btn-sm btn-primary" onclick="loadUsers()">刷新用户</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>用户名</th>
+                                        <th>角色</th>
+                                        <th>到期时间</th>
+                                        <th>状态</th>
+                                        <th>新密码</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <dialog id="keywordEditDialog" class="modal">
+        <div class="modal-box max-w-3xl">
+            <h3 class="font-bold text-lg">编辑关键词</h3>
+            <input id="editKeywordId" type="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <input id="editKeywordContent" class="input input-bordered" placeholder="关键词内容">
+                <select id="editKeywordType" class="select select-bordered">
+                    <option value="0">全字</option>
+                    <option value="1" selected>包含</option>
+                    <option value="2">正则</option>
+                    <option value="3">模糊</option>
+                    <option value="4">用户</option>
+                </select>
+                <select id="editKeywordAction" class="select select-bordered">
+                    <option value="1">监控</option>
+                    <option value="0">排除</option>
+                </select>
+            </div>
+            <div class="mt-4">
+                <div class="label"><span class="label-text">转发目标群列表</span></div>
+                <div id="editKeywordTargetRoutes" class="space-y-2"></div>
+                <button class="btn btn-sm btn-outline mt-2" onclick="addTargetRouteRow('editKeywordTargetRoutes')">添加目标群</button>
+            </div>
+            <div class="flex flex-wrap gap-3 mt-4">
+                <label class="label gap-2"><span>大小写</span><input id="editKeywordCase" type="checkbox" class="checkbox"></label>
+                <label class="label gap-2"><span>粗体</span><input id="editKeywordBold" type="checkbox" class="checkbox"></label>
+                <label class="label gap-2"><span>斜体</span><input id="editKeywordItalic" type="checkbox" class="checkbox"></label>
+                <label class="label gap-2"><span>下划线</span><input id="editKeywordUnderline" type="checkbox" class="checkbox"></label>
+                <label class="label gap-2"><span>删除线</span><input id="editKeywordStrike" type="checkbox" class="checkbox"></label>
+                <label class="label gap-2"><span>引用</span><input id="editKeywordQuote" type="checkbox" class="checkbox"></label>
+                <label class="label gap-2"><span>等宽</span><input id="editKeywordMono" type="checkbox" class="checkbox"></label>
+                <label class="label gap-2"><span>剧透</span><input id="editKeywordSpoiler" type="checkbox" class="checkbox"></label>
+            </div>
+            <div class="modal-action">
+                <button class="btn btn-primary" onclick="saveKeywordEdit()">保存</button>
+                <button class="btn" onclick="document.getElementById('keywordEditDialog').close()">取消</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="passwordDialog" class="modal">
+        <div class="modal-box max-w-md">
+            <h3 class="font-bold text-lg">修改密码</h3>
+            <div class="space-y-3 mt-4">
+                <input id="currentPassword" type="password" class="input input-bordered w-full" placeholder="当前密码">
+                <input id="newPassword" type="password" class="input input-bordered w-full" placeholder="新密码">
+            </div>
+            <div class="modal-action">
+                <button class="btn btn-primary" onclick="changePassword()">保存</button>
+                <button class="btn" onclick="document.getElementById('passwordDialog').close()">取消</button>
+            </div>
+        </div>
+    </dialog>
+
+    <script src="app.js"></script>
+</body>
+</html>

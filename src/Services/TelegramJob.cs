@@ -1,18 +1,15 @@
-﻿using Furion.Shapeless;
+using Furion.Shapeless;
 
 namespace TelegramMonitor;
 
 [JobDetail("telegram-job", Description = "Telegram账号活跃检查", GroupName = "monitor", Concurrent = true)]
-[PeriodSeconds(60, TriggerId = "telegram-trigger", Description = "每分钟检查一下账号活跃度", RunOnStart = false)]
-public class TelegramJob : IJob
+[PeriodSeconds(60, TriggerId = "telegram-trigger", Description = "每分钟检查一次账号活跃度", RunOnStart = false)]
+public sealed class TelegramJob : IJob
 {
-    // 保活任务：定期检查登录状态，必要时自动重连。
     private readonly ILogger<TelegramJob> _logger;
     private readonly TelegramClientManager _clientManager;
 
-    public TelegramJob(
-        ILogger<TelegramJob> logger,
-        TelegramClientManager clientManager)
+    public TelegramJob(ILogger<TelegramJob> logger, TelegramClientManager clientManager)
     {
         _logger = logger;
         _clientManager = clientManager;
@@ -22,50 +19,34 @@ public class TelegramJob : IJob
     {
         try
         {
-            if (!_clientManager.IsLoggedIn)
+            var runtimes = await _clientManager.GetRuntimeSummariesAsync();
+            foreach (var runtime in runtimes)
             {
-                // 断线后尝试使用已保存手机号自动恢复会话。
-                _logger.LogWarning("Telegram账号未登录或已断开连接，尝试重新连接");
+                if (runtime.LoggedIn || string.IsNullOrWhiteSpace(runtime.PhoneNumber))
+                    continue;
 
-                var phone = _clientManager.GetPhone;
-
-                if (string.IsNullOrEmpty(phone))
-                {
-                    _logger.LogError("没有保存的电话号码，无法自动重连");
-                    return;
-                }
-
-                var loginResult = await _clientManager.ConnectAsync(phone);
+                _logger.LogWarning("用户 {UserId} 的 Telegram 账号已断开，尝试重连", runtime.UserId);
+                var loginResult = await _clientManager.ConnectAsync(runtime.UserId, runtime.PhoneNumber);
 
                 if (loginResult == LoginState.LoggedIn)
                 {
-                    _logger.LogInformation("Telegram账号重新连接成功");
+                    _logger.LogInformation("用户 {UserId} 的 Telegram 账号已重新连接", runtime.UserId);
 
-                    if (_clientManager.IsMonitoring)
-                    {
-                        await _clientManager.StartTaskAsync();
-                        _logger.LogInformation("已重新启动监控任务");
-                    }
+                    if (runtime.Monitoring)
+                        await _clientManager.StartTaskAsync(runtime.UserId);
 
-                    if (_clientManager.IsGroupMessageTaskRunning)
-                    {
-                        await _clientManager.StartGroupMessageTaskAsync();
-                        _logger.LogInformation("已重新启动群发任务");
-                    }
+                    if (runtime.GroupMessageTaskRunning)
+                        await _clientManager.StartGroupMessageTaskAsync(runtime.UserId);
                 }
                 else
                 {
-                    _logger.LogError($"Telegram账号重新连接失败，状态：{loginResult}");
+                    _logger.LogWarning("用户 {UserId} 的 Telegram 重连未完成，状态：{State}", runtime.UserId, loginResult);
                 }
             }
-            else
-            {
-                _logger.LogDebug("Telegram账号连接正常");
-            }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            _logger.LogError($"账号检查失败：{e.Message}");
+            _logger.LogError(ex, "Telegram账号检查失败");
         }
     }
 }
