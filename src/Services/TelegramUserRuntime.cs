@@ -223,11 +223,11 @@ public sealed class TelegramUserRuntime : IAsyncDisposable
         if (_client == null)
             throw new InvalidOperationException("未登录");
 
-        // 拉全量会话并筛选“活跃且具备发言权限”的目标。
+        // 拉全量会话并筛选“可监控”的目标。
         var dialogs = await _client.Messages_GetAllDialogs();
 
         var availableChats = dialogs.chats.Values
-            .Where(c => c.IsActive && CanSendMessagesFast(c))
+            .Where(c => c.IsActive && CanMonitorFast(c))
             .ToList();
 
         return availableChats.Select(c => new DisplayDialogs
@@ -638,6 +638,22 @@ public sealed class TelegramUserRuntime : IAsyncDisposable
                 if (ch.flags.HasFlag(Channel.Flags.creator)) return true;
                 if (ch.admin_rights?.flags != 0) return true;
                 return !ch.IsBanned(ChatBannedRights.Flags.send_messages);
+
+            default:
+                return false;
+        }
+    }
+
+    private static bool CanMonitorFast(ChatBase chat)
+    {
+        // 监控列表允许展示“可接收消息”的群组和频道，不要求一定具备发言权限。
+        switch (chat)
+        {
+            case TL.Chat:
+                return true;
+
+            case Channel ch:
+                return !ch.flags.HasFlag(Channel.Flags.left);
 
             default:
                 return false;
