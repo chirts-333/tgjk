@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>在线客服</title>
+    <link rel="stylesheet" href="/styles.css?v=20260412a" />
+  </head>
+  <body class="wechat-shell">
+    <main class="app-frame client-frame minimal-client-frame">
+      <section class="chat-panel">
+        <header class="chat-header">
+          <div>
+            <strong>客服会话</strong>
+            <p id="statusText">正在连接客服...</p>
+          </div>
+        </header>
+
+        <div id="messageList" class="message-list"></div>
+
+        <footer class="composer">
+          <div class="composer-inline">
+            <label class="tool-btn icon-tool-btn file-label" aria-label="附件">
+              ＋
+              <input id="fileInput" type="file" hidden />
+            </label>
+            <div class="composer-field">
+              <textarea id="messageInput" rows="1" placeholder="输入消息"></textarea>
+            </div>
+            <button id="sendBtn" class="primary-btn send-icon-btn" type="button" aria-label="发送">➤</button>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/shared.js?v=20260412a"></script>
+    <script src="/client.js?v=20260412a"></script>
+  </body>
+</html>

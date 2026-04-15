@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>客服工作台</title>
+    <link rel="stylesheet" href="/styles.css?v=20260415c" />
+  </head>
+  <body class="wechat-shell agent-shell">
+    <main class="app-frame agent-frame">
+      <aside class="contact-sidebar">
+        <div class="sidebar-top">
+          <div>
+            <div class="brand-badge">客服后台</div>
+            <h2>会话列表</h2>
+          </div>
+          <button id="logoutBtn" class="ghost-btn" type="button">退出</button>
+        </div>
+        <div class="sidebar-filters">
+          <div class="stats-strip">
+            <div class="stat-chip">
+              <span>总会话</span>
+              <strong id="totalCount">0</strong>
+            </div>
+            <div class="stat-chip">
+              <span>在线中</span>
+              <strong id="onlineCount">0</strong>
+            </div>
+          </div>
+          <input id="contactSearchInput" type="text" placeholder="搜索备注、IP、地区、消息" />
+          <div class="filter-row">
+            <button id="filterAllBtn" class="ghost-btn active-filter" type="button">全部</button>
+            <button id="filterOnlineBtn" class="ghost-btn" type="button">仅在线</button>
+          </div>
+        </div>
+        <div id="contactList" class="contact-list"></div>
+      </aside>
+
+      <section class="chat-panel">
+        <header class="chat-header">
+          <div class="chat-header-main">
+            <div class="chat-header-actions mobile-only">
+              <button id="openContactListBtn" class="ghost-btn" type="button">会话列表</button>
+              <button id="backToListBtn" class="ghost-btn" type="button">返回</button>
+            </div>
+            <div>
+              <strong id="agentChatTitle">请选择联系人</strong>
+              <p id="agentSubTitle">支持查看 IP、地区和客户备注</p>
+            </div>
+          </div>
+          <button id="openSettingsBtn" class="ghost-btn" type="button">客服设置</button>
+        </header>
+
+        <section id="clientMeta" class="client-meta empty-state">选择左侧联系人后开始回复。</section>
+
+        <div id="agentMessageList" class="message-list"></div>
+
+        <footer class="composer">
+          <div class="toolbar compact-toolbar">
+            <div id="quickReplyBar" class="quick-reply-bar"></div>
+          </div>
+          <div class="composer-inline">
+            <label class="tool-btn icon-tool-btn file-label" aria-label="附件">
+              +
+              <input id="agentFileInput" type="file" hidden />
+            </label>
+            <div class="composer-field">
+              <textarea id="agentMessageInput" rows="1" placeholder="回复消息"></textarea>
+            </div>
+            <button id="agentSendBtn" class="primary-btn send-icon-btn" type="button" aria-label="发送">➤</button>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <div id="loginOverlay" class="login-overlay">
+      <form id="loginForm" class="login-card">
+        <div class="brand-badge">客服登录</div>
+        <h1>进入工作台</h1>
+        <label>
+          <span>账号</span>
+          <input id="usernameInput" name="username" type="text" required />
+        </label>
+        <label>
+          <span>密码</span>
+          <input id="passwordInput" name="password" type="password" required />
+        </label>
+        <button class="primary-btn" type="submit">登录</button>
+        <p id="loginError" class="error-text"></p>
+        <p class="tips-text">默认账号：admin / 123456</p>
+      </form>
+    </div>
+
+    <div id="settingsOverlay" class="settings-overlay hidden">
+      <div class="settings-card">
+        <div class="settings-head">
+          <div>
+            <div class="brand-badge">客服设置</div>
+            <h2>欢迎语、自动回复、Telegram 与账号</h2>
+          </div>
+          <button id="closeSettingsBtn" class="ghost-btn" type="button">关闭</button>
+        </div>
+
+        <section class="settings-section">
+          <h3>新会话欢迎语</h3>
+          <label class="switch-line settings-switch">
+            <input id="welcomeMessageEnabled" type="checkbox" />
+            <span>客户第一次进入新会话时自动发送一次</span>
+          </label>
+          <textarea id="welcomeMessageText" rows="4" placeholder="例如：您好，这里是在线客服，很高兴为您服务。"></textarea>
+          <button id="saveWelcomeMessageBtn" class="primary-btn" type="button">保存欢迎语</button>
+          <p class="tips-text">同一个会话只发送一次，客户刷新页面不会重复发送。</p>
+        </section>
+
+        <section class="settings-section">
+          <h3>自动回复</h3>
+          <label class="switch-line settings-switch">
+            <input id="autoReplyEnabled" type="checkbox" />
+            <span>客户发消息后自动回复</span>
+          </label>
+          <textarea id="autoReplyText" rows="5" placeholder="客户发来消息时自动回复这段内容"></textarea>
+          <button id="saveAutoReplyBtn" class="primary-btn" type="button">保存自动回复</button>
+        </section>
+
+        <section class="settings-section">
+          <h3>快捷回复</h3>
+          <div class="quick-reply-editor">
+            <input id="quickReplyInput" type="text" maxlength="80" placeholder="新增常用话术" />
+            <button id="addQuickReplyBtn" class="ghost-btn" type="button">添加话术</button>
+          </div>
+          <div id="quickReplyList" class="quick-reply-list"></div>
+        </section>
+
+        <section class="settings-section">
+          <h3>Telegram 机器人</h3>
+          <label class="switch-line settings-switch">
+            <input id="telegramEnabled" type="checkbox" />
+            <span>启用 Telegram 通知和双向回复</span>
+          </label>
+          <input id="telegramBotTokenInput" type="text" placeholder="Bot Token" />
+          <input id="telegramChatIdInput" type="text" placeholder="Chat ID" />
+          <div class="settings-inline-actions">
+            <button id="saveTelegramBtn" class="primary-btn" type="button">保存 Telegram 配置</button>
+            <button id="testTelegramBtn" class="ghost-btn" type="button">发送测试消息</button>
+          </div>
+          <p id="telegramHint" class="tips-text"></p>
+        </section>
+
+        <section class="settings-section">
+          <h3>账号密码</h3>
+          <input id="accountUsernameInput" type="text" placeholder="客服账号" />
+          <input id="accountCurrentPasswordInput" type="password" placeholder="当前密码" />
+          <input id="accountNextPasswordInput" type="password" placeholder="新密码，至少 4 位" />
+          <button id="saveAccountBtn" class="primary-btn" type="button">保存账号密码</button>
+          <p id="settingsMessage" class="tips-text"></p>
+        </section>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/shared.js?v=20260415c"></script>
+    <script src="/agent.js?v=20260415c"></script>
+  </body>
+</html>

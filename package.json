@@ -1,0 +1,16 @@
+{
+  "name": "customer-service-chat",
+  "version": "1.0.0",
+  "description": "Online customer service chat app with client and agent workbench.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "geoip-lite": "^2.0.1",
+    "multer": "^2.1.1",
+    "socket.io": "^4.8.3"
+  }
+}
