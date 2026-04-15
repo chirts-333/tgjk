@@ -9,4 +9,4 @@ COPY out/linux-amd64/ /app/
 VOLUME ["/data"]
 EXPOSE 5005
 
-ENTRYPOINT ["dotnet", "/app/tgjk.dll"]
+ENTRYPOINT ["/app/tgjk"]
