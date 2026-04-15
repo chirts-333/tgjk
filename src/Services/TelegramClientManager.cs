@@ -119,6 +119,14 @@ public sealed class TelegramClientManager : ISingleton, IAsyncDisposable
         return list;
     }
 
+    public async Task CleanupCachesAsync()
+    {
+        foreach (var runtime in _runtimes.Values)
+        {
+            await runtime.CleanupCachesAsync();
+        }
+    }
+
     public async ValueTask DisposeAsync()
     {
         foreach (var runtime in _runtimes.Values)

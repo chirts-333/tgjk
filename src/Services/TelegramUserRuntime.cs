@@ -379,6 +379,38 @@ public sealed class TelegramUserRuntime : IAsyncDisposable
         if (_client != null) await _client.DisposeAsync();
         _client = null;
         _manager = null;
+        _users.Clear();
+        _chats.Clear();
+    }
+
+    public async Task CleanupCachesAsync()
+    {
+        await _loginSemaphore.WaitAsync();
+        try
+        {
+            int userCount = _users.Count;
+            int chatCount = _chats.Count;
+
+            _users.Clear();
+            _chats.Clear();
+
+            if (IsLoggedIn)
+            {
+                var dialogs = await _client.Messages_GetAllDialogs();
+                dialogs.CollectUsersChats(_users, _chats);
+            }
+
+            _logger.LogInformation(
+                "已清理运行时缓存，Users: {OldUserCount} -> {NewUserCount}, Chats: {OldChatCount} -> {NewChatCount}",
+                userCount,
+                _users.Count,
+                chatCount,
+                _chats.Count);
+        }
+        finally
+        {
+            _loginSemaphore.Release();
+        }
     }
 
     private UpdateManager GetUpdateManagerAsync(Func<Update, Task> onUpdate)
